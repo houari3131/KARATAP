@@ -1,13 +1,3 @@
-// ==UserScript==
-// @name         Selecte Date Calendar and refrech
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  
-// @author       Your Name
-// @match        https://morocco.blsportugal.com/*/blsappointment/manageappointment*
-// @grant        none
-// ==/UserScript==
-
 
 
 setTimeout(function() { document.querySelector("#userConsent > div > div > div.modal-footer > button.btn.btn-success").click();}, 200);
