@@ -1,12 +1,3 @@
-// ==UserScript==
-// @name         Upload Photo With PhotoID
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  
-// @author       Your Name
-// @match        https://morocco.blsportugal.com/*/blsappointment/manageappointment*
-// @grant        none
-// ==/UserScript==
 
 
 function img() {
