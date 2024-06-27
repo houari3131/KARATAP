@@ -1,12 +1,3 @@
-// ==UserScript==
-// @name         localStorage Calendar Entry
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Fetch and execute multiple scripts based on URL with includes, retry on failure
-// @author       You
-// @match        https://morocco.blsportugal.com/*
-// @grant        none
-// ==/UserScript==
 
 
 
