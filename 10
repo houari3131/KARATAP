@@ -1,12 +1,4 @@
-// ==UserScript==
-// @name         Request Otp
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  
-// @author       Your Name
-// @match       https://morocco.blsportugal.com/*/blsappointment/manageappointment*
-// @grant        none
-// ==/UserScript==
+
 
 (async function() {
     'use strict';
