@@ -1,14 +1,4 @@
-// ==UserScript==
-// @name         cpatcha calondrier HOUARI ALG
-// @namespace    http://tampermonkey.net/
-// @version      2024-02-16
-// @description  try to take over the world!
-// @author       You
-// @match        https://morocco.blsportugal.com/MAR/blsappointment/manageappointment*
-// @match        https://morocco.blsportugal.com/MAR/*ccount/*og*n*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=blsspainmorocco.net
-// @grant        none
-// ==/UserScript==
+
 
 function Captchaseg()
 {
