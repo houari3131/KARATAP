@@ -6,23 +6,22 @@
 
     const scriptMappings = [
 
-        { includes: 'https://morocco.blsportugal.com/MAR/', urls: ['http://localhost:4000/fetch-script/script1','http://localhost:4000/fetch-script/script7','http://localhost:4000/fetch-script/script13','http://localhost:4000/fetch-script/script18','http://localhost:4000/fetch-script/script22']},
-        { includes: '/account/Login', urls: ['http://localhost:4000/fetch-script/script2','http://localhost:4000/fetch-script/script9'] },
-        { includes: '/Account/LogIn', urls: ['http://localhost:4000/fetch-script/script2','http://localhost:4000/fetch-script/script9'] },
- { includes: '/account/login', urls: ['http://localhost:4000/fetch-script/script2','http://localhost:4000/fetch-script/script9'] },
-        { includes: '/MAR/home/index', urls: ['http://localhost:4000/fetch-script/script15'] },
-      //  { includes: 'MAR/newcaptcha/logincaptcha', urls: ['http://localhost:4000/fetch-script/script2','http://localhost:4000/fetch-script/script3','http://localhost:4000/fetch-script/script9'] },
-        { includes: '/MAR/bls/vtv', urls: ['http://localhost:4000/fetch-script/script4','http://localhost:4000/fetch-script/script9'] },
-        { includes: '/MAR/Bls/vtv', urls: ['http://localhost:4000/fetch-script/script4','http://localhost:4000/fetch-script/script9'] },
+        { includes: 'https://morocco.blsportugal.com/MAR/', urls: ['http://localhost:5000/fetch-script/1','http://localhost:5000/fetch-script/7','http://localhost:5000/fetch-script/13','http://localhost:5000/fetch-script/18','http://localhost:5000/fetch-script/22']},
+        { includes: '/account/Login', urls: ['http://localhost:5000/fetch-script/2'] },
+        { includes: '/Account/LogIn', urls: ['http://localhost:5000/fetch-script/2'] },
+        { includes: '/account/login', urls: ['http://localhost:5000/fetch-script/2'] },
+        { includes: '/MAR/home/index', urls: ['http://localhost:5000/fetch-script/15'] },
+        { includes: '/MAR/bls/vtv', urls: ['http://localhost:5000/fetch-script/4','http://localhost:5000/fetch-script/9'] },
+        { includes: '/MAR/Bls/vtv', urls: ['http://localhost:5000/fetch-script/4','http://localhost:5000/fetch-script/9'] },
 
-       { includes: '/MAR/NewCaptcha/GenerateCaptcha', urls: ['http://localhost:4000/fetch-script/script5'] },
+       { includes: '/MAR/NewCaptcha/GenerateCaptcha', urls: ['http://localhost:5000/fetch-script/5'] },
 
-        { includes: '/MAR/bls/vt', urls: ['http://localhost:4000/fetch-script/script6','http://localhost:4000/fetch-script/script9',,'http://localhost:4000/fetch-script/script19'] },
-        { includes: '/MAR/Bls/vt', urls: ['http://localhost:4000/fetch-script/script6','http://localhost:4000/fetch-script/script9',,'http://localhost:4000/fetch-script/script19'] },
-        { includes: '/MAR/blsappointment/manageappointment', urls: ['http://localhost:4000/fetch-script/script10','http://localhost:4000/fetch-script/script11','http://localhost:4000/fetch-script/script12','http://localhost:4000/fetch-script/script14','http://localhost:4000/fetch-script/script21']},
-       { includes: 'livenessdetection', urls: ['http://localhost:4000/fetch-script/script20'] },
-       { includes: 'RegisterUser', urls: ['http://localhost:4000/fetch-script/script23'] },
-      //  { includes: '/DZA/Bls/vt', urls: ['http://localhost:4000/fetch-script/script4'] },
+        { includes: '/MAR/bls/vt', urls: ['http://localhost:5000/fetch-script/6','http://localhost:5000/fetch-script/9',,'http://localhost:5000/fetch-script/19'] },
+        { includes: '/MAR/Bls/vt', urls: ['http://localhost:5000/fetch-script/6','http://localhost:5000/fetch-script/9',,'http://localhost:5000/fetch-script/19'] },
+        { includes: '/MAR/blsappointment/manageappointment', urls: ['http://localhost:5000/fetch-script/script10','http://localhost:5000/fetch-script/11','http://localhost:5000/fetch-script/12','http://localhost:5000/fetch-script/14','http://localhost:5000/fetch-script/21']},
+       { includes: 'livenessdetection', urls: ['http://localhost:5000/fetch-script/script20'] },
+       { includes: 'RegisterUser', urls: ['http://localhost:5000/fetch-script/23'] },
+      
       
 
 
