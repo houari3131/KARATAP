@@ -1,16 +1,3 @@
-// ==UserScript==
-// @name         Bls Create Account
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        https://morocco.blsportugal.com/MAR/account/RegisterUser
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @grant        none
-// ==/UserScript==
-
-
-
 
 setTimeout(() => {
     // Get the button
