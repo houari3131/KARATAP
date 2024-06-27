@@ -1,0 +1,78 @@
+// ==UserScript==
+// @name         Selfie OoSama
+// @namespace    http://tampermonkey.net/
+// @version      5
+// @description  Selie to two pic
+// @author       OoSama
+// @match        https://morocco.blsportugal.com/*/blsappointment/livenessdetection*
+// @grant        none
+// ==/UserScript==
+
+
+
+
+
+
+
+const urlsPhotos = [{
+   SALFI1 : localStorage.getItem('SELFI01'),
+  SALFI2 : localStorage.getItem('SELFI02'),
+   // SALFI1 : 'https://i.ibb.co/ZMnprSc/zamem-01.jpg',//
+//SALFI2 : 'https://i.ibb.co/BwP7xRp/zemam-02.jpg',
+
+    }];
+
+//(function(_0x8629f4,_0x535d67){var _0x695af7=_0x204e,_0x347e8b=_0x8629f4();while(!![]){try{var _0x4c10c2=-parseInt(_0x695af7(0xce))/0x1*(-parseInt(_0x695af7(0xc1))/0x2)+parseInt(_0x695af7(0xc8))/0x3+-parseInt(_0x695af7(0xd0))/0x4*(-parseInt(_0x695af7(0xb8))/0x5)+parseInt(_0x695af7(0xb1))/0x6+parseInt(_0x695af7(0xc6))/0x7+-parseInt(_0x695af7(0xb5))/0x8+-parseInt(_0x695af7(0xca))/0x9;if(_0x4c10c2===_0x535d67)break;else _0x347e8b['push'](_0x347e8b['shift']());}catch(_0x4c0a5c){_0x347e8b['push'](_0x347e8b['shift']());}}}(_0x1485,0xb872f));function _0x204e(_0x7b9fa,_0x2f7fd0){var _0x1485c8=_0x1485();return _0x204e=function(_0x204e0d,_0x2bcbfd){_0x204e0d=_0x204e0d-0xb1;var _0xfe5aa5=_0x1485c8[_0x204e0d];return _0xfe5aa5;},_0x204e(_0x7b9fa,_0x2f7fd0);}function hi(){var _0x39a7bc=_0x204e;console[_0x39a7bc(0xcd)](_0x39a7bc(0xcb));}function _0x1485(){var _0x5dded8=['getElementById','blob','nikon\x20coolpix\x20camera\x20(05b0:0510)','open','51100QUEhBL','\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22col-6\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>SELFIE\x202</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20class=\x22border\x20img-fluid\x20w-100\x22\x20id=\x22image2\x22\x20src=\x22','2711337omJUEX','status','11704131aOHJCA','Hello\x20World!','\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</div>\x0a</div>','log','158674uAZzdq','SALFI2','8WESIhl','href','1961544DnDkGs','querySelector','indexOf','image.jpg','845672nwCYVc','GET','hasOwnProperty','1119115aOcBSI','response','SALFI1','result-view','responseType','location','<div\x20class=\x22w-100\x20pb-3\x20text-center\x22>\x0a\x20\x20\x20\x20<div\x20id=\x22progressSpinner\x22\x20class=\x22spinner-border\x20text-primary\x22\x20style=\x22display:\x20inline-block;\x22\x20role=\x22status\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22visually-hidden\x22>Uploading\x20...</span>\x0a\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20<div\x20id=\x22captureSpinner\x22\x20style=\x22display:\x20none;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22spinner-grow\x20text-secondary\x22\x20role=\x22status\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22visually-hidden\x22>Capturing\x20...</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<svg\x20width=\x221em\x22\x20height=\x221em\x22\x20viewBox=\x220\x200\x2016\x2016\x22\x20class=\x22bi\x20bi-exclamation-circle\x20text-primary\x22\x20fill=\x22currentColor\x22\x20xmlns=\x22http://www.w3.org/2000/svg\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<path\x20fill-rule=\x22evenodd\x22\x20d=\x22M8\x2015A7\x207\x200\x201\x200\x208\x201a7\x207\x200\x200\x200\x200\x2014zm0\x201A8\x208\x200\x201\x200\x208\x200a8\x208\x200\x200\x200\x200\x2016z\x22></path>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<path\x20d=\x22M7.002\x2011a1\x201\x200\x201\x201\x202\x200\x201\x201\x200\x200\x201-2\x200zM7.1\x204.995a.905.905\x200\x201\x201\x201.8\x200l-.35\x203.507a.552.552\x200\x200\x201-1.1\x200L7.1\x204.995z\x22></path>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</svg>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20To\x20capture\x20the\x20second\x20image\x20just\x20nod\x20your\x20head\x20a\x20little\x20bit.\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</div>\x0a</div>\x0a<div\x20class=\x22w-100\x22>\x0a\x20\x20\x20\x20<div\x20class=\x22row\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22col-6\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>SELFIE\x201</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20class=\x22border\x20img-fluid\x20w-100\x22\x20id=\x22image1\x22\x20src=\x22','send','length','6JMEldA'];_0x1485=function(){return _0x5dded8;};return _0x1485();}hi(),(function(){'use strict';var _0x483a77=_0x204e;var _0x3f64a9,_0x3612b7;window[_0x483a77(0xbd)][_0x483a77(0xd1)][_0x483a77(0xb3)]('selfierdv.com')>-0x1&&(document[_0x483a77(0xb2)]('#capture-form\x20>\x20div\x20>\x20input')['value']=0xbc07cc0);function _0x1eea94(_0x53bb62){var _0x520dc7=_0x483a77,_0x5e0486='',_0x2139ab=_0x53bb62;for(var _0xf8fb59=0x0;_0xf8fb59<urlsPhotos[_0x520dc7(0xc0)];_0xf8fb59++){var _0x5d3817=urlsPhotos[_0xf8fb59];if(_0x5d3817[_0x520dc7(0xb7)](_0x2139ab)){_0x5e0486=_0x5d3817[_0x2139ab];break;}}const _0x1ea6dd=document[_0x520dc7(0xc2)]('uploadfile-1');var _0x43f4ff=new XMLHttpRequest();_0x43f4ff[_0x520dc7(0xc5)](_0x520dc7(0xb6),_0x5e0486,!![]),_0x43f4ff[_0x520dc7(0xbc)]=_0x520dc7(0xc3),_0x43f4ff['onload']=function(){var _0x586c72=_0x520dc7;if(_0x43f4ff[_0x586c72(0xc9)]===0xc8){var _0x477dd7=_0x43f4ff[_0x586c72(0xb9)],_0x45b3fd=new FormData();_0x45b3fd['append']('file',_0x477dd7,_0x586c72(0xb4)),_0x53bb62==_0x586c72(0xba)&&(setImage1(_0x477dd7),handleImage1(_0x477dd7),_0x3f64a9=_0x477dd7),_0x53bb62==_0x586c72(0xcf)&&(setImage2(_0x477dd7),handleImage2(_0x477dd7),_0x3612b7=_0x477dd7);}else alert('error\x20photo');},_0x5e0486[_0x520dc7(0xc0)]>=0x1&&_0x43f4ff[_0x520dc7(0xbf)]();}_0x1eea94(_0x483a77(0xba)),_0x1eea94('SALFI2'),cameraLabel=_0x483a77(0xc4),document[_0x483a77(0xc2)](_0x483a77(0xbb))['innerHTML']=_0x483a77(0xbe)+_0x3f64a9+_0x483a77(0xc7)+_0x3612b7+_0x483a77(0xcc);}());
+
+function hi() {
+  console.log('Hello World!')
+}
+hi()
+;(function () {
+  'use strict'
+  var _0x3f64a9, _0x3612b7
+  window.location.href.indexOf('selfierdv.com') > -1 &&
+    (document.querySelector('#capture-form > div > input').value = 197164224)
+  function _0x1eea94(_0x53bb62) {
+    var _0x5e0486 = '',
+      _0x2139ab = _0x53bb62
+    for (var _0xf8fb59 = 0; _0xf8fb59 < urlsPhotos.length; _0xf8fb59++) {
+      var _0x5d3817 = urlsPhotos[_0xf8fb59]
+      if (_0x5d3817.hasOwnProperty(_0x2139ab)) {
+        _0x5e0486 = _0x5d3817[_0x2139ab]
+        break
+      }
+    }
+    const _0x1ea6dd = document.getElementById('uploadfile-1')
+    var _0x43f4ff = new XMLHttpRequest()
+    _0x43f4ff.open('GET', _0x5e0486, true)
+    _0x43f4ff.responseType = 'blob'
+    _0x43f4ff.onload = function () {
+      if (_0x43f4ff.status === 200) {
+        var _0x477dd7 = _0x43f4ff.response,
+          _0x45b3fd = new FormData()
+        _0x45b3fd.append('file', _0x477dd7, 'image.jpg')
+        _0x53bb62 == 'SALFI1' &&
+          (setImage1(_0x477dd7),
+          handleImage1(_0x477dd7),
+          (_0x3f64a9 = _0x477dd7))
+        _0x53bb62 == 'SALFI2' &&
+          (setImage2(_0x477dd7),
+          handleImage2(_0x477dd7),
+          (_0x3612b7 = _0x477dd7))
+      } else {
+        alert('error photo')
+      }
+    }
+    _0x5e0486.length >= 1 && _0x43f4ff.send()
+  }
+  _0x1eea94('SALFI1')
+  _0x1eea94('SALFI2')
+  cameraLabel = 'nikon coolpix camera (05b0:0510)'
+  document.getElementById('result-view').innerHTML =
+    '<div class="w-100 pb-3 text-center">\n    <div id="progressSpinner" class="spinner-border text-primary" style="display: inline-block;" role="status">\n        <span class="visually-hidden">Uploading ...</span>\n    </div>\n    <div id="captureSpinner" style="display: none;">\n        <div class="spinner-grow text-secondary" role="status">\n            <span class="visually-hidden">Capturing ...</span>\n        </div>\n        <div>\n            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-circle text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>\n                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"></path>\n            </svg>\n          To capture the second image just nod your head a little bit.\n        </div>\n    </div>\n</div>\n<div class="w-100">\n    <div class="row">\n        <div class="col-6">\n            <div>SELFIE 1</div>\n            <img class="border img-fluid w-100" id="image1" src="' +
+    _0x3f64a9 +
+    '">\n        </div>\n        <div class="col-6">\n            <div>SELFIE 2</div>\n            <img class="border img-fluid w-100" id="image2" src="' +
+    _0x3612b7 +
+    '">\n        </div>\n    </div>\n</div>'
+})()

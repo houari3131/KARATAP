@@ -1,0 +1,366 @@
+// ==UserScript==
+// @name         solve capatcha Portugal
+// @namespace    http://tampermonkey.net/
+// @version      2024-02-09
+// @description  try to take over the world!
+// @author       You
+// @match        https://morocco.blsportugal.com/MAR/vt*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=blsspainglobal.com
+// @grant        none
+// ==/UserScript==
+
+
+
+
+
+
+
+var Client = {
+    familyOfMembers: localStorage.getItem('familyOfMembers'),
+    location: localStorage.getItem('location'),
+    category: localStorage.getItem('category'),
+    visatype: localStorage.getItem('visatype'),
+    visaSubtype: localStorage.getItem('visaSubtype')
+};
+
+$(document).ready(function() {
+    // Check if functionality is enabled
+        // Your original code here
+        if ($("body").html().includes("Backend service does not exist") || $("body").html().includes("403 Forbidden")) {
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
+        }
+        if ($("body").html().includes('502 Bad Gateway') || $("body").html().includes('504 Gateway Time-out') || $("body").html().includes('Application Temporarily Unavailable')) {
+            console.log("502 Bad Gateway 504");
+            window.location.reload();
+            return;
+        }
+        var pageLocation = window.location.href.toUpperCase();
+        var mLocation, mCaty, mVisaType, mVisaSubtype, mFamy, famEX;
+        var vsN = 0, vsNl = 0;
+        for (var i = 1; i <= 5; i++) {
+            const fm = $("#family" + i);
+            const indf = $("#self" + i);
+            const visTp = $('#VisaType' + i + '_label');
+            const caty = $('#AppointmentCategoryId' + i + '_label');
+            const visSbTp = $('#VisaSubType' + i + '_label');
+            const loc = $('#Location' + i + '_label');
+            if (fm.is(':visible')) {
+                famEX = $("#family" + i);
+            }
+            if (indf.is(':visible')) {
+              var  individual = $("#self" + i);
+            }
+            if (caty.is(':visible')) {
+                $("#AppointmentCategoryId" + i + "_listbox > .k-item:contains('" + Client.category + "')").click();
+                mCaty = document.querySelector("#AppointmentCategoryId" + i).value;
+            }
+            if (visTp.is(':visible')) {
+                $("#VisaType" + i + "_listbox > .k-item:contains('" + Client.visatype + "')").click();
+                mVisaType = document.querySelector("#VisaType" + i).value;
+            }
+            if (visSbTp.is(':visible')) {
+                vsN = i;
+                $("#VisaSubType" + vsN + "_listbox > .k-item:contains('" + Client.visaSubtype + "')").click();
+                mVisaSubtype = document.querySelector("#VisaSubType" + vsN).value;
+            }
+            if (loc.is(':visible')) {
+                vsNl = i;
+                $("#Location" + vsNl + "_listbox > .k-item:contains('" + Client.location + "')").click();
+                mLocation = document.querySelector("#Location" + vsNl).value;
+            }
+        }
+        for (let i = 1; i <= 5; i++) {
+            const fm = $("#family" + i);
+            const indf = $("#self" + i);
+            const visTp = $('#VisaType' + i + '_label');
+            const caty = $('#AppointmentCategoryId' + i + '_label');
+            const visSbTp = $('#VisaSubType' + i + '_label');
+            const loc = $('#Location' + i + '_label');
+            if (fm.is(':visible')) {
+                famEX = $("#family" + i);
+            }
+            if (indf.is(':visible')) {
+                //  individual = $("#self" + i);
+            }
+            if (caty.is(':visible')) {
+                $("#AppointmentCategoryId" + i + "_listbox > .k-item:contains('" + Client.category + "')").click();
+                mCaty = document.querySelector("#AppointmentCategoryId" + i).value;
+            }
+            if (visTp.is(':visible')) {
+                $("#VisaType" + i + "_listbox > .k-item:contains('" + Client.visatype + "')").click();
+                mVisaType = document.querySelector("#VisaType" + i).value;
+            }
+            if (visSbTp.is(':visible')) {
+                vsN = i;
+                $("#VisaSubType" + vsN + "_listbox > .k-item:contains('" + Client.visaSubtype + "')").click();
+                mVisaSubtype = document.querySelector("#VisaSubType" + vsN).value;
+            }
+            if (loc.is(':visible')) {
+                vsNl = i;
+                $("#Location" + vsNl + "_listbox > .k-item:contains('" + Client.location + "')").click();
+                mLocation = document.querySelector("#Location" + vsNl).value;
+            }
+        }
+        if (Client.familyOfMembers > 1) {
+            famEX.click();
+            setTimeout(() => {
+                window.location.href = `javaScript: OnFamilyAccept();`;
+            }, 1000);
+            for (var is = 1; is <= 5; is++) {
+                $("#ApplicantsNo3_label");
+                if ($("#ApplicantsNo" + is + "_label").is(':visible')) {
+                    $("#ApplicantsNo" + is + "_listbox > .k-item:contains('" + Client.familyOfMembers + " Members')").click();
+                }
+            }
+        }
+        if (Client.visatype === "National Visa") {
+            for (var iv = 1; iv <= 5; iv++) {
+                if ($("#Mission" + iv + "_label").is(':visible')) {
+                    $("#Mission" + iv + "_listbox > .k-item:contains('Consulate - Casablanca')").click();
+                }
+            }
+        }
+
+        // Existing code to show the error and submit the form
+        window.location.href = `javaScript:ShowError(' لا تضغط على الزر الكراطا خداما ')`;
+  var isEnabled = localStorage.getItem('isEnabled') === 'true';
+    if (isEnabled) {
+        var slmval = setInterval(function() {
+            var btnSubmit = document.querySelector("#btnSubmit");
+            if (btnSubmit && !btnSubmit.disabled) {  // Check if the button exists and is not disabled
+                btnSubmit.click();
+                clearInterval(slmval);
+            }
+        }, 2000);
+         }
+        setInterval(() => {
+            document.querySelector("#commonModal > div > div > div.modal-footer > button").click();
+        }, 1000);
+
+});
+
+
+var LinkVtv = "https://morocco.blsportugal.com/MAR/bls/vtv0001"
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+ //===============
+
+
+//==============================================================================
+ var  mScriptcm = document.createElement("Script");
+ mScriptcm.innerHTML =`
+ $(document).ready(function () {
+
+
+    });
+
+
+    function VerifyCaptcha(e, obj) {
+        var win = GetMainWindow();
+        var title = 'Verify Selection';
+        win.iframeOpenUrl = '/MAR/NewCaptcha/GenerateCaptcha';
+        win.OpenWindow({ Title:title, Width: 400, Height: 600 });
+        return false;
+    }
+    function OnVerifyCaptcha(res) {
+        if (res.exceeded) {
+            window.location.href = window.location.href.split("?")[0];
+            return false;
+        }
+        else if (res.success) {
+
+           // $("#CaptchaData").val(res.cd);
+
+           const data = new URLSearchParams({
+           'CaptchaData': res.cd,
+           '__RequestVerificationToken': $('input:hidden[name="__RequestVerificationToken"]').val(),
+           'X-Requested-With': 'XMLHttpRequest'
+
+           });
+           let xhr = new XMLHttpRequest();
+           xhr.withCredentials = true;
+           xhr.open('POST', '${LinkVtv}');
+           xhr.setRequestHeader('accept', '*/*');
+           xhr.setRequestHeader('accept-language', 'en-US,en;q=0.9');
+           xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            xhr.setRequestHeader('x-requested-with', 'XMLHttpRequest');
+           xhr.onload = function() {
+
+           if(xhr.status == 200)
+           {
+                console.log(xhr.response);
+                var ulrRES = JSON.parse(xhr.response);
+                if(ulrRES.success == true)
+                {
+                    window.location.href = ulrRES.returnUrl;
+                }
+
+           }
+
+
+
+
+
+
+
+           };
+           xhr.send(data);
+           }
+          }
+
+
+ `;
+
+document.querySelector("body > main").append(mScriptcm);
+
+
+
+
+
+
+
+//=============================================================================
+
+if(true)
+{
+
+       var  mScript = document.createElement("Script");
+ mScript.innerHTML =`
+
+  
+
+
+
+
+
+
+
+
+
+
+
+ // ShowError("136 appointments booked 25 srv2  nador");
+ document.querySelector("#btnSubmit").after("");
+ //+++++++++++++++++++++++++++++++++++++++
+var urlv = window.location.href;
+var dataTextv = urlv.split("data=")[1];
+ function onAjaxSuccess(res) {
+
+
+
+        if (res.success) {
+            //HideLoader();
+           
+
+             ShowError("Rendez-vous BLS ON ");
+            //$('#addressModalLocationName').html(res.name);
+            //$('#addressModalAddress').html(res.address);
+            //$('#addressModal').modal('show');
+             var timeMSGv = new SpeechSynthesisUtterance(('Rendez-vous BLS ON ').repeat(2));
+             window.speechSynthesis.speak(timeMSGv);
+             window.location.href = res.returnUrl;
+            return false;
+
+        }
+        else {
+            HideLoader();
+            if (res.bot === true) {
+                ShowError("BOT");
+               //  window.location.href = '${LinkVtv}';
+            // window.location.href = '${Client.linkVerfy}'+dataTextv;
+
+                VerifyCaptcha();
+                return false;
+            }
+            else if (res.captchaFailed === true) {
+             ShowError("captcha Failed");
+                // window.location.href = '${LinkVtv}';
+                // window.location.href = '${Client.linkVerfy}'+dataTextv;
+                VerifyCaptcha();
+                return false;
+            }
+            if (res.available == false) {
+                ShowError("no  rdv");
+             // window.location.href = '${LinkVtv}';
+             // window.location.href = '${Client.linkVerfy}'+dataTextv;
+              VerifyCaptcha();
+
+                 return false;
+            }
+            ShowError(res.error);
+        }
+    }
+
+
+
+ //=============================================
+ `;
+
+
+
+
+ document.querySelector("body > main").append(mScript);
+
+}
+else
+{
+
+var  mScript1 = document.createElement("Script");
+mScript1.innerHTML =`
+
+ function onAjaxSuccess(res) {
+        if (res.success) {
+            //HideLoader();
+            //$('#addressModalLocationName').html(res.name);
+            //$('#addressModalAddress').html(res.address);
+            //$('#addressModal').modal('show');
+             var timeMSGv = new SpeechSynthesisUtterance(('Rendez-vous BLS ON').repeat(2));
+             window.speechSynthesis.speak(timeMSGv);
+             window.location.href = res.returnUrl;
+            return false;
+
+        }
+        else {
+            HideLoader();
+            if (res.bot === true) {
+                ShowError("Change the address ip");
+                return false;
+            }
+            else if (res.captchaFailed === true) {
+                window.location.href = '${LinkVtv}';
+                return false;
+            }
+            if (res.available == false) {
+
+                 window.location.href = '${LinkVtv}';
+                 return false;
+            }
+            ShowError(res.error);
+        }
+    }
+
+  //++++++++++++++++++++++++++++++++++++++++++
+ $(document).ready(function () {
+        kendo.ui.DropDownList.fn._keydown = function (e) {
+            var mThat = this,
+                key = e.keyCode;
+            mThat._last = key;
+            clearTimeout(that._typing);
+            if (key !== kendo.keys.TAB &&
+                key !== kendo.keys.DOWN &&
+                key !== kendo.keys.UP) {
+                mThat._search();
+            }
+        };});
+
+ //=============================================
+ `;
+
+ document.querySelector("body > main").append(mScript1);
+
+
+
+}

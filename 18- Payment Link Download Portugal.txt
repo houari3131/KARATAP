@@ -1,0 +1,83 @@
+// ==UserScript==
+// @name         Auto form Portugal
+// @namespace    http://tampermonkey.net/
+// @version      5
+// @description  Selie to two pic
+// @author       OoSama
+// @match        https://morocco.blsportugal.com/*/blsappointment/manageappointment*
+// @grant        none
+// ==/UserScript==
+
+
+
+
+
+
+
+(function() {
+    'use strict';
+
+    // Function to save data to a file
+    function saveToFile(data, filename) {
+        const blob = new Blob([data], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 0);
+    }
+
+    // Function to append data to a file
+    function appendToFile(data, filename) {
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(data + '\n');
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+   var texte =" linkpayment portugal";
+    // Function to send message to Telegram
+    function sendMessage(texte) {
+        fetch('https://api.telegram.org/bot7373477501:AAFrSLeWYaKL3kFbch-38rlAjj6AwVCf00k/sendMessage?chat_id=-1002182656332&text=' + texte);
+    }
+
+    // Check and save links
+    function checkAndSaveLink(url) {
+        const urlPattern = /https:\/\/morocco\.blsportugal\.com\/MAR\/payment\/CmiOnlinePayment\?appointmentId=([a-f0-9\-]+)/;
+        const match = url.match(urlPattern);
+        if (match) {
+            appendToFile(url, 'extracted_links.txt');
+            sendMessage('payment link portugal  karata ', texte);
+        }
+    }
+
+    // Intercept fetch responses
+    const originalFetch = window.fetch;
+    window.fetch = function() {
+        return originalFetch.apply(this, arguments).then(response => {
+            const clone = response.clone();
+            clone.text().then(text => {
+                checkAndSaveLink(text);
+            });
+            return response;
+        });
+    };
+
+    // Listen for link clicks
+    document.addEventListener('click', function(event) {
+        const element = event.target.closest('a');
+        if (element) {
+            checkAndSaveLink(element.href);
+        }
+    }, true);
+
+    // Check current URL on page load
+    checkAndSaveLink(window.location.href);
+})();

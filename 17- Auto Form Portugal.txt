@@ -1,0 +1,61 @@
+// ==UserScript==
+// @name         Auto form Portugal
+// @namespace    http://tampermonkey.net/
+// @version      5
+// @description  Selie to two pic
+// @author       OoSama
+// @match        https://morocco.blsportugal.com/*/blsappointment/manageappointment*
+// @grant        none
+// ==/UserScript==
+
+
+
+
+
+
+var timer = setInterval(aaaa, 500);
+var timerr = setInterval(aaaaa, 100);
+var ti = setInterval(zz, 100);
+
+function aaaa() {
+  if (document.querySelector("#progress-percent").textContent == "25%" && $("#TravelDate_0").length != 0 && $("#ApplicantsNo").val() == 1) {
+ //   $("#TravelDate_0").val('2024-07-26');
+    $("#CountryOfBirthId_0_listbox .k-item:contains('Morocco')").click();
+    if ($("#GenderId_0_listbox").val() == '') {
+      $("#GenderId_0_listbox .k-item:contains('Male')").click();
+    }
+    if ($("#PlaceOfBirth_0").val() == '') {
+      $("#PlaceOfBirth_0").val('casa');
+    }
+    $("#MaritalStatusId_0_listbox .k-item:contains('Single')").click();
+    $("#PurposeOfJourneyId_0_listbox .k-item:contains('Tourism')").click();
+    $("#MemberStateDestinationId_0_listbox .k-item:contains('Spain')").click();
+    if ($("#TravelDate_0").val()  != '' && $("#LastName_0").val() != '' && $("#FirstName_0").val() != '' && $("#DateOfBirth_0").val() != '' && $("#PassportNo_0").val() != '') {
+      clearInterval(timer);
+ //   document.querySelector(".col-12  .btn-primary").click();
+    }
+  }
+}
+
+
+function aaaaa() {
+  if ($("#termsDiv").is(":visible")) {
+    onAgree();
+  }
+  if (document.querySelector("#progress-percent").textContent == "50%") {
+    $("#vas_1,#vas_2,#vas_3,#vas_4,#vas_5,#vas_6").hide();
+    $("#payment-section,#vas_final").show();
+    if ($("#vas_final").is(":visible")) {
+      clearInterval(timerr);
+      OnLivenessDeclarationAccept();
+      clearInterval(timerr);
+    }
+  }
+}
+function zz() {
+  if (document.querySelector("#progress-percent").textContent == "50%" && $("#btnVerifiedApplicant").is(":visible")) {
+   // OnTotalAmountConfirmation();
+   // OnPaymentConfirm();
+    clearInterval(ti);
+  }
+}

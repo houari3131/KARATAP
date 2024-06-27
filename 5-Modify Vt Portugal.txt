@@ -1,0 +1,246 @@
+// ==UserScript==
+// @name         solve capatcha Portugal
+// @namespace    http://tampermonkey.net/
+// @version      2024-02-09
+// @description  try to take over the world!
+// @author       You
+// @match        https://morocco.blsportugal.com/MAR/NewCaptcha/GenerateCaptcha
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=blsspainglobal.com
+// @grant        none
+// ==/UserScript==
+
+
+
+//...............................................
+
+var Setting ={
+
+	autoSolveHCaptcha : "valide",
+
+
+};
+
+//=====================
+
+var trueCaptcha ={
+   key:  localStorage.CaptchaToken ,
+    userId:  localStorage.CaptchMail
+
+};
+//##############################################################################
+(function() {
+    'use strict';
+   window.alert = function() {};
+$(document).ready(function() {
+    if($("body").html().includes("Backend service does not exist") || $("body").html().includes("403 Forbidden"))
+    {
+        setTimeout(function(){
+           window.location.reload();
+        }, 1000);
+    }
+
+    if ($("body").html().includes('502 Bad Gateway') || $("body").html().includes('504 Gateway Time-out')) {
+        console.log("502 Bad Gateway 504");
+        window.location.reload();
+        return
+    }} );
+    (function() {
+    'use strict';
+    //========================================
+   var Client ={
+
+   firstname : "DZ",
+   lastname : "script hicham DZ",
+   photoLink : "",
+
+};
+    //================================================================================================================
+   var pageLocation =window.location.href.toUpperCase();
+   //=====================================================================================
+   var okCaptcha =false;
+
+   //===============
+
+    $(document).ready(function(){
+
+      //  var btn = $("<center>").attr('id','cancelRefresh').html("<button style='width:100%; color:#000; background:#ccaaee; border-bottom:5px;'><b>Please wait this long : "+Client.lastname+" "+Client.firstname + "" +"'  width='50' height='50'></center></button>");;
+       // $("body").prepend(btn);
+
+        if(pageLocation.indexOf("/MAR/blsappointment/ManageApplicant".toUpperCase())> -1)
+        {
+        	 window.location.href ="/MAR/bls/visatypeverification";
+
+          document.querySelector("#myForm").removeAttribute("data-ajax-failure");
+          //=======================
+           var btnPhoto=document.createElement("button");
+		  btnPhoto.style = "height: 2.2em; width: 25%; background-color: #ffaa9d !important; margin: 1px !important; opacity: 1 !important; color: #fff !important;";
+		  btnPhoto.id = "btnBlock";
+		  btnPhoto.innerText = "add photo errer.";
+		  document.querySelector(".bg-light.rounded.p-3").append(btnPhoto);
+		  //_______________________________________________________________
+		  btnPhoto.addEventListener ('click', function(){
+			  btnPhoto.style = "height: 2.2em; width: 25%; background-color: #999dff !important; margin: 1px !important; opacity: 1 !important; color: #fff !important;";
+			  if(document.querySelector("#progress-percent").textContent ==='0%')
+			  {
+				  btnPhoto.innerHTML="get Photo";
+				  img();
+			  }
+          }); }
+        //.......................................
+         if(pageLocation.indexOf("/MAR/NewCaptcha/GenerateCaptcha".toUpperCase())> -1 ||  pageLocation.indexOf("/MAR/NewCaptcha/GenerateCaptcha".toUpperCase())> -1 )
+        {
+            if(Setting.autoSolveHCaptcha =="valide")
+            {
+                document.querySelector("#captchaForm").removeAttribute('data-ajax-failure');
+                document.querySelector("#captchaForm").action="/mar/newcaptcha/submitcaptcha";
+               var scm=document.querySelector("head > script:nth-child(7)").innerHTML;
+                document.querySelectorAll("script").innerHTML=scm.replaceAll("alert(","console.log(");
+            var indexCap=0;
+            var codeCaptcha =boxNumberShow();
+            imgShow().forEach(function(dev) {
+                indexCap = indexCap+1;
+                dcodeImg($(dev), codeCaptcha,indexCap);
+            });}}});
+//==================================================
+function dcodeImg(image_data,code,max)
+{
+
+    var params = {'userid':trueCaptcha.userId,'apikey':trueCaptcha.key,'data':image_data.attr("src")};
+    var opts = {
+        method: 'POST',
+        body: JSON.stringify(params)
+    };
+
+    fetch("https://api.apitruecaptcha.org/one/gettext", opts)
+    .then((response) => response.json()) //2
+  .then((data) => {
+    if(Number(data.result) == Number(code))
+    {
+        console.log(data.result+"===>"+code);
+        image_data.click();
+    }
+    if(max==9)
+    {
+        if(code.length > 0)
+        {
+            setTimeout(function(){
+        // $("#Submit Selection").click();
+                document.querySelector("#submit").click();
+           },2000);
+
+        } }});}
+
+
+//*************************************************** */
+
+function selveCaptcha()
+{
+
+}
+})();
+/////captcha//////////////////////
+
+function boxNumberShow()
+{
+    let index = 0;
+    let boxShow =0;
+    document.querySelectorAll(".box-label").forEach(function(box) {
+
+        if($(box).css("display")==="block")
+        {
+            if($(box).css("zIndex") > index)
+            {
+                index = $(box).css("zIndex");
+            }
+        }
+    });
+    document.querySelectorAll(".box-label").forEach(function(box) {
+        if($(box).css("display")==="block")
+        {
+            if($(box).css("zIndex") == index)
+            {
+                boxShow = $(box).html().split("Please select all boxes with number ")[1];
+            }
+        }
+    });
+    return boxShow;
+}
+//******************************************************************* */
+function imgShow()
+{
+    let zIndex1=0;
+    let zIndex2=0;
+    let zIndex3=0;
+    let zIndex4=0;
+    let zIndex5=0;
+    let zIndex6=0;
+    let zIndex7=0;
+    let zIndex8=0;
+    let zIndex9=0;
+
+    let cas1=null;
+    let cas2=null;
+    let cas3=null;
+    let cas4=null;
+    let cas5=null;
+    let cas6=null;
+    let cas7=null;
+    let cas8=null;
+    let cas9=null;
+
+
+    document.querySelectorAll(".captcha-img").forEach(function(dev) {
+
+        if($(dev.parentElement).css("display")==="block")
+        {
+            if($(dev.parentElement).css("left")==="0px" && $(dev.parentElement).css("top") === "0px"&& $(dev.parentElement).css("zIndex") > zIndex1)
+            {
+                zIndex1 = $(dev.parentElement).css("zIndex");
+                cas1 = $(dev);
+            }
+            else if($(dev.parentElement).css("left")==="0px" && $(dev.parentElement).css("top") === "110px"&& $(dev.parentElement).css("zIndex") > zIndex2)
+            {
+                zIndex2 = $(dev.parentElement).css("zIndex");
+                cas2 = $(dev);
+            }
+            else if($(dev.parentElement).css("left")==="0px" && $(dev.parentElement).css("top") === "220px"&& $(dev.parentElement).css("zIndex") > zIndex3)
+            {
+                zIndex3 = $(dev.parentElement).css("zIndex");
+                cas3 = $(dev);
+            }
+            else if($(dev.parentElement).css("left")==="110px" && $(dev.parentElement).css("top") === "0px"&& $(dev.parentElement).css("zIndex") > zIndex4)
+            {
+                zIndex4 = $(dev.parentElement).css("zIndex");
+                cas4 = $(dev);
+            }
+            else if($(dev.parentElement).css("left")==="110px" && $(dev.parentElement).css("top") === "110px"&& $(dev.parentElement).css("zIndex") > zIndex5)
+            {
+                zIndex5 = $(dev.parentElement).css("zIndex");
+                cas5 = $(dev);
+            }
+            else if($(dev.parentElement).css("left")==="110px" && $(dev.parentElement).css("top") === "220px"&& $(dev.parentElement).css("zIndex") > zIndex6)
+            {
+                zIndex6 = $(dev.parentElement).css("zIndex");
+                cas6 = $(dev);
+            }
+            else if($(dev.parentElement).css("left")==="220px" && $(dev.parentElement).css("top") === "0px"&& $(dev.parentElement).css("zIndex") > zIndex7)
+            {
+                zIndex7 = $(dev.parentElement).css("zIndex");
+                cas7 = $(dev);
+            }
+            else if($(dev.parentElement).css("left")==="220px" && $(dev.parentElement).css("top") === "110px"&& $(dev.parentElement).css("zIndex") > zIndex8)
+            {
+                zIndex8 = $(dev.parentElement).css("zIndex");
+                cas8 = $(dev);
+            }
+            else if($(dev.parentElement).css("left")==="220px" && $(dev.parentElement).css("top") === "220px"&& $(dev.parentElement).css("zIndex") > zIndex9)
+            {
+                zIndex9 = $(dev.parentElement).css("zIndex");
+                cas9 = $(dev);
+            }
+        }
+    });
+
+return [cas1,cas2,cas3,cas4,cas5,cas6,cas7,cas8,cas9];
+}})();
+//##############################################################################

@@ -1,0 +1,250 @@
+// ==UserScript==
+// @name         Bls Create Account
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://morocco.blsportugal.com/MAR/account/RegisterUser
+// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant        none
+// ==/UserScript==
+
+
+
+
+setTimeout(() => {
+    // Get the button
+    const button1 = document.querySelector('.btn.btn-success.btn-block[type="button"][data-bs-dismiss="modal"][onclick="onBioDisclaimerAccept();"]').click();
+    setTimeout(() => {
+        // Get the button
+        const button2 = document.querySelector('.btn.btn-success.btn-block[type="button"][data-bs-dismiss="modal"][onclick="onDpAccept();"]').click();
+  }, 600);
+}, 800);
+
+function regestr() {
+
+    document.querySelector("#SurName").value = '';
+    document.querySelector("#FirstName").value = localStorage.FirstName;
+    document.querySelector("#LastName").value = localStorage.LastName;
+    $("#DateOfBirth").data("kendoDatePicker").value(localStorage.DateOfBirth);
+
+
+    document.querySelector("#ppNo").value = localStorage.PassportNumber;
+    $("#PassportIssueDate").data("kendoDatePicker").value(localStorage.PassportIssueDate);
+    $("#PassportExpiryDate").data("kendoDatePicker").value(localStorage.PassportExpiryDate);
+    document.querySelector("#IssuePlace").value = localStorage.PassportIssuePlace;
+    document.querySelector("#Mobile").value = localStorage.MobileNumber;
+    document.querySelector("#Email").value = localStorage.email;
+
+
+    setTimeout(function() {
+ //       $("#BirthCountry_listbox > li.k-item:contains('Morocco')").click();
+          $("#PassportType_listbox > li.k-item:contains('Ordinary Passport')").click();
+          $("#CountryOfResidence_listbox> li.k-item:contains('Morocco')").click();
+    }, 3000);
+
+}
+$(document).ready(function() {
+    regestr();
+});
+
+function generateOTP() {
+    document.querySelector("#EmailOtp").value = 146962;
+    var validate = validatefield();
+
+    $('.validation-summary').html("");
+    ShowLoader();
+    var email = $("#Email").val();
+    var mobile = $("#Mobile").val();
+    var data = $("#SecurityCode").val();
+    var cd = $("#CaptchaData").val();
+    if (cd === '' || cd === null || cd === undefined) {
+        ShowError('Please verify the captcha');
+        return false;
+    }
+    cd = encodeURIComponent(cd);
+    var ci = $("#CaptchaId").val();
+    var isMobileVerify = $("#MobileVerificationEnabled").val();
+    $.ajax({
+        url: "/MAR/account/SendRegisterUserVerificationCode?email=" + email + "&mobile=" + mobile + "&isMobileVerify=" + isMobileVerify + "&data=" + data + "&captchaData=" + cd + "&captchaId=" + ci,
+        type: 'post',
+        contentType: false,
+        processData: false,
+        success: function(result) {
+            HideLoader();
+            if (result.success) {
+                $('#commonModal').modal('show');
+                $(".div-otp").show();
+                $("#btnSubmit").show();
+                $("#btnReGenerate").show();
+                $("#btnGenerate").hide();
+
+                $('#EncryptedEmail').val(result.encryptEmail);
+                $('#EncryptedMobile').val(result.encryptMobile);
+
+            } else if (result.success == false && result.err != "") {
+
+                document.querySelector("#Mobile").style.color = "#ff0000";
+                switch (result.err) {
+                case "Mobile Number Already Exist":
+                    document.querySelector("#Mobile").style.color = "#ff0000";
+                    break;
+                case "Email Already Exist":
+                    document.querySelector("#Email").style.color = "#ff0000";
+                    break;
+
+                }
+            } else {
+                //  alert(result.err);
+                ShowError(result.err);
+            }
+        }
+    });
+}
+
+function captchaRe() {
+    var urlCaptcha = "/MAR/CaptchaPublic/GenerateCaptcha?data=Jjar7HDMrYjqcKewUqrk06pV9GIp2EJiqBwseP9NXsvdCOgRqEwC3n3n7nAeTxEZiufiBsNFIzyNejZINhdHDxAYSHwtapYQb%2bJXbJh9QY4%3d";
+    $.ajax({
+        type: "GET",
+        url: urlCaptcha,
+        //dataType: "json",
+        success: function(data) {
+            var urlSubmit = "/MAR/CaptchaPublic/SubmitCaptcha";
+            data = {
+                'SelectedImages': 'njvpuvd,voxplqsqz,lhnemd',
+                'Id': 'Jjar7HDMrYjqcKewUqrk06pV9GIp2EJiqBwseP9NXsvdCOgRqEwC3n3n7nAeTxEZiufiBsNFIzyNejZINhdHDxAYSHwtapYQb+JXbJh9QY4=',
+                'Captcha': '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',
+                '__RequestVerificationToken': 'CfDJ8OMsLGClZV1OjqXW0LRvyzzb8d385d-N-1afPzUhRSZqBhSFkO4IgxBJYYJ2-2Dj5kEPEwrWAp6gGHs69lVCQ6TfyO3SVg_0uKLxiy68KQ9owTCA0udvjtgvVU5Fq6ybZsBq-k2gllbNLIhRcT3-6iRDtsFjkwF7RS1pedjP72XMp8pef39igjBlKHGTguvP1g',
+                'X-Requested-With': 'XMLHttpRequest'
+            };
+            $.ajax({
+                type: "POST",
+                data: data,
+                url: urlSubmit,
+                dataType: "json",
+                success: function(data) {
+                    $("#CaptchaData").val(data.captcha);
+                    $("#CaptchaId").val('9e06e414-0a4f-41b0-ac63-909bb58fe58c');
+                    console.log(data);
+                    $("btnVerifyAppointment").hide();
+                    $("#btnSubmit").show();
+
+                    $("#btnVerify").hide();
+                    $("#btnVerified").show();
+                    $("#btnGenerate").show();
+                    $("#SecurityCode").val('dTRW3ziayA%2bB7isvJ6jizCSkGPC4xgGVsljmL6NLW%2fCML%2bq760qHOtRodbUHB7vn82vwXOag4mhtTkO0wVhAmLxUO8Lmjwy71CBDf7vlo0BfBJLyTFTnS8Uy4q%2fUcGc7RjIWgqxtHqXL2kBI2hG%2b5g%3d%3d');
+                    generateOTP();
+                    $("#btnReGenerate").click();
+
+                }
+            });
+        }
+    });
+}
+
+$(document).ready(function() {
+    captchaRe();
+});
+
+ setTimeout(function() {
+      $('#btnSubmit').click()
+    }, 4000);
+
+
+ setTimeout(function() {
+
+
+  function ShowPass(){
+      
+           
+ function GetPass() {
+    console.log("GetPassword");
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        "email": 'benahrref.ous.sama@googlemail.com',
+        "password": 'hnjznatmdgjwpcpl',
+    });
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch("http://localhost:5000/pass", requestOptions)
+        .then(response => response.text()) // Changed to text() to handle plain text response
+        .then(result => {
+            var passcode = result;
+            return passcode;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+     
+ function checkButtonVisibility() {
+        // Replace 'buttonSelector' with the actual selector of your button
+        const button = document.querySelector('#contBtn');
+
+        if (button) {
+            const isVisible = !!(button.offsetWidth || button.offsetHeight || button.getClientRects().length);
+            if (isVisible) {
+              
+ 
+GetPass().then(passcode => {
+    let passcodeString = passcode.toString();
+    console.log(passcodeString); // Display passcode as a string
+    
+    // Create custom alert
+    let customAlert = document.createElement('div');
+    customAlert.innerHTML = `
+        <div style="position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); padding:20px; background-color:white; box-shadow:0 0 10px rgba(0,0,0,0.5); z-index:1000;">
+            <p>Password: ${passcodeString}</p>
+            <button id="copyButton">Copy</button>
+            <button id="closeButton">Close</button>
+        </div>
+    `;
+    document.body.appendChild(customAlert);
+
+    // Add event listener to copy button
+    document.getElementById('copyButton').addEventListener('click', () => {
+        navigator.clipboard.writeText(passcodeString).then(() => {
+            alert('Password copied to clipboard');
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    });
+
+    // Add event listener to close button
+    document.getElementById('closeButton').addEventListener('click', () => {
+        document.body.removeChild(customAlert);
+    });
+});
+
+clearInterval(CopyPass)
+document.querySelector("body > div.modal-backdrop.fade.show").remove()
+
+            } else {
+                console.log('Button is hidden');
+            }
+        } else {
+            console.log('Button not found in the DOM');
+        }
+    }
+
+   checkButtonVisibility()
+
+
+}
+     
+    let CopyPass = setInterval(ShowPass,1000) 
+    
+     
+    
+    
+    
+    
+    }, 6000);

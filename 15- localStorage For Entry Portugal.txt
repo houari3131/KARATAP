@@ -1,0 +1,70 @@
+// ==UserScript==
+// @name         localStorage Calendar Entry
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Fetch and execute multiple scripts based on URL with includes, retry on failure
+// @author       You
+// @match        https://morocco.blsportugal.com/*
+// @grant        none
+// ==/UserScript==
+
+
+
+if(localStorage.familyOfMembers == 1){
+localStorage.For ='Individual'
+     localStorage.NumberOfFamily = 1
+}else{
+        localStorage.For ='Family'
+        localStorage.NumberOfFamily = localStorage.familyOfMembers }
+//// category
+if(localStorage.category == 'Normal'){
+   localStorage.CatId ='5c2e8e01-796d-4347-95ae-0c95a9177b26' // normal
+}
+if(localStorage.category == 'Premium'){
+   localStorage.CatId ='37ba2fe4-4551-4c7d-be6e-5214617295a9' // premium
+}
+if(localStorage.category == 'Prime Time'){
+   localStorage.CatId ='0ec883de-84f4-4474-ae60-572e675873cb' // prime time
+}
+ ////// visatype
+
+if(localStorage.visatype== 'Short Stay Visa'){
+   localStorage.VisaTypeId ='c104ec3c-c7ec-4547-838a-146bf82337fe' //  short stay
+}
+if(localStorage.visatype== 'Long Stay Visa'){
+   localStorage.VisaTypeId ='084cd40f-c448-475e-8873-6b5eff2e01bf' //  long stay
+}
+//////visasubetype
+if(localStorage.visaSubtype == 'Business or other professional reason'){
+   localStorage.VisaSubTypeId ='aaf37ed2-f2ac-4db0-8729-99139e2fdef5' //  short stay
+}
+if(localStorage.visaSubtype == 'Spouse of Portuguese citizen for a short visit to Portugal'){
+   localStorage.VisaSubTypeId ='fdda0f6c-6670-429f-9500-93cf86de5f88' //  short stay
+}
+if(localStorage.visaSubtype == 'Tourism or any other reason to travel'){
+   localStorage.VisaSubTypeId ='45eab498-af02-415f-ba9e-44ac613f5f40' //  short stay
+}
+if(localStorage.visaSubtype == 'Family Member of EU Citizen - Directive 2004/38/EC'){
+   localStorage.VisaSubTypeId ='751d77ca-bae4-4f6f-9320-b630efcdaaac' //  short stay
+}
+if(localStorage.visaSubtype == 'Work'){
+   localStorage.VisaSubTypeId ='8bed6e49-5eec-4ded-a583-13ea16114436' //  long stay
+}
+if(localStorage.visaSubtype == 'Family Reunification'){
+   localStorage.VisaSubTypeId ='f67dbf56-3ae0-48f4-ae15-5dc6664173b8' //  long stay
+}
+if(localStorage.visaSubtype == 'Family Member of Portuguese Citizen for family reunification'){
+   localStorage.VisaSubTypeId ='4522abc0-3f18-4556-84c1-9aefdd3e7afb' //  long stay
+}
+if(localStorage.visaSubtype == 'Any other category of Long-Stay visa'){
+   localStorage.VisaSubTypeId ='20c95538-6ac1-44ab-8695-436edf12fb88' //  long stay
+}
+if(localStorage.visaSubtype == 'Studies'){
+   localStorage.VisaSubTypeId ='e70cc749-5b1e-457f-b664-f27a05082aa' //  long stay
+}
+if(localStorage.location =='Casablanca'){
+ localStorage.LocationId = '60d2df036755e8de168d8db7&missionId=beae2d19-89a9-46e7-9415-5422adafe619'
+
+}else{
+localStorage.LocationId = '8d780684-1524-4bda-b138-7c71a8591944&missionId=98a73e17-bf8f-41f2-933e-03e60b009327'
+}
