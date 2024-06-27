@@ -1,24 +1,10 @@
-// ==UserScript==
-// @name         Selfie OoSama
-// @namespace    http://tampermonkey.net/
-// @version      5
-// @description  Selie to two pic
-// @author       OoSama
-// @match        https://morocco.blsportugal.com/*/blsappointment/livenessdetection*
-// @grant        none
-// ==/UserScript==
-
-
-
-
 
 
 
 const urlsPhotos = [{
    SALFI1 : localStorage.getItem('SELFI01'),
   SALFI2 : localStorage.getItem('SELFI02'),
-   // SALFI1 : 'https://i.ibb.co/ZMnprSc/zamem-01.jpg',//
-//SALFI2 : 'https://i.ibb.co/BwP7xRp/zemam-02.jpg',
+
 
     }];
 
