@@ -1,0 +1,58 @@
+var all = document.getElementById('DateCss').textContent;
+var dd = all.indexOf("{background-color: var(--bs-success)");
+var touii = all.slice(0, dd);
+const regex = /data-value="(\d{4}\/\d{1,2}\/\d{1,2})"/g;
+var libre = [];
+let match;
+while (match = regex.exec(touii)) {
+    libre.push(match[1]);
+}
+
+function convertDate(dateString) {
+    // Split the date string into components
+    var parts = dateString.split('/');
+    var year = parseInt(parts[0]);
+    var month = parseInt(parts[1]);
+    var day = parseInt(parts[2]);
+
+    // Increment the month
+    month++;
+    if (month > 12) {
+        month = 1;
+        year++;
+    }
+
+    // Format month and day with leading zeros if necessary
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+
+    var increasedDate = year + '-' + month + '-' + day;
+    return increasedDate;
+}
+
+var OnDates = [];
+var count = libre.length;
+
+for (let i = 0; i < count; i++) {
+    OnDates[i] = convertDate(libre[i]);
+}
+
+console.log(OnDates);
+
+var teeBoot = "*🟥 Dates:*\n";
+
+OnDates.forEach(date => {
+    teeBoot += `- ${date}\n`;
+});
+
+console.log(teeBoot);
+
+function Notify(text) {
+    var temsg = "📌 BLS MAROC ON   :" + text;
+    const msg = encodeURIComponent(temsg + " ON");
+
+    fetch('https://api.telegram.org/bot7373477501:AAFrSLeWYaKL3kFbch-38rlAjj6AwVCf00k/sendMessage?chat_id=-1002161697058&text=' + msg + '&parse_mode=Markdown');
+}
+
+var formattedMessage = `\n*🟥 City:* ${localStorage.location}\n*🟥 Category:* ${localStorage.category}\n*🟥 Type:* ${localStorage.visaSubtype}\n${teeBoot}`;
+Notify(formattedMessage);
