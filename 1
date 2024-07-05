@@ -1,3 +1,16 @@
+// ==UserScript==
+// @name         manage client
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://morocco.blsportugal.com/*
+// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant        none
+// ==/UserScript==
+
+
+
 
 
 
@@ -226,7 +239,7 @@
 
     async function uploadProfileImage(file) {
         try {
-            const res = await fetch('/mar/query/UploadProfileImage', {
+            const res = await fetch('/MAR/query/UploadProfileImage', {
                 method: 'POST',
                 body: (() => {
                     const data = new FormData();
