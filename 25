@@ -10,7 +10,8 @@ console.log(slo);
 }}
      
 var date = $(`#${slo}`).val()
-var autorefrech= setInterval(checkRefrech,3000)
+var autorefrech= setInterval(checkRefrech,2000)
+var clickOk=setInterval(ClickOnOk,500)
 
 function checkRefrech(){
 if( date=='' && $('#CaptchaData').val() !==''&& $("#ApplicantPhotoId").val()!== '' && $('#EmailVerificationCode').val() !=='' ){
@@ -20,3 +21,19 @@ document.querySelector("body > main > section > div > div.vstack.gap-4 > div.bg-
     clearInterval(autorefrech)
 
 }}
+
+function ClickOnOk(){
+     
+        // Replace 'buttonSelector' with the actual selector of your button
+        const Okbutton = document.querySelector('#commonModal > div > div > div.modal-footer > button');
+
+        if (Okbutton) {
+            const isVisible = !!(Okbutton.offsetWidth || Okbutton.offsetHeight || Okbutton.getClientRects().length);
+            if (isVisible) {
+
+document.querySelector("#commonModal > div > div > div.modal-footer > button").click()
+clearInterval(clickOk)
+}
+
+}}
+
