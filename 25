@@ -1,0 +1,22 @@
+   //Get the Appointment date and slot
+var slo;
+var ttt;
+for (let i = 1; i <= 20; i++) {
+    const elementId = 'AppointmentDate' + i ;
+    const element = $('#' + elementId);
+    if (element.is(':visible')) {
+   slo=elementId;
+console.log(slo);
+}}
+     
+var date = $(`#${slo}`).val()
+var autorefrech= setInterval(checkRefrech,1000)
+
+function checkRefrech(){
+if( date!=='' && $('#CaptchaData').val() !==''&& $("#ApplicantPhotoId").val()!== '' && $('#EmailVerificationCode').val() !=='' ){
+
+
+document.querySelector("body > main > section > div > div.vstack.gap-4 > div.bg-light.rounded.p-3 > button:nth-child(7)").click()
+    clearInterval(autorefrech)
+
+}}
