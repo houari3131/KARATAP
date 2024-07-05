@@ -12,6 +12,7 @@ console.log(slo);
 var date = $(`#${slo}`).val()
 var autorefrech= setInterval(checkRefrech,2000)
 var clickOk=setInterval(ClickOnOk,500)
+var clicClose = setInterval(ClickOnClose,500)
 
 function checkRefrech(){
 if( date=='' && $('#CaptchaData').val() !==''&& $("#ApplicantPhotoId").val()!== '' && $('#EmailVerificationCode').val() !=='' ){
@@ -36,4 +37,20 @@ clearInterval(clickOk)
 }
 
 }}
+
+function ClickOnClose(){
+     
+        // Replace 'buttonSelector' with the actual selector of your button
+        const Closebutton = document.querySelector('#scamAlert > div > div > div.modal-header > button');
+
+        if (Closebutton) {
+            const isVisible1 = !!(Closebutton.offsetWidth || Closebutton.offsetHeight || Closebutton.getClientRects().length);
+            if (isVisible1) {
+
+document.querySelector("#scamAlert > div > div > div.modal-header > button").click();
+clearInterval(clicClose)
+}
+
+}}
+
 
