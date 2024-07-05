@@ -503,7 +503,7 @@ async function GetOtp(){
             redirect: 'follow'
         };
         try {
-            const response = await fetch("http://localhost:4000/otp2", requestOptions);
+            const response = await fetch("http://localhost:5000/otp2", requestOptions);
             const result = await response.json();
             otp = result;
         } catch (error) {
@@ -683,7 +683,7 @@ $.ajax({
             redirect: 'follow'
         };
         try {
-            const response = await fetch("http://localhost:4000/otp2", requestOptions);
+            const response = await fetch("http://localhost:5000/otp2", requestOptions);
             const result = await response.json();
             otp = result;
         } catch (error) {
@@ -693,26 +693,7 @@ $.ajax({
     }
     var otp = await getOTPOnly(); // Fetching the OTP code
         document.querySelector("#EmailVerificationCode").value = otp; // Automatically filling the OTP code
-    // Adding the Retry Request button
-    var append_container =document.querySelector("#myForm > div:nth-child(32) > div > label")
-  //  var append_container = document.querySelector(".card-body");
-    var retryButton = document.createElement("button");
-    retryButton.textContent = "Retry Request";
-    retryButton.style.position = "fixed";
-    retryButton.style.borderRadius = "80px";
-    retryButton.style.marginRight = "40px";
-    retryButton.style.color = "#ca9330";
-    retryButton.style.fontWeight = "bold";
-    retryButton.style.cursor = 'pointer';
-    retryButton.style.right = '20px';
-    retryButton.style.bottom = '20px';
-    document.body.appendChild(retryButton);
-    append_container.prepend(retryButton);
-    retryButton.addEventListener("click", async function () {
-        let otp = await getOTPOnly(); // Fetching the OTP code
-        document.querySelector("#EmailVerificationCode").value = otp; // Automatically filling the OTP code
-    });
-        }
+      }
         
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     var sbClick =0;
