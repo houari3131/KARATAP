@@ -545,8 +545,9 @@ $.ajax({
         timeInput.style.borderRadius = "5px";
         timeInput.style.border = "1px solid #ccc";
         timeInput.style.fontSize = "20px";
+        localStorage.setItem("refrechedtime", timeInput.value)
         timeInput.addEventListener("change", function() {
-            localStorage.setItem("refrechedtime", timeInput.value);
+            localStorage.setItem("refrechedtime", timeInput.value)
         });
         container.appendChild(timeInput);
 
