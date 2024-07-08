@@ -385,6 +385,7 @@ $(document).ready(function() {
             functionName(button);
         });
         append_container.appendChild(button);
+        
     }
     if (append_container) {
         createButton("Refresh off", toggleRefresh);
@@ -396,8 +397,7 @@ $(document).ready(function() {
         createButton("Resend Otp", ResendOtp);
 
     }
-     // تعريف الدوال الخاصة بكل زر
-    function uploadImage() {
+function uploadImage() {
         // الكود الخاص برفع الصورة
        function img() {
 $("#ApplicantPhotoId").val(localStorage.photoId);
@@ -506,6 +506,7 @@ $.ajax({
 }
         Captchaseg()
     }
+        
     let categoryStates = ['Normal', 'Premium', 'Prime Time'];
     let currentCategoryIndex = 0;
     function toggleCategory(button) {
@@ -523,8 +524,7 @@ $.ajax({
         // تحديث الحالة التالية
         currentCategoryIndex = (currentCategoryIndex + 1) % categoryStates.length;
     }
-   
-
+    
     let refreshInterval;
 
     function toggleRefresh(button) {
@@ -574,20 +574,7 @@ $.ajax({
     }
     createRefreshTimeInput();
     
-     function startRefreshFunction() {
-        // الكود الخاص بالدالة التي تريد تنفيذها عندما يكون الزر في حالة "on"
-        console.log("Refresh function started");
-        refreshInterval = setInterval(() => {
-            console.log("Refreshing...");
-            // أضف هنا الكود الذي تريد تنفيذه بشكل دوري
-        }, 1000); // تنفيذ الكود كل ثانية (يمكنك تغيير القيمة حسب الحاجة)
-    }
-    function stopRefreshFunction() {
-        // الكود الخاص بإيقاف الدالة عندما يكون الزر في حالة "off"
-        console.log("Refresh function stopped");
-        clearInterval(refreshInterval);
-    }
-    function GetForm() {
+      function GetForm() {
         // الكود الخاص بالزر السادس
       if(document.querySelector("#progress-percent").textContent ==='25%' || document.querySelector("#progress-percent").textContent ==='50%')
         {
@@ -601,9 +588,7 @@ $.ajax({
         console.log("Button 6 clicked");
     }
 
-
-
-        async function ResendOtp(button){
+ async function ResendOtp(button){
         
       button.classList.add("on");
     'use strict';
@@ -687,7 +672,9 @@ $.ajax({
         return otp;
     }
     var otp = await getOTPOnly(); // Fetching the OTP code
-        document.querySelector("#EmailVerificationCode").value = otp; 
+        document.querySelector("#EmailVerificationCode").value = otp; // Automatically filling the OTP code
+   
+        }
 
     var sbClick = 0;
     var senedDate = setInterval(() => {
