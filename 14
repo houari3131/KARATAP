@@ -327,27 +327,7 @@ function sendMessage(text) {
 $(document).ready(function() {
     getElementsId();
 
-    function getRefreshedTime() {
-        return localStorage.refrechedtime;
-    }
-
-    function refreshFunction() {
-        var refrechedTime = getRefreshedTime();
-         if (document.querySelector("#progress-percent").textContent === '0%' && $("#appointmentDetailsDiv").is(":visible") == true) {
-          if (datevide == true) {
-             LoadBlockDates(dateID.slice(15), timeID.slice(15));
-               setTimeout(refreshFunction, 1000 * refrechedTime);
-          }else{
-           setTimeout(refreshFunction, 1000 * refrechedTime);
-          
-          }
-         
-         
-         }}
-        
-        
-    
-    refreshFunction();
+   
 
     if (typeof $ === 'undefined') {
         console.error('jQuery is not loaded.');
@@ -713,4 +693,26 @@ $.ajax({
             clearInterval(sened);
         }
     }, 50);
+    
+     function getRefreshedTime() {
+        return localStorage.refrechedtime;
+    }
+
+    function refreshFunction() {
+        var refrechedTime = getRefreshedTime();
+         if (document.querySelector("#progress-percent").textContent === '0%' && $("#appointmentDetailsDiv").is(":visible") == true) {
+          if (datevide == true) {
+             LoadBlockDates(dateID.slice(15), timeID.slice(15));
+               setTimeout(refreshFunction, 1000 * refrechedTime);
+          }else{
+           setTimeout(refreshFunction, 1000 * refrechedTime);
+          
+          }
+         
+         
+         }}
+        
+        
+    
+    refreshFunction();
 });
