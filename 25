@@ -18,7 +18,7 @@ function checkRefrech(){
 if( date=='' && $('#CaptchaData').val() !==''&& $("#ApplicantPhotoId").val()!== '' && $('#EmailVerificationCode').val() !=='' ){
 
 
-document.querySelector("body > main > section > div > div.vstack.gap-4 > div.bg-light.rounded.p-3 > button:nth-child(7)").click()
+document.querySelector("body > main > section > div > div.vstack.gap-4 > div.bg-light.rounded.p-3 > button:nth-child(3)").click()
     clearInterval(autorefrech)
 
 }}
