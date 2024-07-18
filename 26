@@ -1,0 +1,443 @@
+
+
+
+
+
+// Check if the current URL does not include "generate captcha"
+if (window.location.href.includes("/GenerateCaptcha")) {
+
+} else {
+    // Function to dynamically load a script
+    function loadScript(url, callback) {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.onload = callback;
+        document.head.appendChild(script);
+    }
+
+    // Function to dynamically load a stylesheet
+    function loadStylesheet(url) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = url;
+        document.head.appendChild(link);
+    }
+
+    // Load flatpickr CSS
+    loadStylesheet('https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css');
+
+    // Load flatpickr script
+    loadScript('https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js', function() {
+        // Load flatpickr French locale script
+        loadScript('https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/l10n/fr.js', initializeScript);
+    });
+
+    function initializeScript() {
+        // Default settings to be set to true
+        const defaultSettings = [
+            'Auto Refresh',
+            'Random Refresh',
+            'Successive Refresh',
+            'Auto Select Date',
+            'Auto Upload Photo',
+            'Auto Calendar ByPass Captcha',
+            'Auto Send Otp',
+            'Auto Selfi',
+            'Auto skip'
+        ];
+
+        // Set default settings to true if they are not already set
+        defaultSettings.forEach(setting => {
+            if (localStorage.getItem(setting) === null) {
+                localStorage.setItem(setting, 'true');
+               // console.log(`Setting ${setting} to true`);
+            } else {
+              //  console.log(`Setting ${setting} already exists with value ${localStorage.getItem(setting)}`);
+            }
+        });
+
+        // Ensure Random Refresh and Successive Refresh are mutually exclusive
+        function setMutuallyExclusive(ref1, ref2) {
+            const ref1Value = localStorage.getItem(ref1) === 'true';
+            localStorage.setItem(ref1, ref1Value.toString());
+            localStorage.setItem(ref2, (!ref1Value).toString());
+          //  console.log(`Setting ${ref1} to ${ref1Value} and ${ref2} to ${!ref1Value}`);
+        }
+
+        setMutuallyExclusive('Random Refresh', 'Successive Refresh');
+
+        // Function to create and return a styled button
+        function createButton(text, onClickFunction, color, topOffset) {
+            var button = document.createElement("button");
+            button.innerHTML = text;
+            button.style.position = "fixed";
+            button.style.top = topOffset + "px";
+            button.style.right = "10px";
+            button.style.zIndex = "10001"; // Increase zIndex to be above other elements
+            button.style.padding = "10px 20px";
+            button.style.background = `linear-gradient(to bottom, ${color[0]}, ${color[1]})`;
+            button.style.color = "white";
+            button.style.border = "none";
+            button.style.cursor = "pointer";
+            button.style.borderRadius = "20px";
+            button.style.userSelect = "none"; // Prevent text selection
+            button.style.fontSize = "16px";
+            button.style.fontWeight = "bold";
+            button.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2)";
+            button.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.5)";
+            button.style.transition = "transform 0.2s"; // Animation for click effect
+
+            button.addEventListener("click", onClickFunction);
+
+            // Add click animation effect
+            button.addEventListener("mousedown", function() {
+                button.style.transform = "scale(0.95)";
+            });
+            button.addEventListener("mouseup", function() {
+                button.style.transform = "scale(1)";
+            });
+
+            // Make the button draggable
+            button.onmousedown = function(event) {
+                let shiftX = event.clientX - button.getBoundingClientRect().left;
+                let shiftY = event.clientY - button.getBoundingClientRect().top;
+
+                function moveAt(pageX, pageY) {
+                    button.style.left = pageX - shiftX + 'px';
+                    button.style.top = pageY - shiftY + 'px';
+                }
+
+                function onMouseMove(event) {
+                    moveAt(event.pageX, event.pageY);
+                }
+
+                // Move the button on mousemove
+                document.addEventListener('mousemove', onMouseMove);
+
+                // Drop the button, remove unneeded handlers
+                button.onmouseup = function() {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    button.onmouseup = null;
+                };
+
+                button.onmouseleave = function() {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    button.onmouseup = null;
+                };
+
+            };
+
+            button.ondragstart = function() {
+                return false;
+            };
+
+            return button;
+        }
+
+        // Config Button
+        var configButton = createButton("Config", function() {
+            configMenu.style.display = configMenu.style.display === 'none' ? 'block' : 'none';
+        }, ["#ff9999", "#ff6666"], 70);
+        document.body.appendChild(configButton);
+
+        // Date Reflash Button
+        var dateReflashButton = createButton("Date Refresh", function() {
+            datePickerMenu.style.display = datePickerMenu.style.display === 'none' ? 'block' : 'none';
+        }, ["#ff9999", "#ff6666"], 130);
+        document.body.appendChild(dateReflashButton);
+       
+        
+        /*
+            // PayAmount Button
+        var PayAmount = createButton("Pay Amount", function() {
+     
+function OnTotalAmountConfirmationForbes() {
+    var selected = [];
+    $('.vac-check:input[type="checkbox"]').each(function () {
+        if (this.checked) {
+            var item = $(this);
+            var serviceid = item.data("service-id");
+            var id = item[0].id.replace("chk_", "");
+            // var count = $("#num_" + serviceid).val();
+            var count = $("#num_" + id).val();
+            selected.push(serviceid + '_' + count);
+
+        }
+    });
+    console.log(selected)
+    $("#ValueAddedServices").val(selected.join(','));
+    var data = { Id: $("#Id").val(), ValueAddedServices: $("#ValueAddedServices").val() };
+    pd = data;
+
+}
+
+function OnPaymentBaridForbes () {
+    var Id4 = '';
+
+var Id_4 =$("html").html().split("'Id1':'")[1];
+      Id4 = Id_4.split("'},")[0];
+    
+    OnTotalAmountConfirmationForbes()
+    ShowLoader();
+    $.ajax({
+        type: "POST",
+        url: "/MAR/payment/pr",
+        data: {
+            Id: $("#Id").val(),
+            ValueAddedServices: pd.ValueAddedServices,
+            Id1: Id4,
+        },
+        success: function (res) {
+            if (res.success) {
+                if (
+                    res.requestURL === null ||
+                    res.requestURL === "" ||
+                    res.requestURL === undefined
+                ) {
+                    payment();
+                    alert(res.error);
+                    return false;
+                } else {
+                    window.top.location.href = res.requestURL;
+                }
+            } else {
+                $("#payConfirmModal").modal("hide");
+                document.getElementById("payConfirm").disabled = false;
+                document.getElementById("payCancel").disabled = false;
+                payment();
+                ShowError(res.error);
+            }
+        },
+        dataType: "json",
+    });
+}
+            if(localStorage.payAmount == 'true'){
+            OnPaymentBaridForbes();
+            }
+
+
+        }, ["#ff9999", "#ff6666"], 190);
+        document.body.appendChild(PayAmount);*/
+
+        // Create the config menu
+        const configMenu = document.createElement('div');
+        configMenu.style.position = 'fixed';
+        configMenu.style.top = '0';
+        configMenu.style.left = '0';
+        configMenu.style.width = '100%'; // Full width
+        configMenu.style.height = '100%'; // Full height
+        configMenu.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; // Semi-transparent background
+        configMenu.style.border = '1px solid #ccc';
+        configMenu.style.borderRadius = '10px';
+        configMenu.style.display = 'none';
+        configMenu.style.zIndex = '10000'; // Ensure the config menu is above all elements but below the buttons
+        configMenu.style.overflow = 'auto'; // Add scrolling if content overflows
+        configMenu.style.padding = '20px';
+        document.body.appendChild(configMenu);
+
+        // Create and add checkboxes to the config menu
+        const options = [
+            'Auto Refresh',
+            'Random Refresh',
+            'Successive Refresh',
+            'Auto Select Date',
+            'Auto Upload Photo',
+            'Auto Calendar ByPass Captcha',
+            'Auto Send Otp',
+            'Auto Selfi',
+            'Auto skip'
+        ];
+
+        options.forEach(option => {
+            const label = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = localStorage.getItem(option) === 'true';
+            checkbox.onchange = () => {
+                if (option === 'Random Refresh' || option === 'Successive Refresh') {
+                    localStorage.setItem(option, checkbox.checked.toString());
+                    if (checkbox.checked) {
+                        if (option === 'Random Refresh') {
+                            localStorage.setItem('Successive Refresh', 'false');
+                            document.getElementById('Successive Refresh').checked = false;
+                        } else {
+                            localStorage.setItem('Random Refresh', 'false');
+                            document.getElementById('Random Refresh').checked = false;
+                        }
+                    } else {
+                        if (option === 'Random Refresh') {
+                            localStorage.setItem('Successive Refresh', 'true');
+                            document.getElementById('Successive Refresh').checked = true;
+                        } else {
+                            localStorage.setItem('Random Refresh', 'true');
+                            document.getElementById('Random Refresh').checked = true;
+                        }
+                    }
+                } else {
+                    localStorage.setItem(option, checkbox.checked);
+                }
+              //  console.log(`Set ${option} to ${checkbox.checked}`);
+            };
+            checkbox.id = option;
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(option));
+            configMenu.appendChild(label);
+            configMenu.appendChild(document.createElement('br'));
+        });
+
+        // Create and add the submit button to the config menu
+        const submitButton = document.createElement('button');
+        submitButton.innerText = 'Submit';
+        submitButton.style.padding = "10px 20px";
+        submitButton.style.background = `linear-gradient(to bottom, #99ff99, #66ff66)`;
+        submitButton.style.color = "white";
+        submitButton.style.border = "none";
+        submitButton.style.cursor = "pointer";
+        submitButton.style.borderRadius = "20px";
+        submitButton.style.userSelect = "none"; // Prevent text selection
+        submitButton.style.fontSize = "16px";
+        submitButton.style.fontWeight = "bold";
+        submitButton.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2)";
+        submitButton.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.5)";
+        submitButton.style.transition = "transform 0.2s"; // Animation for click effect
+        submitButton.addEventListener("mousedown", function() {
+            submitButton.style.transform = "scale(0.95)";
+        });
+        submitButton.addEventListener("mouseup", function() {
+            submitButton.style.transform = "scale(1)";
+        });
+        submitButton.onclick = () => {
+            configMenu.style.display = 'none';
+        };
+        submitButton.style.position = "relative";
+        submitButton.style.marginTop = "10px";
+        configMenu.appendChild(submitButton);
+
+        // Create the date picker menu
+        const datePickerMenu = document.createElement('div');
+        datePickerMenu.style.position = 'fixed';
+        datePickerMenu.style.top = '0';
+        datePickerMenu.style.left = '50%'; // Center the date picker menu horizontally
+        datePickerMenu.style.transform = 'translateX(-50%)'; // Center the date picker menu
+        datePickerMenu.style.width = '50%'; // Half width
+        datePickerMenu.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; // Semi-transparent background
+        datePickerMenu.style.border = '1px solid #ccc';
+        datePickerMenu.style.borderRadius = '10px';
+        datePickerMenu.style.display = 'none';
+        datePickerMenu.style.zIndex = '10000'; // Ensure the date picker menu is above all elements but below the buttons
+        datePickerMenu.style.overflow = 'auto'; // Add scrolling if content overflows
+        datePickerMenu.style.padding = '20px';
+        document.body.appendChild(datePickerMenu);
+
+        // Function to save selected dates to localStorage for a city
+        function saveDates(city, dates) {
+            localStorage.setItem(city + 'Dates', JSON.stringify(dates));
+        }
+
+        // Function to clear selected dates for a city from localStorage, input field, and flatpickr instance
+        function clearDates(city) {
+            localStorage.removeItem(city + 'Dates');
+            const dateInput = document.getElementById(city.name + 'DatePicker');
+            if (dateInput && dateInput._flatpickr) {
+                dateInput._flatpickr.clear();
+            }
+        }
+
+        // Function to handle date selection and saving
+        function handleDateSelection(city) {
+            return function(selectedDates, dateStr, instance) {
+                let cityDatesArray = selectedDates.map(date => instance.formatDate(date, "Y-m-d"));
+                saveDates(city, cityDatesArray);
+            };
+        }
+
+        // Create and add a date picker input using flatpickr for each city
+        const cities = [
+            
+            { name: 'Casablanca', label: 'Casablanca (Shengen)' },
+            { name: 'Rabat', label: 'Rabat' },
+           
+        ];
+
+        cities.forEach(city => {
+            const container = document.createElement('div');
+            container.style.display = 'flex';
+            container.style.alignItems = 'center';
+            container.style.marginBottom = '10px';
+
+            const label = document.createElement('label');
+            label.innerText = city.label + ': ';
+            label.style.fontWeight = 'bold';
+            label.style.fontSize = '18px';
+            label.style.marginRight = '10px';
+            container.appendChild(label);
+
+            const dateInput = document.createElement('input');
+            dateInput.id = city.name + 'DatePicker';
+            dateInput.style.flex = '1';
+            container.appendChild(dateInput);
+
+            const clearButton = document.createElement('button');
+            clearButton.innerText = 'Clear';
+            clearButton.style.marginLeft = '10px';
+            clearButton.style.padding = '5px 10px';
+            clearButton.style.background = `linear-gradient(to bottom, #ff9999, #ff6666)`;
+            clearButton.style.color = 'white';
+            clearButton.style.border = 'none';
+            clearButton.style.cursor = 'pointer';
+            clearButton.style.borderRadius = '5px';
+            clearButton.addEventListener('click', () => clearDates(city.name));
+            container.appendChild(clearButton);
+
+            datePickerMenu.appendChild(container);
+
+            const fp = flatpickr("#" + city.name + "DatePicker", {
+                mode: "multiple",
+                dateFormat: "Y-m-d",
+                locale: "fr",
+                onClose: handleDateSelection(city.name)
+            });
+
+            // Load saved dates from localStorage
+            const savedDates = JSON.parse(localStorage.getItem(city.name + 'Dates'));
+            if (savedDates && savedDates.length > 0) {
+                fp.setDate(savedDates);
+            }
+        });
+
+        // Create Save and Exit buttons
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.justifyContent = 'space-between';
+        buttonContainer.style.marginTop = '20px';
+
+        const saveButton = document.createElement('button');
+        saveButton.innerText = 'Save';
+        saveButton.style.padding = '10px 20px';
+        saveButton.style.background = `linear-gradient(to bottom, #99ff99, #66ff66)`;
+        saveButton.style.color = 'white';
+        saveButton.style.border = 'none';
+        saveButton.style.cursor = 'pointer';
+        saveButton.style.borderRadius = '5px';
+        saveButton.addEventListener('click', () => {
+            datePickerMenu.style.display = 'none';
+        });
+        buttonContainer.appendChild(saveButton);
+
+        const exitButton = document.createElement('button');
+        exitButton.innerText = 'Exit';
+        exitButton.style.padding = '10px 20px';
+        exitButton.style.background = `linear-gradient(to bottom, #ff9999, #ff6666)`;
+        exitButton.style.color = 'white';
+        exitButton.style.border = 'none';
+        exitButton.style.cursor = 'pointer';
+        exitButton.style.borderRadius = '5px';
+        exitButton.addEventListener('click', () => {
+            datePickerMenu.style.display = 'none';
+        });
+        buttonContainer.appendChild(exitButton);
+
+        datePickerMenu.appendChild(buttonContainer);
+    }
+}
