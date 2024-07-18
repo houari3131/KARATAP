@@ -15,11 +15,12 @@ var clickOk=setInterval(ClickOnOk,500)
 var clicClose = setInterval(ClickOnClose,500)
 
 function checkRefrech(){
-if( date=='' && $('#CaptchaData').val() !==''&& $("#ApplicantPhotoId").val()!== '' && $('#EmailVerificationCode').val() !=='' ){
+var AutoRefresh = localStorage.getItem('Auto Refresh');
+if( date=='' && $('#CaptchaData').val() !==''&& $("#ApplicantPhotoId").val()!== '' && $('#EmailVerificationCode').val() !=='' && AutoRefresh == 'true' ){
 
 
-document.querySelector("body > main > section > div > div.vstack.gap-4 > div.bg-light.rounded.p-3 > button:nth-child(3)").click()
-    clearInterval(autorefrech)
+document.querySelector("body > main > section > div > div.vstack.gap-4 > div.bg-light.rounded.p-3 > button:nth-child(3)").click();
+clearInterval(autorefrech)
 
 }}
 
