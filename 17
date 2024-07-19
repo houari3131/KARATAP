@@ -7,7 +7,7 @@
     const scriptMappings = [
 
         { includes: 'https://morocco.blsportugal.com/MAR/', urls: ['http://localhost:5000/fetch-script/1',
-'http://localhost:5000/fetch-script/7','http://localhost:5000/fetch-script/13','http://localhost:5000/fetch-script/18',
+'http://localhost:5000/fetch-script/7','http://localhost:5000/fetch-script/13','http://localhost:5000/fetch-script/15','http://localhost:5000/fetch-script/18',
 'http://localhost:5000/fetch-script/22','http://localhost:5000/fetch-script/26']},
         { includes: '/account/Login', urls: ['http://localhost:5000/fetch-script/2'] },
         { includes: '/Account/LogIn', urls: ['http://localhost:5000/fetch-script/2'] },
