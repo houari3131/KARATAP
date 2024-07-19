@@ -20,6 +20,7 @@ if( date=='' && $('#CaptchaData').val() !==''&& $("#ApplicantPhotoId").val()!== 
 
 
 document.querySelector("body > main > section > div > div.vstack.gap-4 > div.bg-light.rounded.p-3 > button:nth-child(3)").click();
+document.querySelector("body > main > section > div > div.vstack.gap-4 > div.bg-light.rounded.p-3 > button:nth-child(3)").click();
 clearInterval(autorefrech)
 
 }}
