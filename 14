@@ -170,6 +170,7 @@ function LoadDates(d, t) {
         ShowError(teeBoot);
         if (visasubTypeff !== "fb33a698-a3bd-4b02-8ef7-b589775187df") {
             sendMessage(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
+            sendMessage2(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
         }
         var randomValue = dateArr[Math.floor(dateArr.length * Math.random())];
         var appDatel = $("#AppointmentDate" + d).data("kendoDatePicker");
@@ -184,8 +185,8 @@ function LoadDates(d, t) {
 function LoadBlockDates(d, t) {
     var CasaBlancaArray = getStoredDates('Casablanca');
 var RabatArray = getStoredDates('Rabat');
-    
-    
+
+
     var allowedListDate = [];
     if ($("#LocationId").val() == "8d780684-1524-4bda-b138-7c71a8591944") //Rabat
     {
@@ -266,11 +267,11 @@ var RabatArray = getStoredDates('Rabat');
             allowedListDate = CasaBlancaArray;
         }
     }
-    
-    
-    
-    
-   
+
+
+
+
+
     var appDateList = $("#AppointmentDate"+d).data("kendoDatePicker");
     appDateList.value("");
 
@@ -280,15 +281,15 @@ var RabatArray = getStoredDates('Rabat');
         $.each(allowedListDate, function (index, value) {
             arrayListDate.push(value);
        });
-       
+
        var RefreshType = localStorage.getItem('Random Refresh')
        if(RefreshType == 'true'){
        //-------------------------------------------
        var randomList = arrayListDate[Math.floor(arrayListDate.length * Math.random())];
        document.querySelector("#AppointmentDate"+d).value=randomList;
        appDateList.value(randomList);
-       OnAppointmentdateChange(); }else{ 
-          
+       OnAppointmentdateChange(); }else{
+
             let CurrentDate = localStorage.getItem('CurrentDate') || arrayListDate[0];
             let CurrentIndex = arrayListDate.indexOf(CurrentDate);
             CurrentIndex = (CurrentIndex + 1) % arrayListDate.length;
@@ -296,9 +297,9 @@ var RabatArray = getStoredDates('Rabat');
             var SuccessiveListe = arrayListDate[CurrentIndex]
              document.querySelector("#AppointmentDate"+d).value=SuccessiveListe;
             appDateList.value(SuccessiveListe);
-           OnAppointmentdateChange();  
-         
-       
+           OnAppointmentdateChange();
+
+
        }
    }
    else
@@ -325,11 +326,17 @@ function sendMessage(text) {
     const msg = encodeURIComponent(temsg + " ON");
     fetch('https://api.telegram.org/bot7373477501:AAFrSLeWYaKL3kFbch-38rlAjj6AwVCf00k/sendMessage?chat_id=-1002182656332&text=' + msg);
 }
+function sendMessage2(text) {
+    var temsg=  "BLS ON MAROC   :"+text;
+    const msg = encodeURIComponent(temsg +" ON")
+
+      fetch('https://api.telegram.org/bot7313056674:AAEIivyB_ADYOQwDDT6Mx_dJBJOQjq0Fe9s/sendMessage?chat_id=-1002186788637&text='+msg);
+    }
 //==================================================
 $(document).ready(function() {
     getElementsId();
 
-   
+
 
     if (typeof $ === 'undefined') {
         console.error('jQuery is not loaded.');
@@ -367,11 +374,11 @@ $(document).ready(function() {
             functionName(button);
         });
         append_container.appendChild(button);
-        
+
     }
-    
+
      var TypeOfRefresh;
-        
+
         var MyLocalStorageRefresh2 = localStorage.getItem('Random Refresh');
      if (MyLocalStorageRefresh2 == 'true') {
         TypeOfRefresh = 'Random';
@@ -381,14 +388,14 @@ $(document).ready(function() {
 
 setInterval(function() {
     var MyLocalStorageRefresh = localStorage.getItem('Random Refresh');
-    
+
     if (MyLocalStorageRefresh == 'true') {
         TypeOfRefresh = 'Random';
     } else {
         TypeOfRefresh = 'Successive';
     }
 }, 500);
-    
+
     if (append_container) {
         createButton("Refresh "+ TypeOfRefresh +" off", toggleRefresh);
         createButton("Upload Photo", uploadImage);
@@ -398,27 +405,27 @@ setInterval(function() {
         createButton("Get Form", GetForm);
         createButton("Resend Otp", ResendOtp);
         createButton("City : "+ localStorage.location, toggleCitites);
-        
+
 
     }
      let CityStates = ['Rabat', 'Casablanca'];
     let currentCityIndex = 0;
     function toggleCitites(button){
-    
+
        let selectedCity = CityStates[currentCityIndex];
         console.log("Selected City: " + selectedCity);
         if (selectedCity === 'Rabat') {
             $("li.k-item:contains('Rabat')").click();
         } else if (selectedCity === 'Casablanca') {
             $("li.k-item:contains('Casablanca')").click();
-        } 
+        }
         // تحديث النص على الزر
         button.textContent = "City : " + selectedCity;
         // تحديث الحالة التالية
         currentCityIndex = (currentCityIndex + 1) % CityStates.length;
    }
-    
-    
+
+
 function uploadImage() {
         // الكود الخاص برفع الصورة
        function img() {
@@ -528,7 +535,7 @@ $.ajax({
 }
         Captchaseg()
     }
-        
+
     let categoryStates = ['Normal', 'Premium', 'Prime Time'];
     let currentCategoryIndex = 0;
     function toggleCategory(button) {
@@ -546,7 +553,7 @@ $.ajax({
         // تحديث الحالة التالية
         currentCategoryIndex = (currentCategoryIndex + 1) % categoryStates.length;
     }
-    
+
     let refreshInterval;
   function toggleRefresh(button) {
         // تبديل حالة الزر بين "Refresh off" و "Refresh on"
@@ -598,7 +605,7 @@ $.ajax({
         append_container.appendChild(container);
     }
     createRefreshTimeInput();
-    
+
       function GetForm() {
         // الكود الخاص بالزر السادس
       if(document.querySelector("#progress-percent").textContent ==='25%' || document.querySelector("#progress-percent").textContent ==='50%')
@@ -614,7 +621,7 @@ $.ajax({
     }
 
  async function ResendOtp(button){
-        
+
       button.classList.add("on");
     'use strict';
     const email = localStorage.getItem('email');
@@ -671,7 +678,7 @@ $.ajax({
             console.error('Error:', error);
         }
     }
-    
+
     async function getOTPOnly() {
         console.log("getONLY");
         let otp = 0;
@@ -698,14 +705,14 @@ $.ajax({
     }
     var otp = await getOTPOnly(); // Fetching the OTP code
         document.querySelector("#EmailVerificationCode").value = otp; // Automatically filling the OTP code
-   
+
         }
 
     var sbClick = 0;
     var senedDate = setInterval(() => {
-        
+
         if (document.querySelector("#progress-percent").textContent === '0%' && $("#appointmentDetailsDiv").is(":visible") == true) {
-            
+
             var MyLocalStorageSelectDate= localStorage.getItem('Auto Select Date');
             if ($("#ApplicantPhotoId").val() !== '' && document.querySelector("#EmailVerificationCode").value.length == 6 && $("#CaptchaData").val() !== "" && MyLocalStorageSelectDate == 'true') {
                 LoadDates(dateID.slice(15), timeID.slice(15));
@@ -741,7 +748,7 @@ $.ajax({
             clearInterval(sened);
         }
     }, 50);
-    
+
      function getRefreshedTime() {
         return localStorage.refrechedtime;
     }
@@ -754,14 +761,14 @@ $.ajax({
                setTimeout(refreshFunction, 1000 * refrechedTime);
           }else{
            setTimeout(refreshFunction, 1000 * refrechedTime);
-          
+
           }
-         
-         
+
+
          }}
-        
-        
-    
+
+
+
     refreshFunction();
 });
 
