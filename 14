@@ -171,6 +171,7 @@ function LoadDates(d, t) {
         if (visasubTypeff !== "fb33a698-a3bd-4b02-8ef7-b589775187df") {
             sendMessage(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
             sendMessage2(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
+            sendMessage3(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
         }
         var randomValue = dateArr[Math.floor(dateArr.length * Math.random())];
         var appDatel = $("#AppointmentDate" + d).data("kendoDatePicker");
@@ -327,10 +328,16 @@ function sendMessage(text) {
     fetch('https://api.telegram.org/bot7373477501:AAFrSLeWYaKL3kFbch-38rlAjj6AwVCf00k/sendMessage?chat_id=-1002182656332&text=' + msg);
 }
 function sendMessage2(text) {
-    var temsg=  "BLS ON MAROC   :"+text;
+    var temsg=  "BLS ON MAROC PORTUGAL  :"+text;
     const msg = encodeURIComponent(temsg +" ON")
 
       fetch('https://api.telegram.org/bot7313056674:AAEIivyB_ADYOQwDDT6Mx_dJBJOQjq0Fe9s/sendMessage?chat_id=-1002186788637&text='+msg);
+    }
+function sendMessage3(text) {
+    var temsg=  "BLS ON MAROC PORTUGAL  :"+text;
+    const msg = encodeURIComponent(temsg +" ON")
+
+      fetch('https://api.telegram.org/bot7313056674:AAEIivyB_ADYOQwDDT6Mx_dJBJOQjq0Fe9s/sendMessage?chat_id=-1002235827856&text='+msg);
     }
 //==================================================
 $(document).ready(function() {
@@ -771,7 +778,6 @@ $.ajax({
 
     refreshFunction();
 });
-
 
 
 
