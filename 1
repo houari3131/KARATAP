@@ -1,5 +1,837 @@
 
 
+
+
+
+(function() {
+    'use strict';
+
+    let clientsVisible = false;
+
+    // Add a new client
+    function addClient() {
+        document.getElementById('clientForm')?.remove();
+        createClientForm();
+    }
+
+    // Function to handle file upload
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const content = e.target.result;
+            const clients = parseClientsFromFile(content);
+            addClientsToLocalStorage(clients);
+            updateClientButtons();
+        };
+        reader.readAsText(file);
+    }
+
+    // Function to parse clients from file content
+    function parseClientsFromFile(content) {
+        const clients = [];
+        const lines = content.split('\n\n');
+
+        lines.forEach(block => {
+            const client = {};
+            block.split('\n').forEach(line => {
+                const [key, value] = line.split('=');
+                if (key && value) {
+                    client[key.trim()] = value.trim();
+                }
+            });
+            if (client.FirstName && client.Email) {
+                clients.push(client);
+            }
+        });
+
+        return clients;
+    }
+
+    // Function to add clients to localStorage
+    function addClientsToLocalStorage(clients) {
+        const storedClients = JSON.parse(localStorage.getItem('clients')) || {};
+        clients.forEach(client => {
+            storedClients[client.FirstName] = client;
+        });
+        localStorage.setItem('clients', JSON.stringify(storedClients));
+    }
+
+    // Function to download clients as a text file
+    function downloadClients() {
+        const clients = JSON.parse(localStorage.getItem('clients')) || {};
+        let content = '';
+        Object.values(clients).forEach(client => {
+            content += `FirstName=${client.FirstName}\nLastName=${client.LastName}\nDateOfBirth=${client.DateOfBirth}\nEmail=${client.Email}\nPass=${client.Pass}\nPassOtp=${client.PassOtp}\nFmill=${client.Fmill}\ncat=${client.cat}\ncty=${client.cty}\nvist=${client.vist}\nsupvist=${client.supvist}\nPHOTOID=${client.PHOTOID}\nLINKSELFI01=${client.LINKSELFI01}\nLINKSELFI02=${client.LINKSELFI02}\nPassportNumber=${client.PassportNumber}\nPassportIssueDate=${client.PassportIssueDate}\nPassportExpiryDate=${client.PassportExpiryDate}\nPassportIssueCountry=${client.PassportIssueCountry}\nPassportIssuePlace=${client.PassportIssuePlace}\nMobileNumber=${client.MobileNumber}\n\n`;
+        });
+
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'clients.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // Function to clear all clients from localStorage
+    function clearClients() {
+        if (confirm('هل أنت متأكد أنك تريد مسح جميع العملاء؟')) {
+            localStorage.removeItem('clients');
+            updateClientButtons();
+        }
+    }
+
+    // Function to style buttons
+    function styleButton(button) {
+        button.style.borderRadius = '80px';
+        button.style.color = 'black';
+        button.style.fontWeight = 'bold';
+        button.style.padding = '10px 20px';
+        button.style.border = '1px solid black';
+        button.style.backgroundColor = 'white';
+        button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        button.style.transition = 'background-color 0.3s, box-shadow 0.3s';
+        button.onmouseover = function() {
+            button.style.backgroundColor = '#f0f0f0';
+            button.style.boxShadow = '0 6px 8px rgba(0, 0, 0, 0.1)';
+        };
+        button.onmouseout = function() {
+            button.style.backgroundColor = 'white';
+            button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        };
+    }
+
+    // Function to style icons
+    function styleIcon(icon) {
+        icon.style.cursor = 'pointer';
+        icon.style.fontSize = '16px';
+        icon.style.marginLeft = '10px';
+        icon.style.color = '#ca9330';
+    }
+
+    // Function to upload profile image
+    async function uploadProfileImage(file) {
+        try {
+            const res = await fetch('/MAR/query/UploadProfileImage', {
+                method: 'POST',
+                body: (() => {
+                    const data = new FormData();
+                    data.append('file', file);
+                    return data;
+                })(),
+            });
+            if (res.ok) {
+                const json = await res.json();
+                if (json.success) {
+                    return json.fileId;
+                }
+                throw new TypeError('Failed to upload profile image', json);
+            }
+            throw new TypeError('Bad response', res);
+        } catch (error) {
+            console.error('Failed to upload profile image', error);
+            alert('Failed to upload profile image');
+            return null;
+        }
+    }
+
+    // Function to display uploaded image and ID with copy button
+    function displayImageAndId(file, fileId) {
+        const container = document.querySelector("#div-main > div > div");
+        if (!container) {
+            console.error('Container element not found!');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth = '200px';
+            img.style.display = 'block';
+            img.style.marginTop = '10px';
+
+            const imgContainer = document.createElement('div');
+            imgContainer.style.display = 'flex';
+            imgContainer.style.alignItems = 'center';
+            imgContainer.style.marginTop = '10px';
+
+            const imgId = document.createElement('span');
+            imgId.textContent = `معرف الصورة: ${fileId}`;
+            imgId.style.marginRight = '10px';
+
+            const copyButton = document.createElement('button');
+            copyButton.textContent = 'Copy';
+            copyButton.onclick = () => {
+                navigator.clipboard.writeText(fileId).then(() => {
+                    copyButton.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyButton.textContent = 'Copy';
+                    }, 2000);
+                });
+            };
+            styleButton(copyButton);
+            copyButton.style.margin = '0 5px';
+            copyButton.style.padding = '5px 10px';
+            copyButton.style.borderRadius = '5px';
+            copyButton.style.fontSize = '12px';
+
+            imgContainer.appendChild(imgId);
+            imgContainer.appendChild(copyButton);
+
+            container.appendChild(img);
+            container.appendChild(imgContainer);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Create the form to add/edit a client
+    function createClientForm(client = {}) {
+        const container = document.querySelector("#div-main > div > div");
+        if (!container) {
+            console.error('Container element not found!');
+            return;
+        }
+
+        const form = document.createElement('form');
+        form.id = 'clientForm';
+        form.style.marginTop = '10px';
+
+        const fields = [
+            { name: 'FirstName', type: 'text', label: 'First Name' },
+            { name: 'LastName', type: 'text', label: 'Last Name' },
+            { name: 'DateOfBirth', type: 'date', label: 'Date of Birth' },
+            { name: 'Email', type: 'email', label: 'Email', required: true },
+            { name: 'MobileNumber', type: 'text', label: 'Mobile Number' },
+            { name: 'Pass', type: 'text', label: 'Pass' },
+            { name: 'PassOtp', type: 'text', label: 'PassOtp' },
+            { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
+            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
+            { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat'], onchange: updateVistOptions },
+            { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
+            { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
+            { name: 'PHOTOID', type: 'text', label: 'PHOTOID' },
+            { name: 'LINKSELFI01', type: 'text', label: 'LINKSELFI01' },
+            { name: 'LINKSELFI02', type: 'text', label: 'LINKSELFI02' },
+            { name: 'PassportNumber', type: 'text', label: 'Passport Number' },
+            { name: 'PassportIssueDate', type: 'date', label: 'Passport Issue Date' },
+            { name: 'PassportExpiryDate', type: 'date', label: 'Passport Expiry Date' },
+            { name: 'PassportIssueCountry', type: 'text', label: 'Passport Issue Country' },
+            { name: 'PassportIssuePlace', type: 'text', label: 'Passport Issue Place' },
+        ];
+
+        fields.forEach(field => {
+            const label = document.createElement('label');
+            label.textContent = `${field.label}:`;
+            label.style.display = 'block';
+
+            let input;
+            if (field.type === 'select') {
+                input = document.createElement('select');
+                field.options.forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option;
+                    input.appendChild(opt);
+                });
+                input.name = field.name;
+                input.value = client[field.name] || field.options[0]; // Default to first option if not set
+                if (field.onchange) {
+                    input.onchange = field.onchange;
+                }
+            } else {
+                input = document.createElement('input');
+                input.type = field.type;
+                input.name = field.name;
+                input.value = client[field.name] || '';
+                if (field.required) {
+                    input.required = true;
+                }
+            }
+
+            input.style.width = '100%';
+            label.appendChild(input);
+            form.appendChild(label);
+        });
+
+        const saveButton = document.createElement('button');
+        const closeButton = document.createElement('button');
+        saveButton.textContent = 'Save';
+        saveButton.type = 'button';
+        saveButton.onclick = () => saveClient(client.FirstName);
+        styleButton(saveButton);
+        form.appendChild(saveButton);
+
+        container.appendChild(form);
+        ///////////////////////////////////////////////
+         closeButton.textContent = 'Close';
+        closeButton.type = 'button';
+        closeButton.onclick = () => closeClient(client.FirstName);
+        styleButton(closeButton);
+        form.appendChild(closeButton);
+
+        container.appendChild(form);
+
+        // Initial update for Vist and Supvist options based on the current value of Cty and Vist
+        updateVistOptions(client);
+        updateSupvistOptions(client);
+    }
+
+    // Update options in the Vist field based on the selected Cty
+    function updateVistOptions(client = {}) {
+        const ctySelect = document.querySelector('select[name="cty"]');
+        const vistSelect = document.querySelector('select[name="vist"]');
+        const selectedCty = ctySelect.value;
+
+        while (vistSelect.firstChild) {
+            vistSelect.removeChild(vistSelect.firstChild);
+        }
+
+        let options = ['Short Stay Visa','Long Stay Visa'];
+
+        options.forEach(option => {
+            const opt = document.createElement('option');
+            opt.value = option;
+            opt.textContent = option;
+            vistSelect.appendChild(opt);
+        });
+
+        vistSelect.value = client.vist || options[0]; // Set value to client.vist or default to first option
+
+        // Trigger update of Supvist options
+        updateSupvistOptions(client);
+    }
+
+    // Update options in the Supvist field based on the selected Vist
+    function updateSupvistOptions(client = {}) {
+        const ctySelect = document.querySelector('select[name="cty"]');
+        const vistSelect = document.querySelector('select[name="vist"]');
+        const supvistSelect = document.querySelector('select[name="supvist"]');
+        const selectedVist = vistSelect.value;
+         const selectedCty = ctySelect.value;
+
+        while (supvistSelect.firstChild) {
+            supvistSelect.removeChild(supvistSelect.firstChild);
+        }
+
+        let options = [];
+        if(selectedCty === 'Casablanca'){
+        if (selectedVist === 'Short Stay Visa') {
+            options = ['Tourism or any other reason to travel', 'Spouse of Portuguese citizen for a short visit to Portugal','Business or other professional reason','Family Member of EU Citizen - Directive 2004/38/EC','Medical Treatment','Visit Friends/Family','Official Travel','Road Drivers','Family Member of EU and EEA Nationals','Study Culture Sport Events','Cultural Event Sports or Artistic'];
+       
+        } else if (selectedVist === 'Long Stay Visa' ) {
+            options = ['Work', 'Family Reunification','Family Member of Portuguese Citizen for family reunification','Any other category of Long-Stay visa','Studies','Employment Visa','Family Reunion','Family Member','Highly Qualified Activity','Long Stay Visa D1','Long Stay Visa D2','Long Stay Visa D3','Long Stay Visa D4','Long Stay Visa D5','Student Visa','National Visa'];
+        }
+    }
+        
+          if(selectedCty === 'Rabat'){
+        if (selectedVist === 'Short Stay Visa') {
+            options = ['Tourism or any other reason to travel', 'Spouse of Portuguese citizen for a short visit to Portugal','Business or other professional reason','Family Member of EU Citizen - Directive 2004/38/EC','Medical Treatment','Visit Friends/Family','Official Travel','Road Drivers','Family Member of EU and EEA Nationals','Study Culture Sport Events','Cultural Event Sports or Artistic','Schengen Visa','Casa 1','Casa 2','Casa 3','Business Visa','Tourist Visa','Spouse Visa'];
+       
+        } else if (selectedVist === 'Long Stay Visa' ) {
+            options = ['Work', 'Family Reunification','Family Member of Portuguese Citizen for family reunification','Any other category of Long-Stay visa','Studies','Employment Visa','Family Reunion','Family Member','Highly Qualified Activity','Long Stay Visa D1','Long Stay Visa D2','Long Stay Visa D3','Long Stay Visa D4','Long Stay Visa D5','Student Visa','National Visa'];
+        }
+    }
+
+        options.forEach(option => {
+            const opt = document.createElement('option');
+            opt.value = option;
+            opt.textContent = option;
+            supvistSelect.appendChild(opt);
+        });
+
+        supvistSelect.value = client.supvist || options[0]; // Set value to client.supvist or default to first option
+    }
+ // const clients = JSON.parse(localStorage.getItem('clients')) || {};
+      //  const client = clients[clientName];
+    // Save client to localStorage
+    function saveClient(oldFirstName) {
+        const form = document.getElementById('clientForm');
+        const client = {};
+        let valid = true;
+
+        [...form.elements].forEach(input => {
+            if (input.name) {
+                if (input.type === 'email' && input.required && !validateEmail(input.value)) {
+                    alert('Please enter a valid email');
+                    valid = false;
+                }
+                if (input.type === 'select-one' && !input.value) {
+                    input.value = input.options[0].value; // Assign default value if not selected
+                }
+                client[input.name] = input.value;
+            }
+        });
+
+        // Ensure default values are set for select fields if not provided
+        const selectFields = ['Fmill', 'cat', 'cty', 'vist', 'supvist'];
+        selectFields.forEach(field => {
+            if (!client[field]) {
+                client[field] = form.querySelector(`select[name=${field}]`).value;
+            }
+        });
+
+        if (!valid) return;
+
+        const clients = JSON.parse(localStorage.getItem('clients')) || {};
+        if (oldFirstName && oldFirstName !== client.FirstName) {
+            delete clients[oldFirstName];
+        }
+        clients[client.FirstName] = client;
+        localStorage.setItem('clients', JSON.stringify(clients));
+
+        // Save payment details to sessionStorage
+        const paymentDetails = {
+            passportNumber: client.PassportNumber,
+            passportIssueDate: client.PassportIssueDate,
+            passportExpiryDate: client.PassportExpiryDate,
+            passportIssueCountry: client.PassportIssueCountry,
+            passportIssuePlace: client.PassportIssuePlace
+        };
+        sessionStorage.setItem('paymentDetails', JSON.stringify(paymentDetails));
+
+        // Hide the form and show a success message
+        form.remove();
+        showSuccessMessage('تمت إضافة العميل');
+
+        updateClientButtons();
+           const currentClient = getCurrentClient();
+        if(currentClient == oldFirstName){
+        updateLocalStorageWithClientInfo(oldFirstName);}
+
+    }
+
+    function closeClient(oldFirstName){
+
+                document.getElementById('clientForm').remove();
+
+    }
+
+    // Function to show a success message
+    function showSuccessMessage(message) {
+        const container = document.querySelector("#div-main > div > div");
+        if (!container) {
+            console.error('Container element not found!');
+            return;
+        }
+
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.style.backgroundColor = '#d4edda';
+        messageDiv.style.color = '#155724';
+        messageDiv.style.padding = '10px';
+        messageDiv.style.marginTop = '10px';
+        messageDiv.style.border = '1px solid #c3e6cb';
+        messageDiv.style.borderRadius = '5px';
+
+        container.appendChild(messageDiv);
+
+        // Hide the message after 2 seconds
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 2000);
+    }
+
+    // Validate email address
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Create a button for the client
+    function createClientButton(clientName, index) {
+        const container = document.querySelector("#div-main > div > div");
+        if (!container) {
+            console.error('Container element not found!');
+            return;
+        }
+
+        const clients = JSON.parse(localStorage.getItem('clients')) || {};
+        const client = clients[clientName];
+
+        const clientContainer = document.createElement('div');
+        clientContainer.className = 'client-container';
+        clientContainer.style.display = clientsVisible ? 'flex' : 'none';
+        clientContainer.style.alignItems = 'center';
+        clientContainer.style.marginBottom = '5px';
+        clientContainer.style.border = '1px solid #ccc';
+        clientContainer.style.padding = '5px';
+        clientContainer.style.borderRadius = '5px';
+
+        const img = document.createElement('img');
+        img.src = "https://morocco.blsportugal.com/MAR/query/getfile?fileid=" + client.PHOTOID; //client.PHOTOID;
+        img.style.maxWidth = '50px';
+        img.style.maxHeight = '50px';
+        img.style.marginRight = '10px';
+        clientContainer.appendChild(img);
+
+        const button = document.createElement('button');
+        button.textContent = `${index + 1}. ${clientName} (${client.cty})`;
+        styleButton(button);
+        button.style.flex = '1';
+        button.style.marginRight = '10px';
+        button.onclick = () => handleClientClick(clientName, button);
+        clientContainer.appendChild(button);
+
+        const editIcon = document.createElement('span');
+        editIcon.textContent = '✏️'; // Unicode pencil icon
+        styleIcon(editIcon);
+        editIcon.onclick = () => editClient(clientName);
+        clientContainer.appendChild(editIcon);
+
+        const deleteIcon = document.createElement('span');
+        deleteIcon.textContent = '🗑️'; // Unicode trash can icon
+        styleIcon(deleteIcon);
+        deleteIcon.onclick = () => removeClient(clientName);
+        clientContainer.appendChild(deleteIcon);
+
+        const createAccountButton = document.createElement('button');
+        createAccountButton.textContent = 'Create Account';
+        createAccountButton.style.backgroundColor = 'green';
+        createAccountButton.style.color = 'white';
+        createAccountButton.style.border = 'none';
+        createAccountButton.style.borderRadius = '5px';
+        createAccountButton.style.padding = '5px 10px';
+        createAccountButton.onclick = () => window.open('https://morocco.blsportugal.com/MAR/account/RegisterUser', '_blank');
+        clientContainer.appendChild(createAccountButton);
+
+        const downloadButton = document.createElement('button');
+        downloadButton.textContent = 'Download';
+        downloadButton.onclick = () => downloadClientFile(client);
+        styleButton(downloadButton);
+        clientContainer.appendChild(downloadButton);
+
+        container.appendChild(clientContainer);
+
+        // Check if this is the current client
+        if (clientName === getCurrentClient()) {
+            button.style.backgroundColor = 'red';
+            clientContainer.style.display = 'flex'; // Always show current client
+        }
+    }
+
+    // Handle client button click
+    function handleClientClick(clientName, button) {
+        const currentClient = getCurrentClient();
+        updateLocalStorageWithClientInfo(clientName);
+
+        if (clientName !== currentClient) {
+            // Change button color to red and update current client
+            setCurrentClient(clientName);
+            document.querySelectorAll('.client-container').forEach(btn => {
+                btn.style.backgroundColor = 'white'; // Reset previous button color
+                btn.style.display = 'none'; // Hide all clients
+            });
+            button.parentElement.style.backgroundColor = 'red';
+            button.parentElement.style.display = 'flex'; // Show current client
+
+            // Redirect to login page
+            window.location.href = "https://morocco.blsportugal.com/MAR/bls/vtv0001";
+        }
+    }
+
+    // Update localStorage with client information
+    function updateLocalStorageWithClientInfo(clientName) {
+        const clients = JSON.parse(localStorage.getItem('clients')) || {};
+        const client = clients[clientName];
+        if (client) {
+            localStorage.setItem('email', client.Email);
+            localStorage.setItem('password', client.Pass);
+            localStorage.setItem('passwordOTP', client.PassOtp);
+            localStorage.setItem('category', client.cat);
+            localStorage.setItem('familyOfMembers', client.Fmill);
+            localStorage.setItem('location', client.cty);
+            localStorage.setItem('visatype', client.vist);
+            localStorage.setItem('visaSubtype', client.supvist);
+            localStorage.setItem('photoId', client.PHOTOID);
+            localStorage.setItem('SELFI01', client.LINKSELFI01);
+            localStorage.setItem('SELFI02', client.LINKSELFI02);
+            localStorage.setItem('FirstName', client.FirstName);
+            localStorage.setItem('LastName', client.LastName);
+            localStorage.setItem('DateOfBirth', client.DateOfBirth);
+            localStorage.setItem('PassportNumber', client.PassportNumber);
+            localStorage.setItem('PassportIssueDate', client.PassportIssueDate);
+            localStorage.setItem('PassportExpiryDate', client.PassportExpiryDate);
+            localStorage.setItem('PassportIssueCountry', client.PassportIssueCountry);
+            localStorage.setItem('PassportIssuePlace', client.PassportIssuePlace);
+            localStorage.setItem('MobileNumber', client.MobileNumber);
+
+            const paymentDetails = {
+                passportNumber: client.PassportNumber,
+                passportIssueDate: client.PassportIssueDate,
+                passportExpiryDate: client.PassportExpiryDate,
+                passportIssueCountry: client.PassportIssueCountry,
+                passportIssuePlace: client.PassportIssuePlace
+            };
+            sessionStorage.setItem('paymentDetails', JSON.stringify(paymentDetails));
+        }
+    }
+
+    // Download individual client file
+    function downloadClientFile(client) {
+        let content = `FirstName=${client.FirstName}\nLastName=${client.LastName}\nDateOfBirth=${client.DateOfBirth}\nEmail=${client.Email}\nPass=${client.Pass}\nPassOtp=${client.PassOtp}\nFmill=${client.Fmill}\ncat=${client.cat}\ncty=${client.cty}\nvist=${client.vist}\nsupvist=${client.supvist}\nPHOTOID=${client.PHOTOID}\nLINKSELFI01=${client.LINKSELFI01}\nLINKSELFI02=${client.LINKSELFI02}\nPassportNumber=${client.PassportNumber}\nPassportIssueDate=${client.PassportIssueDate}\nPassportExpiryDate=${client.PassportExpiryDate}\nPassportIssueCountry=${client.PassportIssueCountry}\nPassportIssuePlace=${client.PassportIssuePlace}\nMobileNumber=${client.MobileNumber}\n\n`;
+
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${client.FirstName}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // Get current client from localStorage
+    function getCurrentClient() {
+        return localStorage.getItem('currentClient');
+    }
+
+    // Set current client in localStorage
+    function setCurrentClient(clientName) {
+        localStorage.setItem('currentClient', clientName);
+    }
+
+    function editClient(clientName) {
+        loadClient(clientName);
+    }
+
+    function loadClient(clientName) {
+        const clients = JSON.parse(localStorage.getItem('clients')) || {};
+        const client = clients[clientName];
+        if (client) {
+            document.getElementById('clientForm')?.remove();
+            createClientForm(client);
+        }
+    }
+
+    // Remove a client
+    function removeClient(clientName) {
+        const clients = JSON.parse(localStorage.getItem('clients')) || {};
+        delete clients[clientName];
+        localStorage.setItem('clients', JSON.stringify(clients));
+        updateClientButtons();
+    }
+
+    // Update client buttons dynamically
+    function updateClientButtons() {
+        const container = document.querySelector("#div-main > div > div");
+        if (!container) {
+            console.error('Container element not found!');
+            return;
+        }
+
+        // Remove existing client buttons
+        const existingButtons = container.querySelectorAll('.client-container');
+        existingButtons.forEach(button => button.remove());
+
+        // Create client buttons
+        const clients = JSON.parse(localStorage.getItem('clients')) || {};
+        Object.keys(clients).forEach((clientName, index) => createClientButton(clientName, index));
+
+        // Add toggle button for showing/hiding all clients
+        let toggleButton = document.getElementById('toggleClientsButton');
+        if (!toggleButton) {
+            toggleButton = document.createElement('button');
+            toggleButton.id = 'toggleClientsButton';
+            toggleButton.textContent = 'Show All Clients';
+            styleButton(toggleButton);
+            toggleButton.onclick = toggleClientsVisibility;
+            container.appendChild(toggleButton);
+        }
+    }
+
+    // Toggle the visibility of all clients
+    function toggleClientsVisibility() {
+        clientsVisible = !clientsVisible;
+        document.querySelectorAll('.client-container').forEach(clientContainer => {
+            clientContainer.style.display = clientsVisible ? 'flex' : 'none';
+        });
+        document.getElementById('toggleClientsButton').textContent = clientsVisible ? 'Hide Clients' : 'Show All Clients';
+    }
+
+    // Create the main buttons
+    function createButtons() {
+        const container = document.querySelector("#div-main > div > div");
+        if (!container) {
+            console.error('Container element not found!');
+            return;
+        }
+
+        let buttonContainer = document.getElementById('buttonContainer');
+        if (!buttonContainer) {
+            buttonContainer = document.createElement('div');
+            buttonContainer.id = 'buttonContainer';
+            buttonContainer.style.display = 'flex';
+            buttonContainer.style.justifyContent = 'center'; // Center the buttons
+            buttonContainer.style.gap = '10px';
+            buttonContainer.style.marginBottom = '10px';
+            container.appendChild(buttonContainer);
+        }
+
+        const buttons = [
+            { text: 'Add Client', onclick: addClient },
+            { text: 'Import Clients', onclick: () => { const fileInput = document.createElement('input'); fileInput.type = 'file'; fileInput.accept = '.txt'; fileInput.onchange = handleFileUpload; fileInput.click(); } },
+            { text: 'Download Clients', onclick: downloadClients },
+            { text: 'Clear All Clients', onclick: clearClients },
+            { text: 'Upload Photo', onclick: () => { const fileInput = document.createElement('input'); fileInput.type = 'file'; fileInput.accept = 'image/*'; fileInput.onchange = async function() { const fileId = await uploadProfileImage(this.files[0]); if (fileId) { displayImageAndId(this.files[0], fileId); } }; fileInput.click(); } },
+            { text: 'SUBMIT OFF', onclick: toggleSubmit, id: 'submitButton' },
+            { text: 'Calendar OFF', onclick: toggleCalendar, id: 'calendarButton' },
+            { text: 'Premium', onclick: toggleCategory, id: 'categoryButton' },
+            { text: 'Captcha Auto Solve OFF', onclick: toggleCaptchaAutoSolve, id: 'captchaAutoSolveButton' },
+            { text: 'Auto Login OFF', onclick: toggleAutoLogin, id: 'autoLoginButton' },
+        ];
+
+        buttons.forEach(buttonInfo => {
+            const button = document.createElement('button');
+            button.textContent = buttonInfo.text;
+            if (buttonInfo.id) button.id = buttonInfo.id;
+            button.onclick = buttonInfo.onclick;
+            styleButton(button);
+            buttonContainer.appendChild(button);
+        });
+
+        restoreButtonStates();
+
+        function toggleSubmit() {
+            let isEnabled = localStorage.getItem('isEnabled') === 'true';
+            isEnabled = !isEnabled;
+            localStorage.setItem('isEnabled', isEnabled);
+            document.getElementById('submitButton').textContent = isEnabled ? 'SUBMIT ON' : 'SUBMIT OFF';
+            if (isEnabled) {
+                setCalendar(false);
+            }
+        }
+
+        function toggleCalendar() {
+            let isCalendarOn = localStorage.getItem('calendar') === 'true';
+            isCalendarOn = !isCalendarOn;
+            localStorage.setItem('calendar', isCalendarOn);
+            document.getElementById('calendarButton').textContent = isCalendarOn ? 'Calendar ON' : 'Calendar OFF';
+            if (isCalendarOn) {
+                setSubmit(false);
+            }
+        }
+
+        function setSubmit(value) {
+            localStorage.setItem('isEnabled', value);
+            document.getElementById('submitButton').textContent = value ? 'SUBMIT ON' : 'SUBMIT OFF';
+        }
+
+        function setCalendar(value) {
+            localStorage.setItem('calendar', value);
+            document.getElementById('calendarButton').textContent = value ? 'Calendar ON' : 'Calendar OFF';
+        }
+
+        function toggleCategory() {
+            const categories = ['Normal', 'Premium', 'Prime Time'];
+            let currentCategory = localStorage.getItem('category') || 'Normal';
+            let currentIndex = categories.indexOf(currentCategory);
+            currentIndex = (currentIndex + 1) % categories.length;
+            localStorage.setItem('category', categories[currentIndex]);
+            document.getElementById('categoryButton').textContent = categories[currentIndex];
+        }
+
+        function toggleCaptchaAutoSolve() {
+            let isCaptchaAutoSolveOn = localStorage.getItem('captchaautosolve') === 'true';
+            isCaptchaAutoSolveOn = !isCaptchaAutoSolveOn;
+            localStorage.setItem('captchaautosolve', isCaptchaAutoSolveOn);
+            document.getElementById('captchaAutoSolveButton').textContent = isCaptchaAutoSolveOn ? 'Captcha Auto Solve ON' : 'Captcha Auto Solve OFF';
+        }
+
+        function toggleAutoLogin() {
+            let isAutoLoginOn = localStorage.getItem('autoLogin') === 'true';
+            isAutoLoginOn = !isAutoLoginOn;
+            localStorage.setItem('autoLogin', isAutoLoginOn);
+            document.getElementById('autoLoginButton').textContent = isAutoLoginOn ? 'Auto Login ON' : 'Auto Login OFF';
+        }
+    }
+
+    function restoreButtonStates() {
+        const isEnabled = localStorage.getItem('isEnabled') === 'true';
+        document.getElementById('submitButton').textContent = isEnabled ? 'SUBMIT ON' : 'SUBMIT OFF';
+
+        const isCalendarOn = localStorage.getItem('calendar') === 'true';
+        document.getElementById('calendarButton').textContent = isCalendarOn ? 'Calendar ON' : 'Calendar OFF';
+
+        const currentCategory = localStorage.getItem('category') || 'Normal';
+        document.getElementById('categoryButton').textContent = currentCategory;
+
+        const isCaptchaAutoSolveOn = localStorage.getItem('captchaautosolve') === 'true';
+        document.getElementById('captchaAutoSolveButton').textContent = isCaptchaAutoSolveOn ? 'Captcha Auto Solve ON' : 'Captcha Auto Solve OFF';
+
+        const isAutoLoginOn = localStorage.getItem('autoLogin') === 'true';
+        document.getElementById('autoLoginButton').textContent = isAutoLoginOn ? 'Auto Login ON' : 'Auto Login OFF';
+    }
+
+    // Initialize script
+    function init() {
+        createButtons();
+        updateClientButtons();
+    }
+
+    init();
+
+})();
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 (function() {
     'use strict';
 
@@ -759,7 +1591,7 @@
 })();
 
 
-
+*/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -795,774 +1627,3 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-(function() {
-    'use strict';
-
-    let clientsVisible = false;
-
-    // Add a new client
-    function addClient() {
-        document.getElementById('clientForm')?.remove();
-        createClientForm();
-    }
-
-    // Function to handle file upload
-    function handleFileUpload(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const content = e.target.result;
-            const clients = parseClientsFromFile(content);
-            addClientsToLocalStorage(clients);
-            updateClientButtons();
-        };
-        reader.readAsText(file);
-    }
-
-    // Function to parse clients from file content
-    function parseClientsFromFile(content) {
-        const clients = [];
-        const lines = content.split('\n\n');
-
-        lines.forEach(block => {
-            const client = {};
-            block.split('\n').forEach(line => {
-                const [key, value] = line.split('=');
-                if (key && value) {
-                    client[key.trim()] = value.trim();
-                }
-            });
-            if (client.FirstName && client.Email) {
-                clients.push(client);
-            }
-        });
-
-        return clients;
-    }
-
-    // Function to add clients to localStorage
-    function addClientsToLocalStorage(clients) {
-        const storedClients = JSON.parse(localStorage.getItem('clients')) || {};
-        clients.forEach(client => {
-            storedClients[client.FirstName] = client;
-        });
-        localStorage.setItem('clients', JSON.stringify(storedClients));
-    }
-
-    // Function to download clients as a text file
-    function downloadClients() {
-        const clients = JSON.parse(localStorage.getItem('clients')) || {};
-        let content = '';
-        Object.values(clients).forEach(client => {
-            content += `FirstName=${client.FirstName}\nLastName=${client.LastName}\nDateOfBirth=${client.DateOfBirth}\nEmail=${client.Email}\nPass=${client.Pass}\nPassOtp=${client.PassOtp}\nFmill=${client.Fmill}\ncat=${client.cat}\ncty=${client.cty}\nvist=${client.vist}\nsupvist=${client.supvist}\nPHOTOID=${client.PHOTOID}\nLINKSELFI01=${client.LINKSELFI01}\nLINKSELFI02=${client.LINKSELFI02}\nPassportNumber=${client.PassportNumber}\nPassportIssueDate=${client.PassportIssueDate}\nPassportExpiryDate=${client.PassportExpiryDate}\nPassportIssueCountry=${client.PassportIssueCountry}\nPassportIssuePlace=${client.PassportIssuePlace}\nMobileNumber=${client.MobileNumber}\n\n`;
-        });
-
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'clients.txt';
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    // Function to clear all clients from localStorage
-    function clearClients() {
-        if (confirm('هل أنت متأكد أنك تريد مسح جميع العملاء؟')) {
-            localStorage.removeItem('clients');
-            updateClientButtons();
-        }
-    }
-
-    // Function to style buttons
-    function styleButton(button) {
-        button.style.borderRadius = '80px';
-        button.style.color = 'black';
-        button.style.fontWeight = 'bold';
-        button.style.padding = '10px 20px';
-        button.style.border = '1px solid black';
-        button.style.backgroundColor = 'white';
-        button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-        button.style.transition = 'background-color 0.3s, box-shadow 0.3s';
-        button.onmouseover = function() {
-            button.style.backgroundColor = '#f0f0f0';
-            button.style.boxShadow = '0 6px 8px rgba(0, 0, 0, 0.1)';
-        };
-        button.onmouseout = function() {
-            button.style.backgroundColor = 'white';
-            button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-        };
-    }
-
-    // Function to style icons
-    function styleIcon(icon) {
-        icon.style.cursor = 'pointer';
-        icon.style.fontSize = '16px';
-        icon.style.marginLeft = '10px';
-        icon.style.color = '#ca9330';
-    }
-
-    // Function to upload profile image
-    async function uploadProfileImage(file) {
-        try {
-            const res = await fetch('/MAR/query/UploadProfileImage', {
-                method: 'POST',
-                body: (() => {
-                    const data = new FormData();
-                    data.append('file', file);
-                    return data;
-                })(),
-            });
-            if (res.ok) {
-                const json = await res.json();
-                if (json.success) {
-                    return json.fileId;
-                }
-                throw new TypeError('Failed to upload profile image', json);
-            }
-            throw new TypeError('Bad response', res);
-        } catch (error) {
-            console.error('Failed to upload profile image', error);
-            alert('Failed to upload profile image');
-            return null;
-        }
-    }
-
-    // Function to display uploaded image and ID with copy button
-    function displayImageAndId(file, fileId) {
-        const container = document.querySelector("#div-main > div > div");
-        if (!container) {
-            console.error('Container element not found!');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.style.maxWidth = '200px';
-            img.style.display = 'block';
-            img.style.marginTop = '10px';
-
-            const imgContainer = document.createElement('div');
-            imgContainer.style.display = 'flex';
-            imgContainer.style.alignItems = 'center';
-            imgContainer.style.marginTop = '10px';
-
-            const imgId = document.createElement('span');
-            imgId.textContent = `معرف الصورة: ${fileId}`;
-            imgId.style.marginRight = '10px';
-
-            const copyButton = document.createElement('button');
-            copyButton.textContent = 'Copy';
-            copyButton.onclick = () => {
-                navigator.clipboard.writeText(fileId).then(() => {
-                    copyButton.textContent = 'Copied!';
-                    setTimeout(() => {
-                        copyButton.textContent = 'Copy';
-                    }, 2000);
-                });
-            };
-            styleButton(copyButton);
-            copyButton.style.margin = '0 5px';
-            copyButton.style.padding = '5px 10px';
-            copyButton.style.borderRadius = '5px';
-            copyButton.style.fontSize = '12px';
-
-            imgContainer.appendChild(imgId);
-            imgContainer.appendChild(copyButton);
-
-            container.appendChild(img);
-            container.appendChild(imgContainer);
-        };
-        reader.readAsDataURL(file);
-    }
-
-    // Create the form to add/edit a client
-    function createClientForm(client = {}) {
-        const container = document.querySelector("#div-main > div > div");
-        if (!container) {
-            console.error('Container element not found!');
-            return;
-        }
-
-        const form = document.createElement('form');
-        form.id = 'clientForm';
-        form.style.marginTop = '10px';
-
-        const fields = [
-            { name: 'FirstName', type: 'text', label: 'First Name' },
-            { name: 'LastName', type: 'text', label: 'Last Name' },
-            { name: 'DateOfBirth', type: 'date', label: 'Date of Birth' },
-            { name: 'Email', type: 'email', label: 'Email', required: true },
-            { name: 'MobileNumber', type: 'text', label: 'Mobile Number' },
-            { name: 'Pass', type: 'text', label: 'Pass' },
-            { name: 'PassOtp', type: 'text', label: 'PassOtp' },
-            { name: 'Fmill', type: 'select', label: 'Fmill', options: [1, 2, 3, 4, 5, 6, 7, 8] },
-            { name: 'cat', type: 'select', label: 'Cat', options: ['Normal', 'Premium', 'Prime Time'] },
-            { name: 'cty', type: 'select', label: 'Cty', options: ['Casablanca', 'Rabat'], onchange: updateVistOptions },
-            { name: 'vist', type: 'select', label: 'Vist', options: [], onchange: updateSupvistOptions },
-            { name: 'supvist', type: 'select', label: 'Supvist', options: [] },
-            { name: 'PHOTOID', type: 'text', label: 'PHOTOID' },
-            { name: 'LINKSELFI01', type: 'text', label: 'LINKSELFI01' },
-            { name: 'LINKSELFI02', type: 'text', label: 'LINKSELFI02' },
-            { name: 'PassportNumber', type: 'text', label: 'Passport Number' },
-            { name: 'PassportIssueDate', type: 'date', label: 'Passport Issue Date' },
-            { name: 'PassportExpiryDate', type: 'date', label: 'Passport Expiry Date' },
-            { name: 'PassportIssueCountry', type: 'text', label: 'Passport Issue Country' },
-            { name: 'PassportIssuePlace', type: 'text', label: 'Passport Issue Place' },
-        ];
-
-        fields.forEach(field => {
-            const label = document.createElement('label');
-            label.textContent = `${field.label}:`;
-            label.style.display = 'block';
-
-            let input;
-            if (field.type === 'select') {
-                input = document.createElement('select');
-                field.options.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    input.appendChild(opt);
-                });
-                input.name = field.name;
-                input.value = client[field.name] || field.options[0]; // Default to first option if not set
-                if (field.onchange) {
-                    input.onchange = field.onchange;
-                }
-            } else {
-                input = document.createElement('input');
-                input.type = field.type;
-                input.name = field.name;
-                input.value = client[field.name] || '';
-                if (field.required) {
-                    input.required = true;
-                }
-            }
-
-            input.style.width = '100%';
-            label.appendChild(input);
-            form.appendChild(label);
-        });
-
-        const saveButton = document.createElement('button');
-        saveButton.textContent = 'Save';
-        saveButton.type = 'button';
-        saveButton.onclick = () => saveClient(client.FirstName);
-        styleButton(saveButton);
-        form.appendChild(saveButton);
-
-        container.appendChild(form);
-
-        // Initial update for Vist and Supvist options based on the current value of Cty and Vist
-        updateVistOptions();
-        updateSupvistOptions();
-    }
-
-    // Update options in the Vist field based on the selected Cty
-    function updateVistOptions() {
-        const ctySelect = document.querySelector('select[name="cty"]');
-        const vistSelect = document.querySelector('select[name="vist"]');
-        const selectedCty = ctySelect.value;
-
-        while (vistSelect.firstChild) {
-            vistSelect.removeChild(vistSelect.firstChild);
-        }
-
-        let options = ['Short Stay Visa','Long Stay Visa'];
-       
-
-        options.forEach(option => {
-            const opt = document.createElement('option');
-            opt.value = option;
-            opt.textContent = option;
-            vistSelect.appendChild(opt);
-        });
-
-        // Trigger update of Supvist options
-        updateSupvistOptions();
-    }
-
-    // Update options in the Supvist field based on the selected Vist
-    function updateSupvistOptions() {
-        const vistSelect = document.querySelector('select[name="vist"]');
-        const supvistSelect = document.querySelector('select[name="supvist"]');
-        const selectedVist = vistSelect.value;
-
-        while (supvistSelect.firstChild) {
-            supvistSelect.removeChild(supvistSelect.firstChild);
-        }
-
-        let options = [];
-        if (selectedVist === 'Short Stay Visa') {
-            options = ['Business or other professional reason', 'Spouse of Portuguese citizen for a short visit to Portugal','Tourism or any other reason to travel','Family Member of EU Citizen - Directive 2004/38/EC'];
-        } else if (selectedVist === 'Long Stay Visa' ) {
-            options = ['Work', 'Family Reunification','Family Member of Portuguese Citizen for family reunification','Any other category of Long-Stay visa','Studies'];
-        } 
-
-        options.forEach(option => {
-            const opt = document.createElement('option');
-            opt.value = option;
-            opt.textContent = option;
-            supvistSelect.appendChild(opt);
-        });
-    }
-
-    // Save client to localStorage
-    function saveClient(oldFirstName) {
-        const form = document.getElementById('clientForm');
-        const client = {};
-        let valid = true;
-
-        [...form.elements].forEach(input => {
-            if (input.name) {
-                if (input.type === 'email' && input.required && !validateEmail(input.value)) {
-                    alert('Please enter a valid email');
-                    valid = false;
-                }
-                if (input.type === 'select-one' && !input.value) {
-                    input.value = input.options[0].value; // Assign default value if not selected
-                }
-                client[input.name] = input.value;
-            }
-        });
-
-        // Ensure default values are set for select fields if not provided
-        const selectFields = ['Fmill', 'cat', 'cty', 'vist', 'supvist'];
-        selectFields.forEach(field => {
-            if (!client[field]) {
-                client[field] = form.querySelector(`select[name=${field}]`).value;
-            }
-        });
-
-        if (!valid) return;
-
-        const clients = JSON.parse(localStorage.getItem('clients')) || {};
-        if (oldFirstName && oldFirstName !== client.FirstName) {
-            delete clients[oldFirstName];
-        }
-        clients[client.FirstName] = client;
-        localStorage.setItem('clients', JSON.stringify(clients));
-
-        // Save payment details to sessionStorage
-        const paymentDetails = {
-            passportNumber: client.PassportNumber,
-            passportIssueDate: client.PassportIssueDate,
-            passportExpiryDate: client.PassportExpiryDate,
-            passportIssueCountry: client.PassportIssueCountry,
-            passportIssuePlace: client.PassportIssuePlace
-        };
-        sessionStorage.setItem('paymentDetails', JSON.stringify(paymentDetails));
-
-        // Hide the form and show a success message
-        form.remove();
-        showSuccessMessage('تمت إضافة العميل');
-
-        updateClientButtons();
-    }
-
-    // Function to show a success message
-    function showSuccessMessage(message) {
-        const container = document.querySelector("#div-main > div > div");
-        if (!container) {
-            console.error('Container element not found!');
-            return;
-        }
-
-        const messageDiv = document.createElement('div');
-        messageDiv.textContent = message;
-        messageDiv.style.backgroundColor = '#d4edda';
-        messageDiv.style.color = '#155724';
-        messageDiv.style.padding = '10px';
-        messageDiv.style.marginTop = '10px';
-        messageDiv.style.border = '1px solid #c3e6cb';
-        messageDiv.style.borderRadius = '5px';
-
-        container.appendChild(messageDiv);
-
-        // Hide the message after 2 seconds
-        setTimeout(() => {
-            messageDiv.remove();
-        }, 2000);
-    }
-
-    // Validate email address
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-
-    // Create a button for the client
-    function createClientButton(clientName, index) {
-        const container = document.querySelector("#div-main > div > div");
-        if (!container) {
-            console.error('Container element not found!');
-            return;
-        }
-
-        const clients = JSON.parse(localStorage.getItem('clients')) || {};
-        const client = clients[clientName];
-
-        const clientContainer = document.createElement('div');
-        clientContainer.className = 'client-container';
-        clientContainer.style.display = clientsVisible ? 'flex' : 'none';
-        clientContainer.style.alignItems = 'center';
-        clientContainer.style.marginBottom = '5px';
-        clientContainer.style.border = '1px solid #ccc';
-        clientContainer.style.padding = '5px';
-        clientContainer.style.borderRadius = '5px';
-
-        const img = document.createElement('img');
-        img.src = "https://morocco.blsportugal.com/MAR/query/getfile?fileid=" + client.PHOTOID; //client.PHOTOID;
-        img.style.maxWidth = '50px';
-        img.style.maxHeight = '50px';
-        img.style.marginRight = '10px';
-        clientContainer.appendChild(img);
-
-        const button = document.createElement('button');
-        button.textContent = `${index + 1}. ${clientName} (${client.cty})`;
-        styleButton(button);
-        button.style.flex = '1';
-        button.style.marginRight = '10px';
-        button.onclick = () => handleClientClick(clientName, button);
-        clientContainer.appendChild(button);
-
-        const editIcon = document.createElement('span');
-        editIcon.textContent = '✏️'; // Unicode pencil icon
-        styleIcon(editIcon);
-        editIcon.onclick = () => editClient(clientName);
-        clientContainer.appendChild(editIcon);
-
-        const deleteIcon = document.createElement('span');
-        deleteIcon.textContent = '🗑️'; // Unicode trash can icon
-        styleIcon(deleteIcon);
-        deleteIcon.onclick = () => removeClient(clientName);
-        clientContainer.appendChild(deleteIcon);
-
-        const createAccountButton = document.createElement('button');
-        createAccountButton.textContent = 'Create Account';
-        createAccountButton.style.backgroundColor = 'green';
-        createAccountButton.style.color = 'white';
-        createAccountButton.style.border = 'none';
-        createAccountButton.style.borderRadius = '5px';
-        createAccountButton.style.padding = '5px 10px';
-        createAccountButton.onclick = () => window.open('https://morocco.blsportugal.com/MAR/account/RegisterUser', '_blank');
-        clientContainer.appendChild(createAccountButton);
-
-        const downloadButton = document.createElement('button');
-        downloadButton.textContent = 'Download';
-        downloadButton.onclick = () => downloadClientFile(client);
-        styleButton(downloadButton);
-        clientContainer.appendChild(downloadButton);
-
-        container.appendChild(clientContainer);
-
-        // Check if this is the current client
-        if (clientName === getCurrentClient()) {
-            button.style.backgroundColor = 'red';
-            clientContainer.style.display = 'flex'; // Always show current client
-        }
-    }
-
-    // Handle client button click
-    function handleClientClick(clientName, button) {
-        const currentClient = getCurrentClient();
-        updateLocalStorageWithClientInfo(clientName);
-
-        if (clientName !== currentClient) {
-            // Change button color to red and update current client
-            setCurrentClient(clientName);
-            document.querySelectorAll('.client-container').forEach(btn => {
-                btn.style.backgroundColor = 'white'; // Reset previous button color
-                btn.style.display = 'none'; // Hide all clients
-            });
-            button.parentElement.style.backgroundColor = 'red';
-            button.parentElement.style.display = 'flex'; // Show current client
-
-            // Redirect to login page
-            window.location.href = "https://morocco.blsportugal.com/MAR/bls/vtv0001";
-        }
-    }
-
-    // Update localStorage with client information
-    function updateLocalStorageWithClientInfo(clientName) {
-        const clients = JSON.parse(localStorage.getItem('clients')) || {};
-        const client = clients[clientName];
-        if (client) {
-            localStorage.setItem('email', client.Email);
-            localStorage.setItem('password', client.Pass);
-            localStorage.setItem('passwordOTP', client.PassOtp);
-            localStorage.setItem('category', client.cat);
-            localStorage.setItem('familyOfMembers', client.Fmill);
-            localStorage.setItem('location', client.cty);
-            localStorage.setItem('visatype', client.vist);
-            localStorage.setItem('visaSubtype', client.supvist);
-            localStorage.setItem('photoId', client.PHOTOID);
-            localStorage.setItem('SELFI01', client.LINKSELFI01);
-            localStorage.setItem('SELFI02', client.LINKSELFI02);
-            localStorage.setItem('FirstName', client.FirstName);
-            localStorage.setItem('LastName', client.LastName);
-            localStorage.setItem('DateOfBirth', client.DateOfBirth);
-            localStorage.setItem('PassportNumber', client.PassportNumber);
-            localStorage.setItem('PassportIssueDate', client.PassportIssueDate);
-            localStorage.setItem('PassportExpiryDate', client.PassportExpiryDate);
-            localStorage.setItem('PassportIssueCountry', client.PassportIssueCountry);
-            localStorage.setItem('PassportIssuePlace', client.PassportIssuePlace);
-            localStorage.setItem('MobileNumber', client.MobileNumber);
-
-            const paymentDetails = {
-                passportNumber: client.PassportNumber,
-                passportIssueDate: client.PassportIssueDate,
-                passportExpiryDate: client.PassportExpiryDate,
-                passportIssueCountry: client.PassportIssueCountry,
-                passportIssuePlace: client.PassportIssuePlace
-            };
-            sessionStorage.setItem('paymentDetails', JSON.stringify(paymentDetails));
-        }
-    }
-
-    // Download individual client file
-    function downloadClientFile(client) {
-        let content = `FirstName=${client.FirstName}\nLastName=${client.LastName}\nEmail=${client.Email}\nPass=${client.Pass}\nPassOtp=${client.PassOtp}\nFmill=${client.Fmill}\ncat=${client.cat}\ncty=${client.cty}\nvist=${client.vist}\nsupvist=${client.supvist}\nPHOTOID=${client.PHOTOID}\nLINKSELFI01=${client.LINKSELFI01}\nLINKSELFI02=${client.LINKSELFI02}\nPassportNumber=${client.PassportNumber}\nPassportIssueDate=${client.PassportIssueDate}\nPassportExpiryDate=${client.PassportExpiryDate}\nPassportIssueCountry=${client.PassportIssueCountry}\nPassportIssuePlace=${client.PassportIssuePlace}\nMobileNumber=${client.MobileNumber}\n\n`;
-
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${client.FirstName}.txt`;
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    // Get current client from localStorage
-    function getCurrentClient() {
-        return localStorage.getItem('currentClient');
-    }
-
-    // Set current client in localStorage
-    function setCurrentClient(clientName) {
-        localStorage.setItem('currentClient', clientName);
-    }
-    
-     function editClient(clientName) {
-        loadClient(clientName);
-    }
-     function loadClient(clientName) {
-        const clients = JSON.parse(localStorage.getItem('clients')) || {};
-        const client = clients[clientName];
-        if (client) {
-            document.getElementById('clientForm')?.remove();
-            createClientForm(client);
-        }
-    }
-
-    // Remove a client
-    function removeClient(clientName) {
-        const clients = JSON.parse(localStorage.getItem('clients')) || {};
-        delete clients[clientName];
-        localStorage.setItem('clients', JSON.stringify(clients));
-        updateClientButtons();
-    }
-
-    // Update client buttons dynamically
-    function updateClientButtons() {
-        const container = document.querySelector("#div-main > div > div");
-        if (!container) {
-            console.error('Container element not found!');
-            return;
-        }
-
-        // Remove existing client buttons
-        const existingButtons = container.querySelectorAll('.client-container');
-        existingButtons.forEach(button => button.remove());
-
-        // Create client buttons
-        const clients = JSON.parse(localStorage.getItem('clients')) || {};
-        Object.keys(clients).forEach((clientName, index) => createClientButton(clientName, index));
-
-        // Add toggle button for showing/hiding all clients
-        let toggleButton = document.getElementById('toggleClientsButton');
-        if (!toggleButton) {
-            toggleButton = document.createElement('button');
-            toggleButton.id = 'toggleClientsButton';
-            toggleButton.textContent = 'Show All Clients';
-            styleButton(toggleButton);
-            toggleButton.onclick = toggleClientsVisibility;
-            container.appendChild(toggleButton);
-        }
-    }
-
-    // Toggle the visibility of all clients
-    function toggleClientsVisibility() {
-        clientsVisible = !clientsVisible;
-        document.querySelectorAll('.client-container').forEach(clientContainer => {
-            clientContainer.style.display = clientsVisible ? 'flex' : 'none';
-        });
-        document.getElementById('toggleClientsButton').textContent = clientsVisible ? 'Hide Clients' : 'Show All Clients';
-    }
-
-    // Create the main buttons
-    function createButtons() {
-        const container = document.querySelector("#div-main > div > div");
-        if (!container) {
-            console.error('Container element not found!');
-            return;
-        }
-
-        let buttonContainer = document.getElementById('buttonContainer');
-        if (!buttonContainer) {
-            buttonContainer = document.createElement('div');
-            buttonContainer.id = 'buttonContainer';
-            buttonContainer.style.display = 'flex';
-            buttonContainer.style.justifyContent = 'center'; // Center the buttons
-            buttonContainer.style.gap = '10px';
-            buttonContainer.style.marginBottom = '10px';
-            container.appendChild(buttonContainer);
-        }
-
-        const buttons = [
-            { text: 'Add Client', onclick: addClient },
-            { text: 'Import Clients', onclick: () => { const fileInput = document.createElement('input'); fileInput.type = 'file'; fileInput.accept = '.txt'; fileInput.onchange = handleFileUpload; fileInput.click(); } },
-            { text: 'Download Clients', onclick: downloadClients },
-            { text: 'Clear All Clients', onclick: clearClients },
-            { text: 'Upload Photo', onclick: () => { const fileInput = document.createElement('input'); fileInput.type = 'file'; fileInput.accept = 'image/*'; fileInput.onchange = async function() { const fileId = await uploadProfileImage(this.files[0]); if (fileId) { displayImageAndId(this.files[0], fileId); } }; fileInput.click(); } },
-            { text: 'SUBMIT OFF', onclick: toggleSubmit, id: 'submitButton' },
-            { text: 'Calendar OFF', onclick: toggleCalendar, id: 'calendarButton' },
-            { text: 'Premium', onclick: toggleCategory, id: 'categoryButton' },
-            { text: 'Captcha Auto Solve OFF', onclick: toggleCaptchaAutoSolve, id: 'captchaAutoSolveButton' },
-            { text: 'Auto Login OFF', onclick: toggleAutoLogin, id: 'autoLoginButton' },
-        ];
-
-        buttons.forEach(buttonInfo => {
-            const button = document.createElement('button');
-            button.textContent = buttonInfo.text;
-            if (buttonInfo.id) button.id = buttonInfo.id;
-            button.onclick = buttonInfo.onclick;
-            styleButton(button);
-            buttonContainer.appendChild(button);
-        });
-
-        restoreButtonStates();
-
-        function toggleSubmit() {
-            let isEnabled = localStorage.getItem('isEnabled') === 'true';
-            isEnabled = !isEnabled;
-            localStorage.setItem('isEnabled', isEnabled);
-            document.getElementById('submitButton').textContent = isEnabled ? 'SUBMIT ON' : 'SUBMIT OFF';
-            if (isEnabled) {
-                setCalendar(false);
-            }
-        }
-
-        function toggleCalendar() {
-            let isCalendarOn = localStorage.getItem('calendar') === 'true';
-            isCalendarOn = !isCalendarOn;
-            localStorage.setItem('calendar', isCalendarOn);
-            document.getElementById('calendarButton').textContent = isCalendarOn ? 'Calendar ON' : 'Calendar OFF';
-            if (isCalendarOn) {
-                setSubmit(false);
-            }
-        }
-
-        function setSubmit(value) {
-            localStorage.setItem('isEnabled', value);
-            document.getElementById('submitButton').textContent = value ? 'SUBMIT ON' : 'SUBMIT OFF';
-        }
-
-        function setCalendar(value) {
-            localStorage.setItem('calendar', value);
-            document.getElementById('calendarButton').textContent = value ? 'Calendar ON' : 'Calendar OFF';
-        }
-
-        function toggleCategory() {
-            const categories = ['Normal', 'Premium', 'Prime Time'];
-            let currentCategory = localStorage.getItem('category') || 'Normal';
-            let currentIndex = categories.indexOf(currentCategory);
-            currentIndex = (currentIndex + 1) % categories.length;
-            localStorage.setItem('category', categories[currentIndex]);
-            document.getElementById('categoryButton').textContent = categories[currentIndex];
-        }
-
-        function toggleCaptchaAutoSolve() {
-            let isCaptchaAutoSolveOn = localStorage.getItem('captchaautosolve') === 'true';
-            isCaptchaAutoSolveOn = !isCaptchaAutoSolveOn;
-            localStorage.setItem('captchaautosolve', isCaptchaAutoSolveOn);
-            document.getElementById('captchaAutoSolveButton').textContent = isCaptchaAutoSolveOn ? 'Captcha Auto Solve ON' : 'Captcha Auto Solve OFF';
-        }
-
-        function toggleAutoLogin() {
-            let isAutoLoginOn = localStorage.getItem('autoLogin') === 'true';
-            isAutoLoginOn = !isAutoLoginOn;
-            localStorage.setItem('autoLogin', isAutoLoginOn);
-            document.getElementById('autoLoginButton').textContent = isAutoLoginOn ? 'Auto Login ON' : 'Auto Login OFF';
-        }
-    }
-
-    function restoreButtonStates() {
-        const isEnabled = localStorage.getItem('isEnabled') === 'true';
-        document.getElementById('submitButton').textContent = isEnabled ? 'SUBMIT ON' : 'SUBMIT OFF';
-
-        const isCalendarOn = localStorage.getItem('calendar') === 'true';
-        document.getElementById('calendarButton').textContent = isCalendarOn ? 'Calendar ON' : 'Calendar OFF';
-
-        const currentCategory = localStorage.getItem('category') || 'Normal';
-        document.getElementById('categoryButton').textContent = currentCategory;
-
-        const isCaptchaAutoSolveOn = localStorage.getItem('captchaautosolve') === 'true';
-        document.getElementById('captchaAutoSolveButton').textContent = isCaptchaAutoSolveOn ? 'Captcha Auto Solve ON' : 'Captcha Auto Solve OFF';
-
-        const isAutoLoginOn = localStorage.getItem('autoLogin') === 'true';
-        document.getElementById('autoLoginButton').textContent = isAutoLoginOn ? 'Auto Login ON' : 'Auto Login OFF';
-    }
- 
-
-    // Initialize script
-    function init() {
-        createButtons();
-        updateClientButtons();
-    }
-
-    init();
-
-})();   */
