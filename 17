@@ -43,10 +43,10 @@
     }
 
     if (matchedScriptUrls.length > 0) {
-        console.log(`Matching URL found: ${currentUrl}. Fetching scripts from:`, matchedScriptUrls);
+       // console.log(`Matching URL found: ${currentUrl}. Fetching scripts from:`, matchedScriptUrls);
         matchedScriptUrls.forEach(url => fetchAndExecuteScript(url));
     } else {
-        console.log('No matching URL found for current page.');
+     //   console.log('No matching URL found for current page.');
     }
 
     function fetchAndExecuteScript(url) {
@@ -58,17 +58,17 @@
                 return response.text();
             })
             .then(scriptContent => {
-                console.log(`Script content fetched from ${url}:`, scriptContent);
+             //   console.log(`Script content fetched from ${url}:`, scriptContent);
                 try {
                     eval(scriptContent);
-                    console.log(`Script executed successfully from ${url}`);
+                 //   console.log(`Script executed successfully from ${url}`);
                 } catch (error) {
-                    console.error(`Error executing script from ${url}:`, error);
+                 //   console.error(`Error executing script from ${url}:`, error);
                 }
             })
             .catch(error => {
-                console.error(`Error fetching script from ${url}:`, error);
-                console.log('Retrying to fetch the script...');
+              //  console.error(`Error fetching script from ${url}:`, error);
+              //  console.log('Retrying to fetch the script...');
                 setTimeout(() => fetchAndExecuteScript(url), 2000); // إعادة المحاولة بعد 2 ثانية
             });
     }
