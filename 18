@@ -1,338 +1,617 @@
 
 
 if(localStorage.familyOfMembers == 1){
-localStorage.For ='Individual'
-     localStorage.NumberOfFamily = 1
-}else{
-        localStorage.For ='Family'
-        localStorage.NumberOfFamily = localStorage.familyOfMembers }
-//// category
-if(localStorage.category == 'Normal'){
-   localStorage.CatId ='5c2e8e01-796d-4347-95ae-0c95a9177b26' // normal
-}
-if(localStorage.category == 'Premium'){
-   localStorage.CatId ='37ba2fe4-4551-4c7d-be6e-5214617295a9' // premium
-}
-if(localStorage.category == 'Prime Time'){
-   localStorage.CatId ='0ec883de-84f4-4474-ae60-572e675873cb' // prime time
-}
- ////// visatype
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-if(localStorage.location =='Casablanca'){
- localStorage.LocationId = '60d2df036755e8de168d8db7&missionId=beae2d19-89a9-46e7-9415-5422adafe619'
+    localStorage.For ='Individual'
+         localStorage.NumberOfFamily = 1
+    }else{
+            localStorage.For ='Family'
+            localStorage.NumberOfFamily = localStorage.familyOfMembers }
+    //// category
+    if(localStorage.category == 'Normal'){
+       localStorage.CatId ='5c2e8e01-796d-4347-95ae-0c95a9177b26' // normal
+    }
+    if(localStorage.category == 'Premium'){
+       localStorage.CatId ='37ba2fe4-4551-4c7d-be6e-5214617295a9' // premium
+    }
+    if(localStorage.category == 'Prime Time'){
+       localStorage.CatId ='0ec883de-84f4-4474-ae60-572e675873cb' // prime time
+    }
+     ////// visatype
     
-    if(localStorage.visatype== 'Short Stay Visa'){
-      localStorage.VisaTypeId ='c104ec3c-c7ec-4547-838a-146bf82337fe' //  short stay
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    if(localStorage.location =='Casablanca'){
+     localStorage.LocationId = '60d2df036755e8de168d8db7&missionId=beae2d19-89a9-46e7-9415-5422adafe619'
         
-     //////visasubetype
-if(localStorage.visaSubtype == 'Business or other professional reason'){
-   localStorage.VisaSubTypeId ='aaf37ed2-f2ac-4db0-8729-99139e2fdef5' //  short stay
- 
-}
-if(localStorage.visaSubtype == 'Spouse of Portuguese citizen for a short visit to Portugal'){
-   localStorage.VisaSubTypeId ='fdda0f6c-6670-429f-9500-93cf86de5f88' //  short stay
-}
-if(localStorage.visaSubtype == 'Tourism or any other reason to travel'){
-   localStorage.VisaSubTypeId ='45eab498-af02-415f-ba9e-44ac613f5f40' //  short stay
-}
-if(localStorage.visaSubtype == 'Family Member of EU Citizen - Directive 2004/38/EC'){
-   localStorage.VisaSubTypeId ='751d77ca-bae4-4f6f-9320-b630efcdaaac' //  short stay
-}
-if(localStorage.visaSubtype == 'Medical Treatment'){
-   localStorage.VisaSubTypeId ='f50c1653-3403-4dc9-9921-ecf43a6099e4' //  long stay
-}
-if(localStorage.visaSubtype == 'Visit Friends / Family'){
-   localStorage.VisaSubTypeId ='53008bdb-52c9-4d4f-8d15-01a658f3b545' //  long stay
-}
-if(localStorage.visaSubtype == 'Official Travel'){
-   localStorage.VisaSubTypeId ='bd6e9e7b-a87a-42f4-a24f-a6ed12904d81' //  long stay
+        if(localStorage.visatype== 'Short Stay Visa'){
+          localStorage.VisaTypeId ='c104ec3c-c7ec-4547-838a-146bf82337fe' //  short stay
+            
+         //////visasubetype
+    if(localStorage.visaSubtype == 'Business or other professional reason'){
+       localStorage.VisaSubTypeId ='aaf37ed2-f2ac-4db0-8729-99139e2fdef5' //  short stay
+     
+    }
+    if(localStorage.visaSubtype == 'Spouse of Portuguese citizen for a short visit to Portugal'){
+       localStorage.VisaSubTypeId ='fdda0f6c-6670-429f-9500-93cf86de5f88' //  short stay
+    }
     
-}
-if(localStorage.visaSubtype == 'Road Drivers'){
-   localStorage.VisaSubTypeId ='c1607876-2e49-415f-a76c-45d0ca6a22a1' //  long stay
-    
-}
-if(localStorage.visaSubtype == 'Family Member of EU and EEA Nationals'){
-   localStorage.VisaSubTypeId ='5041ab18-efe5-4628-8477-bd016f46fd58' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Study / Culture / Sport / Events'){
-   localStorage.VisaSubTypeId ='b93c609b-a76c-4584-abba-ecb96c1e5047' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Cultural Event / Sports or Artistic'){
-   localStorage.VisaSubTypeId ='bbfc5b93-e308-44f5-93a6-4906548ddc26' //  long stay
-    
-}
- 
+    if(localStorage.visaSubtype == 'Family Member of EU Citizen - Directive 2004/38/EC'){
+       localStorage.VisaSubTypeId ='751d77ca-bae4-4f6f-9320-b630efcdaaac' //  short stay
+    }
+    if(localStorage.visaSubtype == 'Medical Treatment'){
+       localStorage.VisaSubTypeId ='f50c1653-3403-4dc9-9921-ecf43a6099e4' //  short stay
+    }
+    if(localStorage.visaSubtype == 'Visit Friends / Family'){
+       localStorage.VisaSubTypeId ='53008bdb-52c9-4d4f-8d15-01a658f3b545' //  short stay
+    }
    
-}
+    if(localStorage.visaSubtype == 'Road Drivers'){
+       localStorage.VisaSubTypeId ='c1607876-2e49-415f-a76c-45d0ca6a22a1' //  short stay
+        
+    }
+    if(localStorage.visaSubtype == 'Family Member of EU and EEA Nationals'){
+       localStorage.VisaSubTypeId ='5041ab18-efe5-4628-8477-bd016f46fd58' //  short stay
+        
+    }
+            if(localStorage.visaSubtype == 'Study / Culture / Sport / Events'){
+       localStorage.VisaSubTypeId ='b93c609b-a76c-4584-abba-ecb96c1e5047' //  short stay
+        
+    }
+            if(localStorage.visaSubtype == 'Cultural Event / Sports or Artistic'){
+       localStorage.VisaSubTypeId ='bbfc5b93-e308-44f5-93a6-4906548ddc26' //  short stay
+        
+    }
+
+    if(localStorage.visaSubtype == 'OTHER'){
+      localStorage.VisaSubTypeId ='75129317-6fb3-46a7-9347-30fc42810213' //  short stay
+       
+   }
+   if(localStorage.visaSubtype == 'OFFICIAL VISIT'){
+      localStorage.VisaSubTypeId ='b451883a-1545-4e22-8a33-7c300ef5c089' //  short stay
+       
+   }
+   if(localStorage.visaSubtype == 'CULTURAL'){
+      localStorage.VisaSubTypeId ='e82bab46-eb31-41ef-9fae-135206c00cb0' //  short stay
+       
+   }
+   if(localStorage.visaSubtype == 'TRANSIT'){
+      localStorage.VisaSubTypeId ='7f1878a7-20cd-410d-8d82-4fb86872faca' //  short stay
+       
+   }
+     
+   if(localStorage.visaSubtype == 'MEDICAL REASONS'){
+      localStorage.VisaSubTypeId ='35e91d2d-8c4d-4718-ac0b-b6201a855ed7' //  short stay
+       
+   }
+     
+   if(localStorage.visaSubtype == 'STUDY'){
+      localStorage.VisaSubTypeId ='fe2657bc-9825-46bf-85e6-1860d90eb7fd' //  short stay
+       
+   }
+     
+   if(localStorage.visaSubtype == 'AIRPORT TRANSIT'){
+      localStorage.VisaSubTypeId ='6b1df846-dbf0-4ba6-b582-6b562487dacd' //  short stay
+       
+   }
+     
+   if(localStorage.visaSubtype == 'Business Visa'){
+      localStorage.VisaSubTypeId ='6debd93d-d7d3-4419-b3c0-c4fad07da61d' //  short stay
+       
+   }
+   if(localStorage.visaSubtype == 'Tourist Visa'){
+      localStorage.VisaSubTypeId ='9ecd47bf-02a4-4fc3-a833-550443cf690a' //  short stay
+       
+   }
+   if(localStorage.visaSubtype == 'Spouse Visa'){
+      localStorage.VisaSubTypeId ='42e16523-e021-48e8-b27f-eeaa4d5cfec6' //  short stay
+       
+   }
   
-if(localStorage.visatype== 'Long Stay Visa'){
-   localStorage.VisaTypeId ='084cd40f-c448-475e-8873-6b5eff2e01bf' //  long stay
+   if(localStorage.visaSubtype == 'SPORTS'){
+      localStorage.VisaSubTypeId ='1956db05-d4a2-40f1-b2f7-ba291b812425' //  short stay
+       
+   }
+   if(localStorage.visaSubtype == 'Tourism'){
+      localStorage.VisaSubTypeId ='45eab498-af02-415f-ba9e-44ac613f5f40' //  short stay
+       
+   }
     
-    
-         if(localStorage.visaSubtype == 'Employment Visa'){
-   localStorage.VisaSubTypeId ='722c7edc-b115-4612-a594-960546d2c950' //  long stay
-    
-}
-         if(localStorage.visaSubtype == 'Family Reunion'){
-   localStorage.VisaSubTypeId ='d1bb6aa4-d7fc-4079-89e4-313b10c9873b' //  long stay
-    
-}
-    
-           if(localStorage.visaSubtype == 'Family Member'){
-   localStorage.VisaSubTypeId ='6f0db409-82fc-424b-a348-3d2cba2732fc' //  long stay
-    
-}
-         if(localStorage.visaSubtype == 'Work'){
-   localStorage.VisaSubTypeId ='8bed6e49-5eec-4ded-a583-13ea16114436' //  long stay
-    
-}
- 
-           if(localStorage.visaSubtype == 'Family Reunification'){
-   localStorage.VisaSubTypeId ='f67dbf56-3ae0-48f4-ae15-5dc6664173b8' //  long stay
-    
-}
-         if(localStorage.visaSubtype == 'Family Member of Portuguese Citizen for family reunification'){
-   localStorage.VisaSubTypeId ='4522abc0-3f18-4556-84c1-9aefdd3e7afb' //  long stay
-    
-}
- 
-           if(localStorage.visaSubtype == 'Any other category of Long-Stay visa'){
-   localStorage.VisaSubTypeId ='20c95538-6ac1-44ab-8695-436edf12fb88' //  long stay
-    
-}
-         if(localStorage.visaSubtype == 'Studies'){
-   localStorage.VisaSubTypeId ='e70cc749-5b1e-457f-b664-f27a05082aaf' //  long stay
-    
-}
- 
-           if(localStorage.visaSubtype == 'Highly Qualified Activity'){
-   localStorage.VisaSubTypeId ='0c70fb26-70d5-4b39-be66-fe6fd907c1cf' //  long stay
-    
-}
-         if(localStorage.visaSubtype == 'Long Stay Visa D7'){
-   localStorage.VisaSubTypeId ='3d2799d4-ef1c-42fc-bdbf-712f5d07c64b' //  long stay
-    
-}
-          if(localStorage.visaSubtype == 'Long Stay Visa D2'){
-   localStorage.VisaSubTypeId ='da6485b5-185a-484b-a050-6ada8ab01456' //  long stay
-    
-}
-          if(localStorage.visaSubtype == 'Long Stay Visa D3'){
-   localStorage.VisaSubTypeId ='35a3a808-cbba-45d3-8bf4-144ada29457f' //  long stay
-    
-}
-          if(localStorage.visaSubtype == 'Long Stay Visa D4'){
-   localStorage.VisaSubTypeId ='d9c320e5-350c-47d1-bb35-00b9528ed1f3' //  long stay
-    
-}
-          if(localStorage.visaSubtype == 'Long Stay Visa D5'){
-   localStorage.VisaSubTypeId ='38d1307b-74f0-4b03-bfe6-2a11305773ff' //  long stay
-    
-}
-          if(localStorage.visaSubtype == 'Student Visa'){
-   localStorage.VisaSubTypeId ='11c6bc86-7f03-4fb2-8d79-c390658fb2cc' //  long stay
-    
-}
-          if(localStorage.visaSubtype == 'National Visa'){
-   localStorage.VisaSubTypeId ='ec498f00-5a86-4b2e-bca7-7a6b5b8b1d52' //  long stay
-    
-}
-        
- 
-    
-    
-    
-    
-}
-
-  
-    
-
-}else{
-localStorage.LocationId = '8d780684-1524-4bda-b138-7c71a8591944&missionId=98a73e17-bf8f-41f2-933e-03e60b009327'
-    if(localStorage.visatype== 'Short Stay Visa'){
-        
-        
-             localStorage.VisaTypeId ='50d39732-ee2a-4584-a5e8-f9d7e7d453a0' //  short stay
-
-        
-        
-        
-        if(localStorage.visaSubtype == 'Medical Treatment'){
-   localStorage.VisaSubTypeId ='50d39732-ee2a-4584-a5e8-f9d7e7d453a0' //  short stay
-}
-if(localStorage.visaSubtype == 'Visit Friends/Family'){
-   localStorage.VisaSubTypeId ='e760cecb-d628-4e93-af53-58a60c790155' //  short stay
-}
-if(localStorage.visaSubtype == 'Schengen Visa'){
-   localStorage.VisaSubTypeId ='f8775e49-a0ca-4c26-aa52-856183297f41' //  short stay
-}
-if(localStorage.visaSubtype == 'Casa 3'){
-   localStorage.VisaSubTypeId ='80c51920-5434-465c-ae79-2e9288437c87' //  short stay
-}
-if(localStorage.visaSubtype == 'Official Travel'){
-   localStorage.VisaSubTypeId ='236a1127-7829-4476-866e-1a72d45094bd' //  long stay
-}
-if(localStorage.visaSubtype == 'Casa 1'){
-   localStorage.VisaSubTypeId ='6fd77e9e-4037-4130-80fa-3f98a1c755ba' //  long stay
-}
-if(localStorage.visaSubtype == 'Road Drivers'){
-   localStorage.VisaSubTypeId ='0c4f735b-17fc-4f1b-99f4-f76fff4685a6' //  long stay
-    
-}
-if(localStorage.visaSubtype == 'Business Visa'){
-   localStorage.VisaSubTypeId ='8405c92c-6d3a-4d8c-b26b-e741e04f027b' //  long stay
-    
-}
-if(localStorage.visaSubtype == 'Tourist Visa'){
-   localStorage.VisaSubTypeId ='3c8ecf2e-73b9-4ce4-98e6-8e5f493d9a9d' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Family Member of EU and EEA Nationals'){
-   localStorage.VisaSubTypeId ='d6636f7a-105e-463e-b53a-6bd0f94b7271' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Spouse Visa'){
-   localStorage.VisaSubTypeId ='78da80db-2e1c-414a-bc4b-20491531ad09' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Business or other professional reason'){
-   localStorage.VisaSubTypeId ='d9ab89bc-1fdb-4589-94bb-847b243131cd' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Study Culture Sport Events'){
-   localStorage.VisaSubTypeId ='f2ba0d09-0f71-4bfd-9f4b-89a6a646ca38' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Cultural Event Sports or Artistic'){
-   localStorage.VisaSubTypeId ='30e65264-fc52-43aa-9c79-16a6e590b46b' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Casa 2'){
-   localStorage.VisaSubTypeId ='5466caba-d01c-4c4a-a1f6-67fe4d189698' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Family Member of EU Citizen - Directive 2004/38/EC'){
-   localStorage.VisaSubTypeId ='c77b9f17-95d1-47e4-adf9-116396e06acb' //  long stay
-    
-}
-        if(localStorage.visaSubtype == 'Spouse of Portuguese citizen for a short visit to Portugal'){
-   localStorage.VisaSubTypeId ='77214a85-6915-41a8-8adf-b94524b8384b' //  long stay
-    
-}
-              if(localStorage.visaSubtype == 'Tourism or any other reason to travel'){
-   localStorage.VisaSubTypeId ='72067d1a-eb81-4125-a59c-192da0169977' //  long stay
-    
-}
-   
- 
-}
+       
+    }
+      
     if(localStorage.visatype== 'Long Stay Visa'){
-                     localStorage.VisaTypeId ='9c9e4757-8616-4a99-aed5-51240594b400' //  short stay
+       localStorage.VisaTypeId ='084cd40f-c448-475e-8873-6b5eff2e01bf' //  long stay
+        
+        
+             if(localStorage.visaSubtype == 'Employment Visa'){
+       localStorage.VisaSubTypeId ='722c7edc-b115-4612-a594-960546d2c950' //  long stay
+        
+    }
+             if(localStorage.visaSubtype == 'Family Reunion'){
+       localStorage.VisaSubTypeId ='d1bb6aa4-d7fc-4079-89e4-313b10c9873b' //  long stay
+        
+    }
+        
+               if(localStorage.visaSubtype == 'Family Member'){
+       localStorage.VisaSubTypeId ='6f0db409-82fc-424b-a348-3d2cba2732fc' //  long stay
+        
+    }
+             if(localStorage.visaSubtype == 'Work'){
+       localStorage.VisaSubTypeId ='8bed6e49-5eec-4ded-a583-13ea16114436' //  long stay
+        
+    }
+     
+               if(localStorage.visaSubtype == 'Family Reunification'){
+       localStorage.VisaSubTypeId ='f67dbf56-3ae0-48f4-ae15-5dc6664173b8' //  long stay
+        
+    }
+             if(localStorage.visaSubtype == 'Family Member of Portuguese Citizen for family reunification'){
+       localStorage.VisaSubTypeId ='4522abc0-3f18-4556-84c1-9aefdd3e7afb' //  long stay
+        
+    }
+     
+               if(localStorage.visaSubtype == 'Any other category of Long-Stay visa'){
+       localStorage.VisaSubTypeId ='20c95538-6ac1-44ab-8695-436edf12fb88' //  long stay
+        
+    }
+             if(localStorage.visaSubtype == 'Studies'){
+       localStorage.VisaSubTypeId ='e70cc749-5b1e-457f-b664-f27a05082aaf' //  long stay
+        
+    }
+     
+               if(localStorage.visaSubtype == 'Highly Qualified Activity'){
+       localStorage.VisaSubTypeId ='0c70fb26-70d5-4b39-be66-fe6fd907c1cf' //  long stay
+        
+    }
+             if(localStorage.visaSubtype == 'Long Stay Visa D7'){
+       localStorage.VisaSubTypeId ='3d2799d4-ef1c-42fc-bdbf-712f5d07c64b' //  long stay
+        
+    }
+              if(localStorage.visaSubtype == 'Long Stay Visa D2'){
+       localStorage.VisaSubTypeId ='da6485b5-185a-484b-a050-6ada8ab01456' //  long stay
+        
+    }
+              if(localStorage.visaSubtype == 'Long Stay Visa D3'){
+       localStorage.VisaSubTypeId ='35a3a808-cbba-45d3-8bf4-144ada29457f' //  long stay
+        
+    }
+              if(localStorage.visaSubtype == 'Long Stay Visa D4'){
+       localStorage.VisaSubTypeId ='d9c320e5-350c-47d1-bb35-00b9528ed1f3' //  long stay
+        
+    }
+              if(localStorage.visaSubtype == 'Long Stay Visa D5'){
+       localStorage.VisaSubTypeId ='38d1307b-74f0-4b03-bfe6-2a11305773ff' //  long stay
+        
+    }
+              if(localStorage.visaSubtype == 'Student Visa'){
+       localStorage.VisaSubTypeId ='11c6bc86-7f03-4fb2-8d79-c390658fb2cc' //  long stay
+        
+    }
+              if(localStorage.visaSubtype == 'National Visa'){
+       localStorage.VisaSubTypeId ='ec498f00-5a86-4b2e-bca7-7a6b5b8b1d52' //  long stay
+        
+    }
+    if(localStorage.visaSubtype == 'Job search'){
+      localStorage.VisaSubTypeId ='a11c56c4-238d-4bc1-bc69-1a416021548e' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'DIGITAL NOMADS WORK. REMOTE'){
+      localStorage.VisaSubTypeId ='1cea9154-e848-4bc8-a1a4-ec4fa2dbd8e6' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'EU MOBILITY HIGHER EDUCATION'){
+      localStorage.VisaSubTypeId ='94f238e7-7a25-48be-a1b4-37a817699d91' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'MEDICAL COMPANION'){
+      localStorage.VisaSubTypeId ='bedb063e-eb95-4ce9-949d-527ee52f88cc' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'RESIDENCE'){
+      localStorage.VisaSubTypeId ='566249b0-73b5-479c-bab7-2b0e2717be83' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'MOBILITY EU RESEARCH'){
+      localStorage.VisaSubTypeId ='d785c3bd-e290-4364-81f4-6fec487016c5' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'UNIVERSITY EDUCATION STUDENT'){
+      localStorage.VisaSubTypeId ='fe7e9ac8-0bcb-4cc7-ba21-29d4b645ff09' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'TRAINING'){
+      localStorage.VisaSubTypeId ='36964eb0-8312-4a05-9ca9-19c1f16706b5' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'STUDY NATIONAL VISAS'){
+      localStorage.VisaSubTypeId ='72fb7c5f-79a1-4e15-ad98-8bc9bdb51406' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'HIGH EDUCATION ORDINANCE 111/2019'){
+      localStorage.VisaSubTypeId ='971e8fdc-4953-465a-adfd-555f0cda9d64' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'SECONDARY SCHOOL STUDENT'){
+      localStorage.VisaSubTypeId ='998e260a-dde5-40dc-a765-cf7ca469e1c0' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'TRAINEE'){
+      localStorage.VisaSubTypeId ='5cd44e7c-3f2b-4428-a8fc-ce3af970af3d' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'VOLUNTARY'){
+      localStorage.VisaSubTypeId ='9b17d69d-0a5c-41bd-9efd-5848e3d221e5' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'OTHER'){
+      localStorage.VisaSubTypeId ='46bd41d3-51bb-4d90-b6e9-33c3571a5533' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'INVESTIGATOR'){
+      localStorage.VisaSubTypeId ='9ff0935e-329f-4723-9aca-3392f88bd665' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'FAMILY VISA APPLICANT'){
+      localStorage.VisaSubTypeId ='f5895207-31dd-4e02-bc37-90e0248a598d' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'FAMILY REGROUPING'){
+      localStorage.VisaSubTypeId ='d1bb6aa4-d7fc-4079-89e4-313b10c9873b' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'WORKING HOLIDAY'){
+      localStorage.VisaSubTypeId ='422caeaa-8bb6-4125-b62c-83b70581fe1f' //  long stay
+       
+   }
 
-                   if(localStorage.visaSubtype == 'Employment Visa'){
-   localStorage.VisaSubTypeId ='010f5f01-4e8b-4072-ba4a-b98acce37125' //  long stay
+   
+     
+        
+        
+        
+        
+    }
     
-}
-                      if(localStorage.visaSubtype == 'National Visa'){
-   localStorage.VisaSubTypeId ='0c8866ab-0415-420e-89a2-b0f64007d42c' //  long stay
+      
+        
     
+    }else{
+    localStorage.LocationId = '8d780684-1524-4bda-b138-7c71a8591944&missionId=98a73e17-bf8f-41f2-933e-03e60b009327'
+        if(localStorage.visatype== 'Short Stay Visa'){
+            
+            
+                 localStorage.VisaTypeId ='50d39732-ee2a-4584-a5e8-f9d7e7d453a0' //  short stay
+    
+            
+            
+            
+         
+    if(localStorage.visaSubtype == 'Visit Friends/Family'){
+       localStorage.VisaSubTypeId ='e760cecb-d628-4e93-af53-58a60c790155' //  short stay
+    }
+    if(localStorage.visaSubtype == 'Schengen Visa'){
+       localStorage.VisaSubTypeId ='f8775e49-a0ca-4c26-aa52-856183297f41' //  short stay
+    }
+    if(localStorage.visaSubtype == 'Casa 3'){
+       localStorage.VisaSubTypeId ='80c51920-5434-465c-ae79-2e9288437c87' //  short stay
+    }
+   
+    if(localStorage.visaSubtype == 'Casa 1'){
+       localStorage.VisaSubTypeId ='6fd77e9e-4037-4130-80fa-3f98a1c755ba' //  long stay
+    }
+    if(localStorage.visaSubtype == 'Road Drivers'){
+       localStorage.VisaSubTypeId ='0c4f735b-17fc-4f1b-99f4-f76fff4685a6' //  long stay
+        
+    }
+    if(localStorage.visaSubtype == 'Business Visa'){
+       localStorage.VisaSubTypeId ='8405c92c-6d3a-4d8c-b26b-e741e04f027b' //  long stay
+        
+    }
+    if(localStorage.visaSubtype == 'Tourist Visa'){
+       localStorage.VisaSubTypeId ='3c8ecf2e-73b9-4ce4-98e6-8e5f493d9a9d' //  long stay
+        
+    }
+            if(localStorage.visaSubtype == 'Family Member of EU and EEA Nationals'){
+       localStorage.VisaSubTypeId ='d6636f7a-105e-463e-b53a-6bd0f94b7271' //  long stay
+        
+    }
+            if(localStorage.visaSubtype == 'Spouse Visa'){
+       localStorage.VisaSubTypeId ='78da80db-2e1c-414a-bc4b-20491531ad09' //  long stay
+        
+    }
+            if(localStorage.visaSubtype == 'Business or other professional reason'){
+       localStorage.VisaSubTypeId ='d9ab89bc-1fdb-4589-94bb-847b243131cd' //  long stay
+        
+    }
+            if(localStorage.visaSubtype == 'Study Culture Sport Events'){
+       localStorage.VisaSubTypeId ='f2ba0d09-0f71-4bfd-9f4b-89a6a646ca38' //  long stay
+        
+    }
+            if(localStorage.visaSubtype == 'Cultural Event Sports or Artistic'){
+       localStorage.VisaSubTypeId ='30e65264-fc52-43aa-9c79-16a6e590b46b' //  long stay
+        
+    }
+            if(localStorage.visaSubtype == 'Casa 2'){
+       localStorage.VisaSubTypeId ='5466caba-d01c-4c4a-a1f6-67fe4d189698' //  long stay
+        
+    }
+            if(localStorage.visaSubtype == 'Family Member of EU Citizen - Directive 2004/38/EC'){
+       localStorage.VisaSubTypeId ='c77b9f17-95d1-47e4-adf9-116396e06acb' //  long stay
+        
+    }
+            if(localStorage.visaSubtype == 'Spouse of Portuguese citizen for a short visit to Portugal'){
+       localStorage.VisaSubTypeId ='77214a85-6915-41a8-8adf-b94524b8384b' //  long stay
+        
+    }
+                  if(localStorage.visaSubtype == 'Tourism or any other reason to travel'){
+       localStorage.VisaSubTypeId ='72067d1a-eb81-4125-a59c-192da0169977' //  long stay
+        
+    }
+
+    if(localStorage.visaSubtype == 'SPORTS'){
+      localStorage.VisaSubTypeId ='51432782-66c6-4a7e-9e0a-f6468e8d9b78' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'STUDY'){
+      localStorage.VisaSubTypeId ='a0ac40e0-41c2-4e55-8c3c-9ca06805c97c' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'AIRPORT TRANSIT'){
+      localStorage.VisaSubTypeId ='c2b6caf4-a917-4c28-a4e1-e510c9e58731' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'CULTURAL'){
+      localStorage.VisaSubTypeId ='b752f679-49ce-41e5-8c94-a22d8cca058e' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'OFFICIAL VISIT'){
+      localStorage.VisaSubTypeId ='f6615e59-2a13-464b-9515-9521d5b381b3' //  long stay
+       
+   }
+
+   if(localStorage.visaSubtype == 'TOURISM'){
+      localStorage.VisaSubTypeId ='df407b1e-3440-4f47-8ba5-81063903967a' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'MEDICAL REASONS'){
+      localStorage.VisaSubTypeId ='08aaa2d4-f3da-4438-a1fc-e51df7eef0b9' //  long stay
+       
+   }
+
+
+   
+
+      
+     
+    }
+        if(localStorage.visatype== 'Long Stay Visa'){
+                         localStorage.VisaTypeId ='9c9e4757-8616-4a99-aed5-51240594b400' //  short stay
+    
+                       if(localStorage.visaSubtype == 'Employment Visa'){
+       localStorage.VisaSubTypeId ='010f5f01-4e8b-4072-ba4a-b98acce37125' //  long stay
+        
+    }
+                          if(localStorage.visaSubtype == 'National Visa'){
+       localStorage.VisaSubTypeId ='0c8866ab-0415-420e-89a2-b0f64007d42c' //  long stay
+        
+    }
+
+      
+
+    if(localStorage.visaSubtype == 'Work'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'OTHER'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Family Member of Portuguese Citizen for family reunification '){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype =='WORKING HOLIDAY'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'UNIVERSITY EDUCATION STUDENT'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'SECONDARY SCHOOL STUDENT'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Family Reunification'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'FAMILY VISA APPLICANT'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'JOB SEARCH'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'MOBILITY EU RESEARCH'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'DIGITAL NOMADS/WORK. REMOTE'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'TRAINING'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+       
+   if(localStorage.visaSubtype == 'EU MOBILITY HIGHER EDUCATION'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'VOLUNTARY'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'STUDY NATIONAL VISAS'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'MEDICAL COMPANION'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Any other category of Long-Stay visa'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Studies'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Highly Qualified Activity'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Long Stay Visa D4'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Student Visa'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Long Stay Visa D3'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'RESIDENCE'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'HIGH EDUCATION ORDINANCE 111/2019'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Long Stay Visa D2'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'FAMILY REGROUPING'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Long Stay Visa D5'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'Long Stay Visa D7'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'INVESTIGATOR'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+   if(localStorage.visaSubtype == 'TRAINEE'){
+      localStorage.VisaSubTypeId ='' //  long stay
+       
+   }
+
+
 }
+        
+        
     }
     
     
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-if(localStorage.familyOfMembers == 1){
-localStorage.For ='Individual'
-     localStorage.NumberOfFamily = 1
-}else{
-        localStorage.For ='Family'
-        localStorage.NumberOfFamily = localStorage.familyOfMembers }
-//// category
-if(localStorage.category == 'Normal'){
-   localStorage.CatId ='5c2e8e01-796d-4347-95ae-0c95a9177b26' // normal
-}
-if(localStorage.category == 'Premium'){
-   localStorage.CatId ='37ba2fe4-4551-4c7d-be6e-5214617295a9' // premium
-}
-if(localStorage.category == 'Prime Time'){
-   localStorage.CatId ='0ec883de-84f4-4474-ae60-572e675873cb' // prime time
-}
- ////// visatype
-
-if(localStorage.visatype== 'Short Stay Visa'){
-   localStorage.VisaTypeId ='c104ec3c-c7ec-4547-838a-146bf82337fe' //  short stay
-}
-if(localStorage.visatype== 'Long Stay Visa'){
-   localStorage.VisaTypeId ='084cd40f-c448-475e-8873-6b5eff2e01bf' //  long stay
-}
-//////visasubetype
-if(localStorage.visaSubtype == 'Business or other professional reason'){
-   localStorage.VisaSubTypeId ='aaf37ed2-f2ac-4db0-8729-99139e2fdef5' //  short stay
-}
-if(localStorage.visaSubtype == 'Spouse of Portuguese citizen for a short visit to Portugal'){
-   localStorage.VisaSubTypeId ='fdda0f6c-6670-429f-9500-93cf86de5f88' //  short stay
-}
-if(localStorage.visaSubtype == 'Tourism or any other reason to travel'){
-   localStorage.VisaSubTypeId ='45eab498-af02-415f-ba9e-44ac613f5f40' //  short stay
-}
-if(localStorage.visaSubtype == 'Family Member of EU Citizen - Directive 2004/38/EC'){
-   localStorage.VisaSubTypeId ='751d77ca-bae4-4f6f-9320-b630efcdaaac' //  short stay
-}
-if(localStorage.visaSubtype == 'Work'){
-   localStorage.VisaSubTypeId ='8bed6e49-5eec-4ded-a583-13ea16114436' //  long stay
-}
-if(localStorage.visaSubtype == 'Family Reunification'){
-   localStorage.VisaSubTypeId ='f67dbf56-3ae0-48f4-ae15-5dc6664173b8' //  long stay
-}
-if(localStorage.visaSubtype == 'Family Member of Portuguese Citizen for family reunification'){
-   localStorage.VisaSubTypeId ='4522abc0-3f18-4556-84c1-9aefdd3e7afb' //  long stay
-}
-if(localStorage.visaSubtype == 'Any other category of Long-Stay visa'){
-   localStorage.VisaSubTypeId ='20c95538-6ac1-44ab-8695-436edf12fb88' //  long stay
-}
-if(localStorage.visaSubtype == 'Studies'){
-   localStorage.VisaSubTypeId ='e70cc749-5b1e-457f-b664-f27a05082aa' //  long stay
-}
-if(localStorage.location =='Casablanca'){
- localStorage.LocationId = '60d2df036755e8de168d8db7'
-
-}else{
-localStorage.LocationId = '8d780684-1524-4bda-b138-7c71a8591944'
-}
-
-
-
-*/
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    if(localStorage.familyOfMembers == 1){
+    localStorage.For ='Individual'
+         localStorage.NumberOfFamily = 1
+    }else{
+            localStorage.For ='Family'
+            localStorage.NumberOfFamily = localStorage.familyOfMembers }
+    //// category
+    if(localStorage.category == 'Normal'){
+       localStorage.CatId ='5c2e8e01-796d-4347-95ae-0c95a9177b26' // normal
+    }
+    if(localStorage.category == 'Premium'){
+       localStorage.CatId ='37ba2fe4-4551-4c7d-be6e-5214617295a9' // premium
+    }
+    if(localStorage.category == 'Prime Time'){
+       localStorage.CatId ='0ec883de-84f4-4474-ae60-572e675873cb' // prime time
+    }
+     ////// visatype
+    
+    if(localStorage.visatype== 'Short Stay Visa'){
+       localStorage.VisaTypeId ='c104ec3c-c7ec-4547-838a-146bf82337fe' //  short stay
+    }
+    if(localStorage.visatype== 'Long Stay Visa'){
+       localStorage.VisaTypeId ='084cd40f-c448-475e-8873-6b5eff2e01bf' //  long stay
+    }
+    //////visasubetype
+    if(localStorage.visaSubtype == 'Business or other professional reason'){
+       localStorage.VisaSubTypeId ='aaf37ed2-f2ac-4db0-8729-99139e2fdef5' //  short stay
+    }
+    if(localStorage.visaSubtype == 'Spouse of Portuguese citizen for a short visit to Portugal'){
+       localStorage.VisaSubTypeId ='fdda0f6c-6670-429f-9500-93cf86de5f88' //  short stay
+    }
+    if(localStorage.visaSubtype == 'Tourism or any other reason to travel'){
+       localStorage.VisaSubTypeId ='45eab498-af02-415f-ba9e-44ac613f5f40' //  short stay
+    }
+    if(localStorage.visaSubtype == 'Family Member of EU Citizen - Directive 2004/38/EC'){
+       localStorage.VisaSubTypeId ='751d77ca-bae4-4f6f-9320-b630efcdaaac' //  short stay
+    }
+    if(localStorage.visaSubtype == 'Work'){
+       localStorage.VisaSubTypeId ='8bed6e49-5eec-4ded-a583-13ea16114436' //  long stay
+    }
+    if(localStorage.visaSubtype == 'Family Reunification'){
+       localStorage.VisaSubTypeId ='f67dbf56-3ae0-48f4-ae15-5dc6664173b8' //  long stay
+    }
+    if(localStorage.visaSubtype == 'Family Member of Portuguese Citizen for family reunification'){
+       localStorage.VisaSubTypeId ='4522abc0-3f18-4556-84c1-9aefdd3e7afb' //  long stay
+    }
+    if(localStorage.visaSubtype == 'Any other category of Long-Stay visa'){
+       localStorage.VisaSubTypeId ='20c95538-6ac1-44ab-8695-436edf12fb88' //  long stay
+    }
+    if(localStorage.visaSubtype == 'Studies'){
+       localStorage.VisaSubTypeId ='e70cc749-5b1e-457f-b664-f27a05082aa' //  long stay
+    }
+    if(localStorage.location =='Casablanca'){
+     localStorage.LocationId = '60d2df036755e8de168d8db7'
+    
+    }else{
+    localStorage.LocationId = '8d780684-1524-4bda-b138-7c71a8591944'
+    }
+    
+    
+    
+    */
+    
