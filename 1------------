@@ -323,7 +323,12 @@
             options = ['OFFICIAL VISIT','CULTURAL','VISITING FAMILY OR FRIENDS','TRANSIT', 'MEDICAL REASONS','STUDY','Schengen Visa','Business Visa','Tourist Visa','Business or other professional reason ','Spouse of Portuguese citizen for a short visit to Portugal  ','Family Member of EU and EEA Nationals','Spouse Visa','SPORTS','Tourism','AIRPORT TRANSIT','Visit Friends / Family','Study / Culture / Sport / Events','Cultural Event / Sports or Artistic','Road Drivers','Family Member of EU Citizen - Directive 2004/38/EC'];
        
         } else if (selectedVist === 'Long Stay Visa' ) {
-            options = ['Job search','DIGITAL NOMADS WORK. REMOTE','EU MOBILITY HIGHER EDUCATION','MEDICAL COMPANION','RESIDENCE','FAMILY REGROUPING','Student Visa','MOBILITY EU RESEARCH', 'UNIVERSITY EDUCATION STUDENT','TRAINING','STUDY NATIONAL VISAS','HIGH EDUCATION ORDINANCE 111/2019','SECONDARY SCHOOL STUDENT','TRAINEE','VOLUNTARY','Family Reunification Visa','WORK','INVESTIGATOR','OTHER','FAMILY VISA APPLICANT','Employment Visa','Long Stay Visa D3','Long Stay Visa D4','Long Stay Visa D5','Long Stay Visa D7','Family Reunion','Family Member','Work','Family Member of Portuguese Citizen for family reunification','Any other category of Long-Stay visa','Studies','Highly Qualified Activity','Long Stay Visa D2','WORKING HOLIDAY','National Visa'];
+            options = ['Work','Job search','DIGITAL NOMADS WORK. REMOTE','EU MOBILITY HIGHER EDUCATION','MEDICAL COMPANION','RESIDENCE','FAMILY REGROUPING','Student Visa',
+                       'MOBILITY EU RESEARCH', 'UNIVERSITY EDUCATION STUDENT','TRAINING','STUDY NATIONAL VISAS','HIGH EDUCATION ORDINANCE 111/2019',
+                       'SECONDARY SCHOOL STUDENT','TRAINEE','VOLUNTARY','Family Reunification Visa','INVESTIGATOR','OTHER','FAMILY VISA APPLICANT',
+                       'Employment Visa','Long Stay Visa D3','Long Stay Visa D4','Long Stay Visa D5','Long Stay Visa D7','Family Reunion','Family Member',
+                       'Family Member of Portuguese Citizen for family reunification','Any other category of Long-Stay visa','Studies','Highly Qualified Activity',
+                       'Long Stay Visa D2','WORKING HOLIDAY','National Visa'];
         }
     }
         
