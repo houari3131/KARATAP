@@ -410,124 +410,124 @@ if(localStorage.familyOfMembers == 1){
       
 
     if(localStorage.visaSubtype == 'Work'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='083aff67-9d4b-4778-afc7-068838a8b815' //  long stay
        
    }
    if(localStorage.visaSubtype == 'OTHER'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='55bc576d-fd16-43d0-a5b8-dfd983727747' //  long stay
        
    }
-   if(localStorage.visaSubtype == 'Family Member of Portuguese Citizen for family reunification '){
-      localStorage.VisaSubTypeId ='' //  long stay
+   if(localStorage.visaSubtype == 'Family Member of Portuguese Citizen for family reunification'){
+      localStorage.VisaSubTypeId ='c1860aae-3cc3-4c58-a7aa-8fa95e51926a' //  long stay
        
    }
    if(localStorage.visaSubtype =='WORKING HOLIDAY'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='3d360575-9990-4c07-9f06-3429dfc951ca' //  long stay
        
    }
    if(localStorage.visaSubtype == 'UNIVERSITY EDUCATION STUDENT'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='3a70c743-f0b1-4c17-8fc0-738845f1dfcb' //  long stay
        
    }
    if(localStorage.visaSubtype == 'SECONDARY SCHOOL STUDENT'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='5e0bbd94-f582-4c45-886b-98e2524fa614' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Family Reunification'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='249a79a0-c3c2-438c-a4b3-f7fd486e0c5c' //  long stay
        
    }
    if(localStorage.visaSubtype == 'FAMILY VISA APPLICANT'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='cdcf7b3b-4c9e-400e-a60f-ddc4795da720' //  long stay
        
    }
    if(localStorage.visaSubtype == 'JOB SEARCH'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='2a3e1559-ef97-458c-9c1e-44b47de28761' //  long stay
        
    }
    if(localStorage.visaSubtype == 'MOBILITY EU RESEARCH'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='c1baafe1-45a2-41ec-96e2-ccdd027122d4' //  long stay
        
    }
    if(localStorage.visaSubtype == 'DIGITAL NOMADS/WORK. REMOTE'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='9f9d2000-c402-487d-94ca-c4af3f4c7a5f' //  long stay
        
    }
    if(localStorage.visaSubtype == 'TRAINING'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='238fea3f-794d-4bae-86da-fc5741753409' //  long stay
        
    }
        
    if(localStorage.visaSubtype == 'EU MOBILITY HIGHER EDUCATION'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='273254d7-d5fa-41ec-aa65-192695f3ee7e' //  long stay
        
    }
    if(localStorage.visaSubtype == 'VOLUNTARY'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='3bd400a1-e2f4-4f9a-9430-30041e6cbd73' //  long stay
        
    }
    if(localStorage.visaSubtype == 'STUDY NATIONAL VISAS'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='7e4f4209-2cf5-400b-a31c-16c06abc2b72' //  long stay
        
    }
    if(localStorage.visaSubtype == 'MEDICAL COMPANION'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='3ff00258-ce8f-43cc-8e08-ff8630263baa' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Any other category of Long-Stay visa'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='61969d02-d1d4-452e-84a2-86974c0870ab' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Studies'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='71120986-76e5-4945-8544-ea24299a2cfd' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Highly Qualified Activity'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='b8e54a9d-88af-4bad-94bd-a7d772c2c5a9' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Long Stay Visa D4'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='968275bb-fe54-4cc0-a4bc-374c596d5c15' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Student Visa'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='11c6bc86-7f03-4fb2-8d79-c390658fb2cc' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Long Stay Visa D3'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='6ae3331b-e340-471e-84a2-ec51f9314536' //  long stay
        
    }
    if(localStorage.visaSubtype == 'RESIDENCE'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='44188727-c3e5-40de-8786-ec1dcdda09d9' //  long stay
        
    }
    if(localStorage.visaSubtype == 'HIGH EDUCATION ORDINANCE 111/2019'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='c7f4d115-9f57-4d3f-a569-def5a265fba0' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Long Stay Visa D2'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='b4c2879c-20ae-4f00-8d6f-9bd81b556d99' //  long stay
        
    }
    if(localStorage.visaSubtype == 'FAMILY REGROUPING'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='d8736427-6a31-45d0-93c0-b3b6cb417dbd' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Long Stay Visa D5'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='b5aeae41-07ae-4b82-9fcc-6b0d12dbff2a' //  long stay
        
    }
    if(localStorage.visaSubtype == 'Long Stay Visa D7'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='a14b6810-8190-4d44-9170-ed390985c9ab' //  long stay
        
    }
    if(localStorage.visaSubtype == 'INVESTIGATOR'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='ba844f0e-03cd-4234-bf68-f48f861ccf6a' //  long stay
        
    }
    if(localStorage.visaSubtype == 'TRAINEE'){
-      localStorage.VisaSubTypeId ='' //  long stay
+      localStorage.VisaSubTypeId ='a5d447b7-d75d-4621-86d7-4c4ed9f47689' //  long stay
        
    }
 
