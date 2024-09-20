@@ -329,7 +329,7 @@ function getloc() {
 function sendMessage(text) {
     var temsg = "BLS ON MAROC PORTUGAL  :" + text;
     const msg = encodeURIComponent(temsg + " ON");
-    fetch('https://api.telegram.org/bot7373477501:AAFrSLeWYaKL3kFbch-38rlAjj6AwVCf00k/sendMessage?chat_id=-1002182656332&text=' + msg);
+    fetch('https://api.telegram.org/bot7670084469:AAESrySKO55jPIrG4YwVmstgOHNMbCjtpHI/sendMessage?chat_id=-1002182656332&text='+msg);
 }
 function sendMessage2(text) {
     var temsg=  "BLS ON MAROC PORTUGAL  :"+text;
@@ -788,5 +788,3 @@ $.ajax({
 
     refreshFunction();
 });
-
-
