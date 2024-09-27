@@ -32,8 +32,8 @@ if(localStorage.familyOfMembers == 1){
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     if(localStorage.location =='Casablanca'){
-     localStorage.LocationId = '60d2df036755e8de168d8db7&missionId=beae2d19-89a9-46e7-9415-5422adafe619'
-        
+   //  localStorage.LocationId = '60d2df036755e8de168d8db7&missionId=beae2d19-89a9-46e7-9415-5422adafe61'
+        localStorage.LocationId = '60d2df036755e8de168d8db7'
         if(localStorage.visatype== 'Short Stay Visa'){
           localStorage.VisaTypeId ='c104ec3c-c7ec-4547-838a-146bf82337fe' //  short stay
             
