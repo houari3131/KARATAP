@@ -1,7 +1,7 @@
 
 (function() {
     'use strict';
-
+localStorage.noti = 'OK';
     console.log('Tampermonkey script is running');
 
     const scriptMappings = [
