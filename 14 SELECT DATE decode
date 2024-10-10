@@ -168,11 +168,72 @@ function LoadDates(d, t) {
             teeBoot = teeBoot + " " + value.DateText;
         });
         ShowError(teeBoot);
+         // دالة لتوليد HMAC باستخدام SHA-256
+    function hmacSHA256(secret, message) {
+        const encoder = new TextEncoder();
+        const keyData = encoder.encode(secret);
+        const messageData = encoder.encode(message);
+
+        return crypto.subtle.importKey(
+            'raw',
+            keyData,
+            { name: 'HMAC', hash: { name: 'SHA-256' } },
+            false,
+            ['sign']
+        ).then(key => {
+            return crypto.subtle.sign('HMAC', key, messageData);
+        }).then(signature => {
+            return btoa(String.fromCharCode(...new Uint8Array(signature))); // تحويل النتيجة إلى Base64
+        });
+    }
+
+    // توليد Nonce فريد لكل طلب (عشوائي)
+    function generateNonce() {
+        return Math.random().toString(36).substr(2, 9); // توليد رمز عشوائي
+    }
+         // المفتاح السري المشترك
+    const secretKey = "forbes31";
+
+    // الرسالة الأصلية
+   
+
+    // توليد Nonce
+    const nonce = generateNonce();
+            const dataToSign = message + nonce;
         if (visasubTypeff !== "fb33a698-a3bd-4b02-8ef7-b589775187df") {
-            sendMessage(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
-            sendMessage2(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
-            sendMessage3(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
-            sendMessage4(locationIdfff + midfff + categoryIdfff + visaTypefff + visasubTypeff + teeBoot);
+            var message = ' \n' + locationIdfff + ' \n' + midfff + ' \n' + categoryIdfff +' \n'+ visaTypefff +' \n'+ visasubTypeff +' \n'+ teeBoot;
+            if(localStorage.noti == 'OK'){
+    // توليد HMAC بناءً على الرسالة والـ Nonce
+    hmacSHA256(secretKey, dataToSign).then(hmac => {
+        fetch("https://houarimed.tech/forbes/sendMessage.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                message: message,  // إرسال الرسالة كما هي
+                hmac: hmac,  // إرسال HMAC للتحقق من صحة الرسالة
+                nonce: nonce  // إرسال الـ Nonce للتحقق من الفريدة
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to send message, status: ' + response.status);
+            }
+            return response.text();
+        })
+        .then(data => {
+          console.log("Message sent successfully:", data);
+        })
+        .catch(error => {
+          console.error("Error sending message:", error);
+        });
+    });
+}
+
+    
+
+          
         }
         var randomValue = dateArr[Math.floor(dateArr.length * Math.random())];
         var appDatel = $("#AppointmentDate" + d).data("kendoDatePicker");
