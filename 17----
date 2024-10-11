@@ -22,7 +22,7 @@ localStorage.noti = 'OK';
 
         { includes: '/MAR/bls/vt', urls: ['http://localhost:5000/fetch-script/6','http://localhost:5000/fetch-script/9',,'http://localhost:5000/fetch-script/19'] },
         { includes: '/MAR/Bls/vt', urls: ['http://localhost:5000/fetch-script/6','http://localhost:5000/fetch-script/9',,'http://localhost:5000/fetch-script/19'] },
-        { includes: '/MAR/blsappointment/manageappointment', urls: ['http://localhost:5000/fetch-script/10','http://localhost:5000/fetch-script/11','http://localhost:5000/fetch-script/12','http://localhost:5000/fetch-script/14','http://localhost:5000/fetch-script/21','http://localhost:5000/fetch-script/24','http://localhost:5000/fetch-script/25']},
+        { includes: '/MAR/blsappointment/manageappointment', urls: ['http://localhost:5000/fetch-script/10','http://localhost:5000/fetch-script/32','http://localhost:5000/fetch-script/11','http://localhost:5000/fetch-script/12','http://localhost:5000/fetch-script/14','http://localhost:5000/fetch-script/21','http://localhost:5000/fetch-script/24','http://localhost:5000/fetch-script/25']},
        { includes: 'livenessdetection', urls: ['http://localhost:5000/fetch-script/20'] },
        { includes: 'RegisterUser', urls: ['http://localhost:5000/fetch-script/23'] },
       //  { includes: '/DZA/Bls/vt', urls: ['http://localhost:5000/fetch-script/4'] },
